@@ -19,58 +19,39 @@ namespace Entities.Players {
 		const   float k_GroundedRadius = .1f; // Radius of the overlap circle to determine if grounded
 		private bool  m_Grounded;             // Whether or not the player is grounded.
 		const   float k_CeilingRadius = .1f;  // Radius of the overlap circle to determine if the player can stand up
-	
+
+		private PlayerAnimatorController m_PlayerAnimatorController;
+		
 		private Rigidbody2D m_Rigidbody2D;
 		private bool        m_FacingRight = true; // For determining which way the player is currently facing.
 		private Vector3     m_Velocity    = Vector3.zero;
+		private bool m_WasCrouching = false;
 
-		[Header("Events")]
-		[Space]
-
-		public UnityEvent OnLandEvent;
-
-		[System.Serializable]
-		public class BoolEvent : UnityEvent<bool> { }
-
-		public  BoolEvent OnCrouchEvent;
-		private bool      m_wasCrouching = false;
-
-		private void Awake()
-		{
+		private void Awake() {
 			m_Rigidbody2D = GetComponent<Rigidbody2D>();
-
-			if (OnLandEvent == null)
-				OnLandEvent = new UnityEvent();
-
-			if (OnCrouchEvent == null)
-				OnCrouchEvent = new BoolEvent();
+			m_PlayerAnimatorController = GetComponent<PlayerAnimatorController>();
 		}
 
-		private void FixedUpdate()
-		{
+		private void FixedUpdate() {
 			bool wasGrounded = m_Grounded;
 			m_Grounded = false;
-
-//		RaycastHit2D hit = Physics2D.Raycast(m_GroundCheck.position, -Vector2.up, k_GroundedRadius, m_WhatIsGround);
-//		if (hit.collider == null) return;
-//		
-//		m_Grounded = true;
-//		if (!wasGrounded)
-//			OnLandEvent.Invoke();
-
+			
 			Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 			foreach (Collider2D t in colliders) {
 				if (t.gameObject == gameObject) continue;
 
 				m_Grounded = true;
-				if (!wasGrounded)
-					OnLandEvent.Invoke();
+				if (!wasGrounded) {
+					m_PlayerAnimatorController.SetJumping(false);
+				}
 			}
 		}
 
 
-		public void Move(float move, bool crouch, bool jump)
-		{
+		public void Move(float movementDelta) {
+
+			bool crouch = InputController.Crouch;
+			
 			if (!crouch) {
 				if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
 					crouch = true;
@@ -79,12 +60,12 @@ namespace Entities.Players {
 			if (m_Grounded || m_AirControl) {
 
 				if (crouch) {
-					if (!m_wasCrouching) {
-						m_wasCrouching = true;
-						OnCrouchEvent.Invoke(true);
+					if (!m_WasCrouching) {
+						m_WasCrouching = true;
+						m_PlayerAnimatorController.SetCrouching(true);
 					}
 
-					move *= m_CrouchSpeed;
+					movementDelta *= m_CrouchSpeed;
 
 					if (m_CrouchDisableCollider != null)
 						m_CrouchDisableCollider.enabled = false;
@@ -93,25 +74,27 @@ namespace Entities.Players {
 					if (m_CrouchDisableCollider != null)
 						m_CrouchDisableCollider.enabled = true;
 
-					if (m_wasCrouching) {
-						m_wasCrouching = false;
-						OnCrouchEvent.Invoke(false);
+					if (m_WasCrouching) {
+						m_WasCrouching = false;
+						m_PlayerAnimatorController.SetCrouching(false);
 					}
 				}
 
 				if (m_AirControl && !m_Grounded)
-					move *= m_InAirSpeed;
+					movementDelta *= m_InAirSpeed;
 
-				Vector3 targetVelocity = new Vector2(move * 10f * m_MovementSpeed, m_Rigidbody2D.velocity.y);
+				float horizontalMovement = InputController.Lock ? 0 : movementDelta * 10f * m_MovementSpeed;
+				Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-				if (move > 0 && !m_FacingRight || move < 0 && m_FacingRight)
+				if (movementDelta > 0 && !m_FacingRight || movementDelta < 0 && m_FacingRight)
 					Flip();
 			}
 		
-			if (m_Grounded && jump) {
+			if (m_Grounded && InputController.Jump) {
 				m_Grounded = false;
 				m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+				m_PlayerAnimatorController.SetJumping(true);
 			}
 		}
 
