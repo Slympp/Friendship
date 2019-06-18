@@ -384,14 +384,13 @@ namespace SimpleFirebaseUnity
         {
             try
             {
-                if (Credential != "")
-                {
+                if (Credential != "") {
                     query = new FirebaseParam(query).Auth(Credential);
                 }
 
                 string url = Endpoint;
-
-                string param = WWW.EscapeURL(query.Parameter);
+                
+                string param = Uri.EscapeUriString(query.Parameter);
 
                 if (param != "")
                     url += "?" + param;

@@ -10,7 +10,7 @@ namespace Ranking {
         private Firebase m_ScoresBase;
         
         private const string Host = "friendship-75839.firebaseio.com/";
-        private const string Credential = "AIzaSyC1VWxXlUNTRui4Oto4vl-1Cqnp0iCUIPI";
+        private const string Credential = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InVpZCI6IkdhbWVDbGllbnQifSwiaWF0IjoxNTYwODg2NjUxfQ.Y8QRBKm7GhGjukgziOMb8XJtRnRDE2yuX6bsiRqV5zY";
 
         private List<Entry> m_Scoreboard;
     
@@ -37,7 +37,7 @@ namespace Ranking {
         }
 
         public void GetEntries() {
-            m_ScoresBase.GetValue(FirebaseParam.Empty.OrderByChild("score"));
+            m_ScoresBase.GetValue();
         }
 
         private void OnGetEntriesSuccess(Firebase b, DataSnapshot data) {
@@ -63,7 +63,7 @@ namespace Ranking {
         }
 
         private void OnGetEntriesFailed(Firebase b, FirebaseError error) {
-            Debug.LogWarning($"Failed to retrieve entries: {error.Message})");
+            Debug.LogError($"Failed to retrieve entries: {error.Message}");
         }
         
         public void AddEntry(string entryName, int score) {
@@ -80,7 +80,7 @@ namespace Ranking {
         }
 
         private void OnAddFailed(Firebase b, FirebaseError error) {
-            Debug.LogWarning($"Failed to add entry: {error.Message}");
+            Debug.LogError($"Failed to add entry: {error.Message}");
         }
 
         private string GetRandomId() {

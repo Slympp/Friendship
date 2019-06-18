@@ -336,7 +336,7 @@ namespace SimpleFirebaseUnity
         /// <summary>
 		/// For details see https://firebase.google.com/docs/reference/rest/database/
 		/// </summary>
-		public FirebaseParam AccesToken(string access_token)
+		public FirebaseParam AccessToken(string access_token)
         {
             return Add("access_token=" + access_token);
         }
