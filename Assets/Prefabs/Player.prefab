@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerId: 1
+  m_InputSource: Keyboard
   WeaponRoot: {fileID: 8529487106984450401}
   ProjectileOrigin: {fileID: 8529487107082046406}
   WeaponRotationSpeed: 80
@@ -126,7 +127,7 @@ MonoBehaviour:
   m_JumpForce: 12
   m_MovementSpeed: 1
   m_InAirSpeed: 1
-  m_CrouchSpeed: 0.36
+  m_CrouchSpeed: 0.4
   m_MovementSmoothing: 0.05
   m_AirControl: 1
   m_WhatIsGround:

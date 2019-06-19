@@ -7,6 +7,13 @@ namespace Entities.Players {
         
         [Header("Player")]
         [SerializeField] private int PlayerId = 1;
+
+        private InputType InputSource { 
+            set => m_InputSource = value.ToString();
+        }
+
+        // TODO: Remove SerializedField & set input type from UI
+        [SerializeField] string m_InputSource = "Keyboard";
         
         [Header("Weapon Testing")]
         [SerializeField] private Transform WeaponRoot;
@@ -30,11 +37,11 @@ namespace Entities.Players {
         }
 
         void Update() {
-            m_Movement = InputController.Movement(PlayerId);
+            m_Movement = InputController.Movement(m_InputSource);
             
             UpdateWeaponRotation();
 
-            if (InputController.Shoot(PlayerId) && !m_OnCooldown) {
+            if (InputController.Shoot(m_InputSource) && !m_OnCooldown) {
                 StopCoroutine(nameof(Shoot));
                 m_OnCooldown = true;
                 StartCoroutine(nameof(Shoot));
@@ -74,7 +81,15 @@ namespace Entities.Players {
         }
 
         void UpdateMovement() {
-            m_PlayerMovementController.Move(m_Movement.x, PlayerId);
+            m_PlayerMovementController.Move(m_Movement.x, m_InputSource);
+        }
+
+        public enum InputType {
+            Keyboard = 0,
+            KeyboardLeft,
+            KeyboardRight,
+            Controller1,
+            Controller2
         }
     }
 }

@@ -54,9 +54,9 @@ namespace Entities.Players {
 		}
 
 
-		public void Move(float movementDelta, int playerId) {
+		public void Move(float movementDelta, string inputSource) {
 
-			bool crouch = InputController.Crouch(playerId);
+			bool crouch = InputController.Crouch(inputSource);
 			
 			if (!crouch) {
 				if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
@@ -89,7 +89,7 @@ namespace Entities.Players {
 				if (m_AirControl && !m_Grounded)
 					movementDelta *= m_InAirSpeed;
 
-				float horizontalMovement = InputController.Lock(playerId) ? 0 : movementDelta * 10f * m_MovementSpeed;
+				float horizontalMovement = InputController.Lock(inputSource) ? 0 : movementDelta * 10f * m_MovementSpeed;
 				Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
@@ -97,7 +97,7 @@ namespace Entities.Players {
 					Flip();
 			}
 		
-			if (m_Grounded && InputController.Jump(playerId)) {
+			if (m_Grounded && InputController.Jump(inputSource)) {
 				m_Grounded = false;
 				m_Rigidbody2D.angularVelocity = 0;
 				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
