@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Entities.Players {
@@ -37,9 +38,9 @@ namespace Entities.Players {
         }
 
         void Update() {
-            m_Movement = InputController.Movement(m_InputSource);
+            m_Movement = InputController.Movement(m_InputSource).normalized;
             
-            UpdateWeaponRotation();
+            UpdateAiming();
 
             if (InputController.Shoot(m_InputSource) && !m_OnCooldown) {
                 StopCoroutine(nameof(Shoot));
@@ -52,23 +53,28 @@ namespace Entities.Players {
             UpdateMovement();
         }
 
-        void UpdateWeaponRotation() {
+        void UpdateAiming() {
 
             if (m_Movement != Vector2.zero && m_Movement != m_CachedMovement) {
-                float angle = Mathf.Atan2(ClampAimingAxis(m_Movement.y), ClampAimingAxis(m_Movement.x)) * Mathf.Rad2Deg;
-                float snappedAngle = Mathf.Round(angle * MovementSteps) / MovementSteps;
-                m_TargetRotation = Quaternion.Euler(0, 0, snappedAngle);
+
+                float yAngle = m_Movement.x.Equals(m_CachedMovement.x) ? 
+                    WeaponRoot.eulerAngles.y :
+                    m_Movement.x <= -0.01f ? 
+                        -180 : 0;
+                
+                float clampedZ = (float)Math.Round(m_Movement.y * 2, MidpointRounding.AwayFromZero) / 2;
+                float zAngle = NormalizeAngle(clampedZ, -90, 90, -1, 1);
+
+                m_TargetRotation = Quaternion.Euler(0, yAngle, zAngle);
                 m_CachedMovement = m_Movement;
             }
 
-            WeaponRoot.rotation =
-                Quaternion.Slerp(WeaponRoot.rotation, m_TargetRotation, WeaponRotationSpeed * Time.deltaTime);
+            WeaponRoot.rotation = Quaternion.Slerp(WeaponRoot.rotation, m_TargetRotation, WeaponRotationSpeed * Time.deltaTime);
         }
 
-        private int ClampAimingAxis(float v) {
-            return v >= 0.01f ? 1 : v <= -0.01f ? -1 : 0;
+        private float NormalizeAngle(float v, float a, float b, float min, float max) {
+            return (b - a) * ((v - min) / (max - min)) + a;
         }
-
         private IEnumerator Shoot() {
             float elapsed = 0;
 

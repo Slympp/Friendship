@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Projectiles {
+namespace Objects.Projectiles {
+    
+    [RequireComponent(typeof(Rigidbody2D))]
     public abstract class BaseProjectile : MonoBehaviour {
 
         [Header("Base")]

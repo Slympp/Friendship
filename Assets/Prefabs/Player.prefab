@@ -110,7 +110,7 @@ MonoBehaviour:
   ProjectileOrigin: {fileID: 8529487107082046406}
   WeaponRotationSpeed: 80
   WeaponCooldown: 0.1
-  WeaponProjectile: {fileID: 7766534083706815649, guid: fe46fb149b5464c4da4579a72a04e743,
+  WeaponProjectile: {fileID: 7766534083706815649, guid: 0cf318d9d464c8148b633cde7173d3cd,
     type: 3}
 --- !u!114 &8529487106874093369
 MonoBehaviour:

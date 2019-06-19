@@ -72,15 +72,13 @@ namespace Entities.Players {
 					}
 
 					movementDelta *= m_CrouchSpeed;
-
-					if (m_TopCollider != null)
-						m_TopCollider.enabled = false;
+					m_TopCollider.enabled = false;
 				
 				} else {
-					if (m_TopCollider != null)
-						m_TopCollider.enabled = true;
+					m_TopCollider.enabled = true;
 
 					if (m_WasCrouching) {
+						
 						m_WasCrouching = false;
 						m_PlayerAnimatorController.SetCrouching(false);
 					}
