@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Entities.Players {
+namespace Objects.Entities.Players.Inputs {
     public static class InputController {
-
 
         public static Vector2 Movement(string inputSource) => new Vector2(Input.GetAxisRaw($"{inputSource}_Horizontal"), 
                                                     Input.GetAxisRaw($"{inputSource}_Vertical"));

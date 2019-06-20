@@ -1,8 +1,8 @@
-﻿using UnityEditor;
+﻿using Entities.Players;
+using Objects.Entities.Players.Inputs;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
-namespace Entities.Players {
+namespace Objects.Entities.Players {
 	
 	public class PlayerMovementController : MonoBehaviour {
 

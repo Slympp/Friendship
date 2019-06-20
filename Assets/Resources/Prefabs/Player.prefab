@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8529487106553415784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.8, z: 0}
+  m_LocalPosition: {x: 0, y: -0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8529487106874093370}
@@ -82,8 +82,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 1.071382
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 6
@@ -104,14 +104,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f0cdf1eb542ee42ab63bf8a067ca63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
+  MaxHealth: 0
+  CurrentHealth: 0
+  Rooted: 0
   PlayerId: 1
   m_InputSource: Keyboard
-  WeaponRoot: {fileID: 8529487106984450401}
-  ProjectileOrigin: {fileID: 8529487107082046406}
+  WeaponRig: {fileID: 8529487106984450401}
+  ProjectileRig: {fileID: 8529487107082046406}
   WeaponRotationSpeed: 80
-  WeaponCooldown: 0.1
-  WeaponProjectile: {fileID: 7766534083706815649, guid: 0cf318d9d464c8148b633cde7173d3cd,
-    type: 3}
+  DefaultAbility: {fileID: 11400000, guid: 43fc72bccbf32084384e5507fdefcfb2, type: 2}
+  OffensiveAbility: {fileID: 11400000, guid: 3cd1524cad6757b469016e1292c2010b, type: 2}
+  SupportAbility: {fileID: 0}
 --- !u!114 &8529487106874093369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +138,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_GroundCheck: {fileID: 8529487106553415787}
-  k_GroundedRadius: 0.2
+  k_GroundedRadius: 0.15
   m_CeilingCheck: {fileID: 8529487107605793619}
   m_TopCollider: {fileID: 8529487106874093364}
   k_CeilingRadius: 0.1
@@ -260,7 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8529487106984450401}
   m_Layer: 9
-  m_Name: WeaponRoot
+  m_Name: WeaponRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8529487107082046406}
   m_Layer: 9
-  m_Name: ProjectileOrigin
+  m_Name: ProjectileRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -352,7 +356,7 @@ GameObject:
   - component: {fileID: 8529487107688339469}
   - component: {fileID: 8529487107688339468}
   m_Layer: 9
-  m_Name: WeaponRig
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -366,7 +370,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8529487107688339474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8529487107082046406}

@@ -7,20 +7,30 @@ namespace Objects.Projectiles {
 
         [Header("Base")]
         [SerializeField] private LayerMask CollisionMask;
-        [SerializeField] private bool hitPlayers;
-        [SerializeField] private bool hitEnemies;
+        [SerializeField] protected bool hitPlayers;
+        [SerializeField] protected bool hitEnemies;
+        [SerializeField] protected bool pierce;
         
-        void OnTriggerEnter2D(Collider2D c) {
-            if (CollisionMask == (CollisionMask | (1 << c.gameObject.layer))) {
-
+        protected virtual void OnTriggerEnter2D(Collider2D c) {
+            
+            if (CollideMask(c)) {
                 if (c.CompareTag("Ground")) {
+                    // TODO: Add impact FX
                     DestroySelf();
                 } else if (hitEnemies && c.CompareTag("Enemy")) {
-                    ApplyEffect(c.gameObject, true);
+                    ApplyEffect(c.gameObject, TargetType.Enemy);
+                    if (!pierce)
+                        DestroySelf();
                 } else if (hitPlayers && c.CompareTag("Player")) {
-                    ApplyEffect(c.gameObject, false);
+                    ApplyEffect(c.gameObject, TargetType.Ally);
+                    if (!pierce)
+                        DestroySelf();
                 }
             }
+        }
+
+        protected bool CollideMask(Collider2D c) {
+            return CollisionMask == (CollisionMask | (1 << c.gameObject.layer));
         }
 
         private void OnBecameInvisible() {
@@ -30,8 +40,12 @@ namespace Objects.Projectiles {
         protected void DestroySelf() {
             Destroy(gameObject);
         }
-        
-        protected abstract void ApplyEffect(GameObject target, bool isEnemy);
 
+        protected abstract void ApplyEffect(GameObject target, TargetType targetType, float multiplier = 1f);
+
+        public enum TargetType {
+            Ally,
+            Enemy
+        }
     }
 }
