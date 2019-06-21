@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Objects.Entities {
@@ -8,13 +10,15 @@ namespace Objects.Entities {
         [SerializeField] protected string Name;
         
         [SerializeField] private int MaxHealth;
-        private int m_CurrentHealth;
-        private bool m_Rooted;
+        protected int CurrentHealth;
+
+        protected bool IsDead => CurrentHealth == 0;
         
-        protected bool IsDead => m_CurrentHealth == 0;
+        private bool m_Rooted;
+        private IEnumerator m_RootRoutine;
 
         protected void Init() {
-            m_CurrentHealth = MaxHealth;
+            CurrentHealth = MaxHealth;
         }
         
         void FixedUpdate() {
@@ -22,43 +26,46 @@ namespace Objects.Entities {
                 UpdateMovement();
         }
         
-        public virtual void Damage(int value) {
+        public virtual void Damage(int value, Entity origin) {
 
             if (!IsDead) {
-                m_CurrentHealth -= value;
-                if (m_CurrentHealth < 0)
-                    m_CurrentHealth = 0;
-            
-                Debug.Log($"{Name} damaged {m_CurrentHealth}/{MaxHealth}");
+                int updatedHealth = CurrentHealth - value;
+                if (updatedHealth < 0)
+                    updatedHealth = 0;
+
+                Debug.Log($"{Name} damaged {value} [{updatedHealth}/{MaxHealth}]");
+
+                CurrentHealth = updatedHealth;
             }
         }
 
         public void Heal(int value) {
 
             if (!IsDead) {
-                m_CurrentHealth += value;
-                if (m_CurrentHealth > MaxHealth)
-                    m_CurrentHealth = MaxHealth;
+                CurrentHealth += value;
+                if (CurrentHealth > MaxHealth)
+                    CurrentHealth = MaxHealth;
             
-                Debug.Log($"{Name} healed {m_CurrentHealth}/{MaxHealth}");
+                Debug.Log($"{Name} healed {value} [{CurrentHealth}/{MaxHealth}]");
             }
         }
         
         public void Root(float duration) {
-
-            StopCoroutine(nameof(RootOvertime));
-            m_Rooted = true;
-            StartCoroutine(RootOvertime(duration));
+            if (m_RootRoutine != null)
+                StopCoroutine(m_RootRoutine);
+            
+            m_RootRoutine = RootOvertime(duration);
+            StartCoroutine(m_RootRoutine);
         }
-        
+
         private IEnumerator RootOvertime(float duration) {
             float elapsed = 0;
 
+            m_Rooted = true;
             while (elapsed < duration) {
                 elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
-
             m_Rooted = false;
         }
         

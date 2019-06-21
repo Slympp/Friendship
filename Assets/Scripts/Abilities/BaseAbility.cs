@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Objects.Entities;
 using UnityEngine;
 
 namespace Abilities {
@@ -11,10 +12,11 @@ namespace Abilities {
 
         protected Transform WeaponRig;
         protected Transform ProjectileRig;
+        protected Entity Caster;
         
         public bool OnCooldown { get; private set; }
 
-        public virtual BaseAbility Init(Transform weaponRig, Transform projectileRig) {
+        public virtual BaseAbility Init(Transform weaponRig, Transform projectileRig, Entity caster) {
 
             BaseAbility instance = CreateInstance(GetType()) as BaseAbility;
             if (instance == null) return null;
@@ -26,6 +28,7 @@ namespace Abilities {
             
             instance.WeaponRig = weaponRig;
             instance.ProjectileRig = projectileRig;
+            instance.Caster = caster;
 
             return instance;
         }
