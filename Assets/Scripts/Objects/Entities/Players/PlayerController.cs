@@ -68,15 +68,15 @@ namespace Objects.Entities.Players {
             switch (type) {
                 case BaseAbility.AbilityType.Default:
                     if (DefaultAbility != null)
-                        m_DefaultAbility = DefaultAbility.Init(WeaponRig, ProjectileRig);
+                        m_DefaultAbility = DefaultAbility.Init(WeaponRig, ProjectileRig, this);
                     break;
                 case BaseAbility.AbilityType.Offensive:
                     if (OffensiveAbility != null)
-                        m_OffensiveAbility = OffensiveAbility.Init(WeaponRig, ProjectileRig);
+                        m_OffensiveAbility = OffensiveAbility.Init(WeaponRig, ProjectileRig, this);
                     break;
                 case BaseAbility.AbilityType.Support:
                     if (SupportAbility != null)
-                        m_SupportAbility = SupportAbility.Init(WeaponRig, ProjectileRig);
+                        m_SupportAbility = SupportAbility.Init(WeaponRig, ProjectileRig, this);
                     break;
             }
         }
@@ -98,10 +98,6 @@ namespace Objects.Entities.Players {
             }
 
             WeaponRig.rotation = Quaternion.Slerp(WeaponRig.rotation, m_TargetRotation, WeaponRotationSpeed * Time.deltaTime);
-        }
-
-        private float NormalizeAngle(float v, float a, float b, float min, float max) {
-            return (b - a) * ((v - min) / (max - min)) + a;
         }
         
         void TriggerAbility(BaseAbility ability) {

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Objects.Entities;
 using Objects.Projectiles;
 using UnityEngine;
 
@@ -14,9 +15,9 @@ namespace Abilities {
         private BaseProjectile m_Projectile;
         private Rigidbody2D m_Rigidbody2D;
 
-        public override BaseAbility Init(Transform weaponRig, Transform projectileRig) {
+        public override BaseAbility Init(Transform weaponRig, Transform projectileRig, Entity caster) {
 
-            ParabolaAbility instance = base.Init(weaponRig, projectileRig) as ParabolaAbility;
+            ParabolaAbility instance = base.Init(weaponRig, projectileRig, caster) as ParabolaAbility;
             if (instance == null) return null;
             
             // TODO: Create ProjectilePool

@@ -1729,7 +1729,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: EnemyTest
-  MaxHealth: 3
+  MaxHealth: 20
+  LifeStealMultiplier: 0.5
+  m_LifeStealMarked: 0
 --- !u!1 &954511465
 GameObject:
   m_ObjectHideFlags: 3
@@ -2217,7 +2219,7 @@ PrefabInstance:
         type: 3}
       propertyPath: DefaultAbility
       value: 
-      objectReference: {fileID: 11400000, guid: 7041c87bf6e37f44bae801b5b965b340,
+      objectReference: {fileID: 11400000, guid: c190ae0cff0ebb74ea8213a7c23af847,
         type: 2}
     - target: {fileID: 8529487106874093374, guid: a88af63d4019bc646bc2e2d0c0c95112,
         type: 3}
@@ -2229,6 +2231,17 @@ PrefabInstance:
         type: 3}
       propertyPath: MaxHealth
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529487106874093374, guid: a88af63d4019bc646bc2e2d0c0c95112,
+        type: 3}
+      propertyPath: SupportAbility
+      value: 
+      objectReference: {fileID: 11400000, guid: 2cf40e17b984b804983a0694d517798e,
+        type: 2}
+    - target: {fileID: 8529487106874093374, guid: a88af63d4019bc646bc2e2d0c0c95112,
+        type: 3}
+      propertyPath: Name
+      value: Player1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a88af63d4019bc646bc2e2d0c0c95112, type: 3}

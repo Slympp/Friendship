@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 7766534083706815648}
   - component: {fileID: 168620193}
   m_Layer: 10
-  m_Name: ProjectileB
+  m_Name: ProjectileOffensiveP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,9 +120,9 @@ MonoBehaviour:
   CollisionMask:
     serializedVersion: 2
     m_Bits: 768
-  hitPlayers: 0
-  hitEnemies: 1
-  pierce: 0
+  HitPlayers: 0
+  HitEnemies: 1
+  Pierce: 0
   Radius: 5
   OnDirectHitDamage: 2
   OnDistanceDamage: {x: 1, y: 3}

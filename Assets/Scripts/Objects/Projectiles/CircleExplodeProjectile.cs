@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using Objects.Entities;
 using UnityEngine;
 
@@ -17,14 +16,14 @@ namespace Objects.Projectiles {
                     OnAreaEffect();
                     DestroySelf();
                     
-                } else if (hitEnemies && c.CompareTag("Enemy")) {
-                    ApplyEffect(c.gameObject, TargetType.Enemy);
-                    if (!pierce)
+                } else if (HitEnemies && c.CompareTag("Enemy")) {
+                    ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Enemy);
+                    if (!Pierce)
                         DestroySelf();
                     
-                } else if (hitPlayers && c.CompareTag("Player")) {
-                    ApplyEffect(c.gameObject, TargetType.Ally);
-                    if (!pierce)
+                } else if (HitPlayers && c.CompareTag("Player")) {
+                    ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Ally);
+                    if (!Pierce)
                         DestroySelf();
                 }
             }
@@ -35,10 +34,10 @@ namespace Objects.Projectiles {
             foreach (Collider2D t in colliders) {
                 if (t.gameObject == gameObject) continue;
 
-                if (hitEnemies && t.CompareTag("Enemy"))
-                    ApplyEffect(t.gameObject, TargetType.Enemy, GetMultiplierFromDistance(t.transform.position));
-                else if (hitPlayers && t.CompareTag("Player"))
-                    ApplyEffect(t.gameObject, TargetType.Ally, GetMultiplierFromDistance(t.transform.position));
+                if (HitEnemies && t.CompareTag("Enemy"))
+                    ApplyEffect(t.gameObject.GetComponent<Entity>(), TargetType.Enemy, GetMultiplierFromDistance(t.transform.position));
+                else if (HitPlayers && t.CompareTag("Player"))
+                    ApplyEffect(t.gameObject.GetComponent<Entity>(), TargetType.Ally, GetMultiplierFromDistance(t.transform.position));
             }
         }
 
@@ -46,14 +45,15 @@ namespace Objects.Projectiles {
             return Vector2.Distance(transform.position, position).Normalize(1, 0, 0, Radius);
         }
 
-        protected override void ApplyEffect(GameObject target, TargetType targetType, float multiplier = 1) {
+        protected override void ApplyEffect(Entity target, TargetType targetType, float multiplier = 1) {
             
-            Entity entity = target.GetComponent<Entity>();
-            if (entity == null) return;
-
-            entity.Damage(multiplier.Equals(1)
-                ? Mathf.FloorToInt(OnDirectHitDamage + OnDistanceDamage.y)
-                : Mathf.FloorToInt(multiplier.Normalize(OnDistanceDamage.x, OnDistanceDamage.y, 0, 1)));
+            if (target != null) {
+                target.Damage(
+                    multiplier.Equals(1)
+                        ? Mathf.FloorToInt(OnDirectHitDamage + OnDistanceDamage.y)
+                        : Mathf.FloorToInt(multiplier.Normalize(OnDistanceDamage.x, OnDistanceDamage.y, 0, 1)), 
+                    Caster);
+            }
         }
     }
 }

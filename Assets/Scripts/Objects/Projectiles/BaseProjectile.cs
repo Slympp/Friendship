@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Objects.Entities;
+using UnityEngine;
 
 namespace Objects.Projectiles {
     
@@ -7,9 +8,15 @@ namespace Objects.Projectiles {
 
         [Header("Base")]
         [SerializeField] private LayerMask CollisionMask;
-        [SerializeField] protected bool hitPlayers;
-        [SerializeField] protected bool hitEnemies;
-        [SerializeField] protected bool pierce;
+        [SerializeField] protected bool HitPlayers;
+        [SerializeField] protected bool HitEnemies;
+        [SerializeField] protected bool Pierce;
+
+        protected Entity Caster;
+
+        public void Init(Entity caster) {
+            Caster = caster;
+        }
         
         protected virtual void OnTriggerEnter2D(Collider2D c) {
             
@@ -17,13 +24,13 @@ namespace Objects.Projectiles {
                 if (c.CompareTag("Ground")) {
                     // TODO: Add impact FX
                     DestroySelf();
-                } else if (hitEnemies && c.CompareTag("Enemy")) {
-                    ApplyEffect(c.gameObject, TargetType.Enemy);
-                    if (!pierce)
+                } else if (HitEnemies && c.CompareTag("Enemy")) {
+                    ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Enemy);
+                    if (!Pierce)
                         DestroySelf();
-                } else if (hitPlayers && c.CompareTag("Player")) {
-                    ApplyEffect(c.gameObject, TargetType.Ally);
-                    if (!pierce)
+                } else if (HitPlayers && c.CompareTag("Player")) {
+                    ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Ally);
+                    if (!Pierce)
                         DestroySelf();
                 }
             }
@@ -41,7 +48,7 @@ namespace Objects.Projectiles {
             Destroy(gameObject);
         }
 
-        protected abstract void ApplyEffect(GameObject target, TargetType targetType, float multiplier = 1f);
+        protected abstract void ApplyEffect(Entity target, TargetType targetType, float multiplier = 1f);
 
         public enum TargetType {
             Ally,
