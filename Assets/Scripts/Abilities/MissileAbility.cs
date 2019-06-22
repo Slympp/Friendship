@@ -27,7 +27,7 @@ namespace Abilities {
         
         public override IEnumerator Fire() {
             Quaternion rotation = Quaternion.Euler(0, WeaponRig.eulerAngles.y, ProjectileRig.eulerAngles.z);
-            m_Projectile = Instantiate(BaseProjectile, WeaponRig.position, rotation).GetComponent<BaseProjectile>();
+            m_Projectile = Instantiate(BaseProjectile, ProjectileRig.position, rotation).GetComponent<BaseProjectile>();
             m_Projectile.Init(Caster);
 
             Transform projectileTransform = m_Projectile.transform;

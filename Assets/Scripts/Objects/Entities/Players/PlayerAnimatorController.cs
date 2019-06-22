@@ -5,16 +5,23 @@ namespace Entities.Players {
 
         private Animator m_Animator;
  
-        private static readonly int Shooting = Animator.StringToHash("Shooting");
+        private static readonly int Shoot = Animator.StringToHash("Shoot");
+        
         private static readonly int Crouching = Animator.StringToHash("Crouching");
         private static readonly int Jumping = Animator.StringToHash("Jumping");
+        private static readonly int Moving = Animator.StringToHash("Moving");
 
         void Awake() {
             m_Animator = GetComponent<Animator>();
         }
 
-        public void SetShooting(bool v) {
-            m_Animator.SetBool(Shooting, v);
+        public void TriggerShooting() {
+            m_Animator.Play(Shoot, -1, 0);
+//            m_Animator.SetTrigger(Shooting);
+        }
+
+        public void SetMoving(bool v) {
+            m_Animator.SetBool(Moving, v);
         }
         
         public void SetCrouching(bool v) {

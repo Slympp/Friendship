@@ -1,5 +1,6 @@
 ﻿using System;
 using Abilities;
+using Entities.Players;
 using Objects.Entities.Players.Inputs;
 using UnityEngine;
 
@@ -16,11 +17,12 @@ namespace Objects.Entities.Players {
         }
 
         [SerializeField] string m_InputSource = "Keyboard";
-        
+
         [Header("Abilities")]
+        [SerializeField] private Transform HeadRig;
         [SerializeField] private Transform WeaponRig;
         [SerializeField] private Transform ProjectileRig;
-        [SerializeField] private float WeaponRotationSpeed = 1f;
+        [SerializeField] private float RotationSpeed = 1f;
 
         public BaseAbility DefaultAbility;
         public BaseAbility OffensiveAbility;
@@ -32,17 +34,22 @@ namespace Objects.Entities.Players {
 
         private Vector2 m_Movement;
         private Vector2 m_CachedMovement;
-        private Quaternion m_TargetRotation;
+        private Quaternion m_TargetHeadRotation;
+        private Quaternion m_TargetWeaponRotation;
         
         private PlayerMovementController m_PlayerMovementController;
         private bool m_OnCooldown;
+
+        private PlayerAnimatorController m_PlayerAnimatorController;
     
         void Awake() {
             
             Init();
             
             m_PlayerMovementController = GetComponent<PlayerMovementController>();
-            m_TargetRotation = WeaponRig.rotation;
+            m_PlayerAnimatorController = GetComponent<PlayerAnimatorController>();
+            
+            m_TargetWeaponRotation = WeaponRig.rotation;
             m_CachedMovement = m_Movement;
             
             UpdateAbility(BaseAbility.AbilityType.Default);
@@ -56,9 +63,12 @@ namespace Objects.Entities.Players {
             UpdateAiming();
 
             if (InputController.Shoot(m_InputSource) && !m_DefaultAbility.OnCooldown) {
+                m_PlayerAnimatorController.TriggerShooting();
                 TriggerAbility(m_DefaultAbility);
+                
             } else if (InputController.OffensiveAbility(m_InputSource) && !m_OffensiveAbility.OnCooldown) {
                 TriggerAbility(m_OffensiveAbility);
+                
             } else if (InputController.SupportAbility(m_InputSource) && !m_SupportAbility.OnCooldown) {
                 TriggerAbility(m_SupportAbility);
             }
@@ -85,19 +95,21 @@ namespace Objects.Entities.Players {
 
             if (m_Movement != Vector2.zero && m_Movement != m_CachedMovement) {
 
-                float yAngle = m_Movement.x.Equals(m_CachedMovement.x) ? 
-                    WeaponRig.eulerAngles.y :
-                    m_Movement.x <= -0.01f ? 
-                        -180 : 0;
-                
-                float clampedZ = (float)Math.Round(m_Movement.y * 2, MidpointRounding.AwayFromZero) / 2;
-                float zAngle = clampedZ.Normalize(-90, 90, -1, 1);
-
-                m_TargetRotation = Quaternion.Euler(0, yAngle, zAngle);
+                m_TargetWeaponRotation = GetUpdatedRotation(WeaponRig, -90, 90);
+                m_TargetHeadRotation = GetUpdatedRotation(HeadRig, -70, 70);
                 m_CachedMovement = m_Movement;
             }
 
-            WeaponRig.rotation = Quaternion.Slerp(WeaponRig.rotation, m_TargetRotation, WeaponRotationSpeed * Time.deltaTime);
+            WeaponRig.localRotation = m_TargetWeaponRotation;
+            HeadRig.localRotation = m_TargetHeadRotation;
+        }
+
+        private Quaternion GetUpdatedRotation(Transform rig, float minAngle, float maxAngle) {
+           
+            float clampedZ = (float)Math.Round(m_Movement.y * 2, MidpointRounding.AwayFromZero) / 2;
+            float zAngle = clampedZ.Normalize(minAngle, maxAngle, -1, 1);
+
+            return Quaternion.Euler(0, 0, zAngle * transform.localScale.x);
         }
         
         void TriggerAbility(BaseAbility ability) {

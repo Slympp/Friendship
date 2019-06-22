@@ -33,9 +33,17 @@ namespace Objects.Entities.Players {
 		private Vector3     m_Velocity    = Vector3.zero;
 		private bool m_WasCrouching;
 
+		[SerializeField] private Vector2 DustSpawnDelay;
+		[SerializeField] private Vector2 DustLifetime;
+		private string m_DustPrefabPath = "FX/Dust";
+		private GameObject m_DustPrefab;
+		private bool m_DustSpawnOnCooldown;
+
 		private void Awake() {
 			m_Rigidbody2D = GetComponent<Rigidbody2D>();
 			m_PlayerAnimatorController = GetComponent<PlayerAnimatorController>();
+
+			m_DustPrefab = Resources.Load<GameObject>(m_DustPrefabPath);
 		}
 
 		private void FixedUpdate() {
@@ -91,8 +99,14 @@ namespace Objects.Entities.Players {
 				Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
+				m_PlayerAnimatorController.SetMoving(!horizontalMovement.Equals(0));
+
 				if (movementDelta > 0 && !m_FacingRight || movementDelta < 0 && m_FacingRight)
 					Flip();
+
+				if (m_Grounded && Mathf.Abs(m_Rigidbody2D.velocity.x) > 0.1f && !m_DustSpawnOnCooldown) {
+					SpawnDust();
+				}
 			}
 		
 			if (m_Grounded && InputController.Jump(inputSource)) {
@@ -105,8 +119,24 @@ namespace Objects.Entities.Players {
 
 		private void Flip() {
 			m_FacingRight = !m_FacingRight;
-			transform.localRotation = Quaternion.Euler(0, m_FacingRight ? 0 : 180, 0);
+			transform.rotation = Quaternion.Euler(0, m_FacingRight ? 0 : 180, 0);
 		}
+
+		private void SpawnDust() {
+
+			SwitchDustSpawnCooldown();
+			
+			GameObject dust = Instantiate(m_DustPrefab, m_GroundCheck.position, Quaternion.identity);
+			dust.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+			Destroy(dust, Random.Range(DustLifetime.x, DustLifetime.y));
+
+			Invoke(nameof(SwitchDustSpawnCooldown), Random.Range(DustSpawnDelay.x, DustSpawnDelay.y));
+		}
+
+		private void SwitchDustSpawnCooldown() {
+			m_DustSpawnOnCooldown = !m_DustSpawnOnCooldown;
+		}
+	
 		
 		void OnDrawGizmosSelected() {
 			Gizmos.color = Color.blue;
