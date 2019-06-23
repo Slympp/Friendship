@@ -23,6 +23,7 @@ namespace Objects.Entities {
 
         protected void Init() {
             CurrentHealth = MaxHealth;
+            CurrentHealth = 50;
             Sprites = GetComponentsInChildren<SpriteRenderer>().ToList();
         }
         
@@ -45,7 +46,7 @@ namespace Objects.Entities {
             }
         }
 
-        public void Heal(int value) {
+        public virtual void Heal(int value) {
 
             if (!IsDead) {
                 CurrentHealth += value;

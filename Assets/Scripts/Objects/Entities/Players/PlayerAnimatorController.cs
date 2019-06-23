@@ -11,13 +11,12 @@ namespace Entities.Players {
         private static readonly int Jumping = Animator.StringToHash("Jumping");
         private static readonly int Moving = Animator.StringToHash("Moving");
 
-        void Awake() {
-            m_Animator = GetComponent<Animator>();
+        public void Init(Animator animator) {
+            m_Animator = animator;
         }
 
         public void TriggerShooting() {
             m_Animator.Play(Shoot, -1, 0);
-//            m_Animator.SetTrigger(Shooting);
         }
 
         public void SetMoving(bool v) {

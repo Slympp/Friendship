@@ -6,7 +6,7 @@ namespace Objects.Entities.Enemies {
 
         [Range(0, 1)] 
         [SerializeField] private float LifeStealMultiplier = 0.5f;
-        [SerializeField] private bool m_LifeStealMarked;
+        private bool m_Marked;
         private IEnumerator m_LifeStealRoutine;
         
         void Awake() {
@@ -16,11 +16,10 @@ namespace Objects.Entities.Enemies {
         protected override void UpdateMovement() { }
 
         public override void Damage(int value, Entity origin) {
-
             int oldHealth = CurrentHealth;
             base.Damage(value, origin);
 
-            if (m_LifeStealMarked && origin != null) {
+            if (m_Marked && origin != null) {
                 int healValue = Mathf.FloorToInt((oldHealth - CurrentHealth) * LifeStealMultiplier);
                 origin.Heal(healValue);
             }
@@ -42,12 +41,12 @@ namespace Objects.Entities.Enemies {
         public IEnumerator MarkOvertime(float duration) {
             float elapsed = 0;
 
-            m_LifeStealMarked = true;
+            m_Marked = true;
             while (elapsed < duration) {
                 elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
-            m_LifeStealMarked = false;
+            m_Marked = false;
         }
     }
 }

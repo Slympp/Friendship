@@ -1,5 +1,4 @@
 ﻿using Entities.Players;
-using Objects.Entities.Players.Inputs;
 using UnityEngine;
 
 namespace Objects.Entities.Players {
@@ -25,25 +24,19 @@ namespace Objects.Entities.Players {
 		[SerializeField]                 private Collider2D m_TopCollider;
 		[Range(0, 1)]
 		[SerializeField] float k_CeilingRadius = .1f;
-
-		private PlayerAnimatorController m_PlayerAnimatorController;
 		
 		private Rigidbody2D m_Rigidbody2D;
 		private bool        m_FacingRight = true;
 		private Vector3     m_Velocity    = Vector3.zero;
 		private bool m_WasCrouching;
-
-		[SerializeField] private Vector2 DustSpawnDelay;
-		[SerializeField] private Vector2 DustLifetime;
-		private string m_DustPrefabPath = "FX/Dust";
-		private GameObject m_DustPrefab;
-		private bool m_DustSpawnOnCooldown;
+		
+		private PlayerAnimatorController m_PlayerAnimatorController;
+		private PlayerFXController       m_PlayerFXController;
 
 		private void Awake() {
 			m_Rigidbody2D = GetComponent<Rigidbody2D>();
 			m_PlayerAnimatorController = GetComponent<PlayerAnimatorController>();
-
-			m_DustPrefab = Resources.Load<GameObject>(m_DustPrefabPath);
+			m_PlayerFXController = GetComponent<PlayerFXController>();
 		}
 
 		private void FixedUpdate() {
@@ -64,7 +57,7 @@ namespace Objects.Entities.Players {
 
 		public void Move(float movementDelta, string inputSource) {
 
-			bool crouch = InputController.Crouch(inputSource);
+			bool crouch = PlayerInputController.Crouch(inputSource);
 			
 			if (!crouch) {
 				if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
@@ -95,7 +88,7 @@ namespace Objects.Entities.Players {
 				if (m_AirControl && !m_Grounded)
 					movementDelta *= m_InAirSpeed;
 
-				float horizontalMovement = InputController.Lock(inputSource) ? 0 : movementDelta * 10f * m_MovementSpeed;
+				float horizontalMovement = PlayerInputController.Lock(inputSource) ? 0 : movementDelta * 10f * m_MovementSpeed;
 				Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
@@ -104,16 +97,17 @@ namespace Objects.Entities.Players {
 				if (movementDelta > 0 && !m_FacingRight || movementDelta < 0 && m_FacingRight)
 					Flip();
 
-				if (m_Grounded && Mathf.Abs(m_Rigidbody2D.velocity.x) > 0.1f && !m_DustSpawnOnCooldown) {
-					SpawnDust();
+				if (m_Grounded && Mathf.Abs(m_Rigidbody2D.velocity.x) > 0.1f && !m_PlayerFXController.DustSpawnOnCooldown) {
+					m_PlayerFXController.SpawnRunningDust(m_GroundCheck.position);
 				}
 			}
 		
-			if (m_Grounded && InputController.Jump(inputSource)) {
+			if (m_Grounded && PlayerInputController.Jump(inputSource)) {
 				m_Grounded = false;
 				m_Rigidbody2D.angularVelocity = 0;
 				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
 				m_PlayerAnimatorController.SetJumping(true);
+				m_PlayerFXController.SpawnJumpDust(m_GroundCheck.position);
 			}
 		}
 
@@ -121,22 +115,6 @@ namespace Objects.Entities.Players {
 			m_FacingRight = !m_FacingRight;
 			transform.rotation = Quaternion.Euler(0, m_FacingRight ? 0 : 180, 0);
 		}
-
-		private void SpawnDust() {
-
-			SwitchDustSpawnCooldown();
-			
-			GameObject dust = Instantiate(m_DustPrefab, m_GroundCheck.position, Quaternion.identity);
-			dust.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-			Destroy(dust, Random.Range(DustLifetime.x, DustLifetime.y));
-
-			Invoke(nameof(SwitchDustSpawnCooldown), Random.Range(DustSpawnDelay.x, DustSpawnDelay.y));
-		}
-
-		private void SwitchDustSpawnCooldown() {
-			m_DustSpawnOnCooldown = !m_DustSpawnOnCooldown;
-		}
-	
 		
 		void OnDrawGizmosSelected() {
 			Gizmos.color = Color.blue;

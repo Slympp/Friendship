@@ -1,7 +1,6 @@
 ﻿using System;
 using Abilities;
 using Entities.Players;
-using Objects.Entities.Players.Inputs;
 using UnityEngine;
 
 namespace Objects.Entities.Players {
@@ -22,7 +21,6 @@ namespace Objects.Entities.Players {
         [SerializeField] private Transform HeadRig;
         [SerializeField] private Transform WeaponRig;
         [SerializeField] private Transform ProjectileRig;
-        [SerializeField] private float RotationSpeed = 1f;
 
         public BaseAbility DefaultAbility;
         public BaseAbility OffensiveAbility;
@@ -41,35 +39,40 @@ namespace Objects.Entities.Players {
         private bool m_OnCooldown;
 
         private PlayerAnimatorController m_PlayerAnimatorController;
-    
+        private PlayerFXController m_PlayerFXController;
+
         void Awake() {
             
             Init();
+
+            Transform parent = transform.parent;
+            m_PlayerMovementController = parent.GetComponent<PlayerMovementController>();
+            m_PlayerFXController = parent.GetComponent<PlayerFXController>();
             
-            m_PlayerMovementController = GetComponent<PlayerMovementController>();
-            m_PlayerAnimatorController = GetComponent<PlayerAnimatorController>();
+            m_PlayerAnimatorController = parent.GetComponent<PlayerAnimatorController>();
+            m_PlayerAnimatorController.Init(GetComponent<Animator>());
             
             m_TargetWeaponRotation = WeaponRig.rotation;
             m_CachedMovement = m_Movement;
-            
+
             UpdateAbility(BaseAbility.AbilityType.Default);
             UpdateAbility(BaseAbility.AbilityType.Offensive);
             UpdateAbility(BaseAbility.AbilityType.Support);
         }
 
         void Update() {
-            m_Movement = InputController.Movement(m_InputSource).normalized;
+            m_Movement = PlayerInputController.Movement(m_InputSource).normalized;
             
             UpdateAiming();
 
-            if (InputController.Shoot(m_InputSource) && !m_DefaultAbility.OnCooldown) {
+            if (PlayerInputController.Shoot(m_InputSource) && !m_DefaultAbility.OnCooldown) {
                 m_PlayerAnimatorController.TriggerShooting();
                 TriggerAbility(m_DefaultAbility);
                 
-            } else if (InputController.OffensiveAbility(m_InputSource) && !m_OffensiveAbility.OnCooldown) {
+            } else if (PlayerInputController.OffensiveAbility(m_InputSource) && !m_OffensiveAbility.OnCooldown) {
                 TriggerAbility(m_OffensiveAbility);
                 
-            } else if (InputController.SupportAbility(m_InputSource) && !m_SupportAbility.OnCooldown) {
+            } else if (PlayerInputController.SupportAbility(m_InputSource) && !m_SupportAbility.OnCooldown) {
                 TriggerAbility(m_SupportAbility);
             }
         }
@@ -95,16 +98,16 @@ namespace Objects.Entities.Players {
 
             if (m_Movement != Vector2.zero && m_Movement != m_CachedMovement) {
 
-                m_TargetWeaponRotation = GetUpdatedRotation(WeaponRig, -90, 90);
-                m_TargetHeadRotation = GetUpdatedRotation(HeadRig, -70, 70);
+                m_TargetWeaponRotation = GetUpdatedRotation(-90, 90);
+                m_TargetHeadRotation = GetUpdatedRotation(-70, 70);
                 m_CachedMovement = m_Movement;
             }
 
             WeaponRig.localRotation = m_TargetWeaponRotation;
             HeadRig.localRotation = m_TargetHeadRotation;
         }
-
-        private Quaternion GetUpdatedRotation(Transform rig, float minAngle, float maxAngle) {
+        
+        private Quaternion GetUpdatedRotation(float minAngle, float maxAngle) {
            
             float clampedZ = (float)Math.Round(m_Movement.y * 2, MidpointRounding.AwayFromZero) / 2;
             float zAngle = clampedZ.Normalize(minAngle, maxAngle, -1, 1);
@@ -119,6 +122,15 @@ namespace Objects.Entities.Players {
 
         protected override void UpdateMovement() {
             m_PlayerMovementController.Move(m_Movement.x, m_InputSource);
+        }
+
+        public override void Heal(int value) {
+            int oldHealth = CurrentHealth;
+            base.Heal(value);
+
+            if (oldHealth != CurrentHealth) {
+                m_PlayerFXController.ToggleHealingAura();
+            }
         }
 
         public enum InputType {
