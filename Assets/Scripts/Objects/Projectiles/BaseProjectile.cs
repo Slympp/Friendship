@@ -21,7 +21,7 @@ namespace Objects.Projectiles {
         protected virtual void OnTriggerEnter2D(Collider2D c) {
             
             if (CollideMask(c)) {
-                if (c.CompareTag("Ground")) {
+                if (c.CompareTag("Ground") && !c.transform.root.CompareTag("Player")) {
                     // TODO: Add impact FX
                     DestroySelf();
                 } else if (HitEnemies && c.CompareTag("Enemy")) {

@@ -12,7 +12,7 @@ namespace Objects.Projectiles {
 
             if (CollideMask(c)) {
 
-                if (c.CompareTag("Ground")) {
+                if (c.CompareTag("Ground") && !c.transform.root.CompareTag("Player")) {
                     OnAreaEffect();
                     DestroySelf();
                     
