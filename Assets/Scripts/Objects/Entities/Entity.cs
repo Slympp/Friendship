@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Objects.Entities {
     public abstract class Entity : MonoBehaviour {
 
+        
         [Header("Entity")] 
         [SerializeField] protected string Name;
         
@@ -21,9 +22,12 @@ namespace Objects.Entities {
         private List<SpriteRenderer> Sprites;
         private IEnumerator m_FlashRoutine;
 
+        private Color m_CurrentColor = Color.white;
+        private readonly Color _mFlashColor = Color.red;
+        private readonly Color _rootedColor = new Color(0.2116857f, 0.6320754f, 0.2732884f, 1);
+
         protected void Init() {
             CurrentHealth = MaxHealth;
-            CurrentHealth = 50;
             Sprites = GetComponentsInChildren<SpriteRenderer>().ToList();
         }
         
@@ -73,6 +77,9 @@ namespace Objects.Entities {
                 elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
+
+            m_CurrentColor = Color.white;
+            UpdateSpritesColor(m_CurrentColor);
             m_Rooted = false;
         }
 
@@ -86,15 +93,24 @@ namespace Objects.Entities {
 
         private IEnumerator FlashOnItOvertime() {
             float elapsed = 0;
+            
+            if (m_Rooted) {
+                m_CurrentColor = _rootedColor;
+                UpdateSpritesColor(m_CurrentColor);
+            }
 
-            while (elapsed < OnHitFlashDuration) {
-                Color color = Color.Lerp(Color.white, Color.red, Mathf.PingPong(elapsed * 2, OnHitFlashDuration));
-                foreach (SpriteRenderer r in Sprites) {
-                    r.color = color;
-                }
+            while (elapsed < OnHitFlashDuration * 2) {
+                Color color = Color.Lerp(m_CurrentColor, _mFlashColor, Mathf.PingPong(elapsed, OnHitFlashDuration));
+                UpdateSpritesColor(color);
                 
                 elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
+            }
+        }
+
+        private void UpdateSpritesColor(Color c) {
+            foreach (SpriteRenderer r in Sprites) {
+                r.color = c;
             }
         }
         

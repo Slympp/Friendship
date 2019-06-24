@@ -2,18 +2,25 @@ using System.Collections;
 using UnityEngine;
 
 namespace Objects.Entities.Enemies {
-    public class EnemyController : Entity {
+    public abstract class EnemyController : Entity {
 
-        [Range(0, 1)] 
-        [SerializeField] private float LifeStealMultiplier = 0.5f;
+        [SerializeField] private float MovementSpeed;
+        private const float LifeStealMultiplier = 0.5f;
         private bool m_Marked;
         private IEnumerator m_LifeStealRoutine;
+        private Rigidbody2D m_Rigidbody;
         
-        void Awake() {
+        protected void Awake() {
             Init();
-        }
 
-        protected override void UpdateMovement() { }
+            m_Rigidbody = GetComponent<Rigidbody2D>();
+        }
+        
+        protected void MoveTowards(Vector2 position) {
+            
+            m_Rigidbody.AddForce(position - (Vector2)transform.position * MovementSpeed);
+            transform.rotation = Quaternion.Euler(0, m_Rigidbody.velocity.x >= 0.1f ? 0 : 180, 0); 
+        }
 
         public override void Damage(int value, Entity origin) {
             int oldHealth = CurrentHealth;

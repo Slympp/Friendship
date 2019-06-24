@@ -13,15 +13,21 @@ namespace Objects.Projectiles {
             if (CollideMask(c)) {
 
                 if (c.CompareTag("Ground") && !c.transform.root.CompareTag("Player")) {
+                    
+                    if (ShowOnHitGround)
+                        OnHitEffect(transform.position);
+                    
                     OnAreaEffect();
                     DestroySelf();
                     
                 } else if (HitEnemies && c.CompareTag("Enemy")) {
+                    OnHitEffect(c.transform.position);
                     ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Enemy);
                     if (!Pierce)
                         DestroySelf();
                     
                 } else if (HitPlayers && c.CompareTag("Player")) {
+                    OnHitEffect(c.transform.position);
                     ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Ally);
                     if (!Pierce)
                         DestroySelf();

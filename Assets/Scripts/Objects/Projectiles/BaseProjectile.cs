@@ -12,6 +12,11 @@ namespace Objects.Projectiles {
         [SerializeField] protected bool HitEnemies;
         [SerializeField] protected bool Pierce;
 
+        [Header("FX")] 
+        [SerializeField] private GameObject OnImpactFX;
+        [SerializeField] protected bool ShowOnHitGround = true;
+        [SerializeField] private float OnImpactFXLifetime;
+        
         protected Entity Caster;
 
         public void Init(Entity caster) {
@@ -22,13 +27,19 @@ namespace Objects.Projectiles {
             
             if (CollideMask(c)) {
                 if (c.CompareTag("Ground") && !c.transform.root.CompareTag("Player")) {
-                    // TODO: Add impact FX
+                    if (ShowOnHitGround)
+                        OnHitEffect(transform.position);
+                    
                     DestroySelf();
+                    
                 } else if (HitEnemies && c.CompareTag("Enemy")) {
+                    OnHitEffect(c.transform.position);
                     ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Enemy);
                     if (!Pierce)
                         DestroySelf();
+                    
                 } else if (HitPlayers && c.CompareTag("Player")) {
+                    OnHitEffect(c.transform.position);
                     ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Ally);
                     if (!Pierce)
                         DestroySelf();
@@ -41,13 +52,20 @@ namespace Objects.Projectiles {
         }
 
         private void OnBecameInvisible() {
-            DestroySelf();
+            Destroy(gameObject);
         }
-        
+
         protected void DestroySelf() {
             Destroy(gameObject);
         }
 
+        protected void OnHitEffect(Vector3 position) {
+            if (OnImpactFX != null) {
+                GameObject impact = Instantiate(OnImpactFX, position, Quaternion.identity);
+                Destroy(impact, OnImpactFXLifetime);
+            }
+        }
+        
         protected abstract void ApplyEffect(Entity target, TargetType targetType, float multiplier = 1f);
 
         public enum TargetType {
