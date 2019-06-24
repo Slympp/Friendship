@@ -1,0 +1,607 @@
+fileFormatVersion: 2
+guid: aed5b45e1068c6047ae197b01a33c0c4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 642346295850693657
+    second: seed_explosion_root_0
+  - first:
+      213: -2869020012437541117
+    second: seed_explosion_root_1
+  - first:
+      213: -8129190424106324769
+    second: seed_explosion_root_2
+  - first:
+      213: -7120788514864109021
+    second: seed_explosion_root_3
+  - first:
+      213: 6705612659422192777
+    second: seed_explosion_root_4
+  - first:
+      213: -3444681896272674797
+    second: seed_explosion_root_5
+  - first:
+      213: 5863532237158568559
+    second: seed_explosion_root_6
+  - first:
+      213: -7516811016033449012
+    second: seed_explosion_root_7
+  - first:
+      213: -2034090423223589734
+    second: seed_explosion_root_8
+  - first:
+      213: 4081157225249143744
+    second: seed_explosion_root_9
+  - first:
+      213: -8708849285756058251
+    second: seed_explosion_root_10
+  - first:
+      213: 4980855524986471961
+    second: seed_explosion_root_11
+  - first:
+      213: 7412126278727916223
+    second: seed_explosion_root_12
+  - first:
+      213: 8456752551292937393
+    second: seed_explosion_root_13
+  - first:
+      213: 5750966039522688683
+    second: seed_explosion_root_14
+  - first:
+      213: -4967854859204455907
+    second: seed_explosion_root_15
+  - first:
+      213: 2758784463914583932
+    second: seed_explosion_root_16
+  - first:
+      213: -4427665210183186962
+    second: seed_explosion_root_17
+  - first:
+      213: 9084759219288726871
+    second: seed_explosion_root_18
+  - first:
+      213: 7080818484788449132
+    second: seed_explosion_root_19
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: seed_explosion_root_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2576
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aa3582102a8909408c7bf686df59c7d
+      internalID: 642346295850693657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_1
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 2576
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c89098eccf4bd14f8891c3fb0aa77bb
+      internalID: -2869020012437541117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_2
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 2576
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a701a1b1890e3af45b08576a640c3f83
+      internalID: -8129190424106324769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_3
+      rect:
+        serializedVersion: 2
+        x: 1740
+        y: 2576
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af8d3d69ce6fc494c8a6d95300ac5b81
+      internalID: -7120788514864109021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_4
+      rect:
+        serializedVersion: 2
+        x: 2320
+        y: 2576
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fd18f6efcc9f214ebac26ff5cf27462
+      internalID: 6705612659422192777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1932
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26ba73dec11e9cb47b024e491f221e79
+      internalID: -3444681896272674797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_6
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 1932
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c570f8ccdc4dc12489844d71c853cb1b
+      internalID: 5863532237158568559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_7
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 1932
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c164eb5198c7ae46988d259ac713874
+      internalID: -7516811016033449012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_8
+      rect:
+        serializedVersion: 2
+        x: 1740
+        y: 1932
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a723149dcb43d6c4a97754d6d357b100
+      internalID: -2034090423223589734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_9
+      rect:
+        serializedVersion: 2
+        x: 2320
+        y: 1932
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb1399193fcb3cf498bfe305acce4f43
+      internalID: 4081157225249143744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1288
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 920399fd2f532fd47ab3ae47ecd91226
+      internalID: -8708849285756058251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_11
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 1288
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2074e2db688b2b4b861ad3476181369
+      internalID: 4980855524986471961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_12
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 1288
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 005c8d952e875f9439d250db80223f49
+      internalID: 7412126278727916223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_13
+      rect:
+        serializedVersion: 2
+        x: 1740
+        y: 1288
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 422ac263197e6cb49ba2cee45e2434b1
+      internalID: 8456752551292937393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_14
+      rect:
+        serializedVersion: 2
+        x: 2320
+        y: 1288
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e93855cb69edfb84f847d33881fcd1e0
+      internalID: 5750966039522688683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 644
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b8a8b10c93fe744698d356916d69061
+      internalID: -4967854859204455907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_16
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 644
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b9d4290d56dc60498663eb8f454d234
+      internalID: 2758784463914583932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_17
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 644
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcfe2c95e59c2a8499143ac29d36743e
+      internalID: -4427665210183186962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_18
+      rect:
+        serializedVersion: 2
+        x: 1740
+        y: 644
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d43cb25d7c3bd8347a729c1a0c952e6e
+      internalID: 9084759219288726871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seed_explosion_root_19
+      rect:
+        serializedVersion: 2
+        x: 2320
+        y: 644
+        width: 580
+        height: 644
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfa373f8a07a0dc42a09f0f56cc44e4a
+      internalID: 7080818484788449132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

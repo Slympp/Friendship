@@ -9930,6 +9930,9 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 0.24828427, y: -0.0077935606, z: 0}
     m_Extent: {x: 0.39403978, y: 0.17537159, z: 0}
+  m_SpriteRenderer: {fileID: 764614577}
+  m_SpriteSkinEntity: {fileID: 764614576}
+  ForceSkinning: 1
 --- !u!114 &764614576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9943,6 +9946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb6404781555c04b94d057ffb3676d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SpriteSkin: {fileID: 764614575}
 --- !u!212 &764614577
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10048,6 +10052,9 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 0.040149078, y: -0.02566278, z: 0}
     m_Extent: {x: 0.29220626, y: 0.22752124, z: 0}
+  m_SpriteRenderer: {fileID: 878330450}
+  m_SpriteSkinEntity: {fileID: 878330449}
+  ForceSkinning: 1
 --- !u!114 &878330449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10061,6 +10068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb6404781555c04b94d057ffb3676d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SpriteSkin: {fileID: 878330448}
 --- !u!212 &878330450
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10166,6 +10174,9 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 0.035713866, y: 0.024946094, z: 0}
     m_Extent: {x: 0.29351434, y: 0.21322072, z: 0}
+  m_SpriteRenderer: {fileID: 893204488}
+  m_SpriteSkinEntity: {fileID: 893204487}
+  ForceSkinning: 1
 --- !u!114 &893204487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10179,6 +10190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb6404781555c04b94d057ffb3676d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SpriteSkin: {fileID: 893204486}
 --- !u!212 &893204488
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10883,6 +10895,9 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 0.14547303, y: -0.544261, z: 0}
     m_Extent: {x: 0.5156389, y: 0.78200847, z: 0}
+  m_SpriteRenderer: {fileID: 1709765158}
+  m_SpriteSkinEntity: {fileID: 1709765157}
+  ForceSkinning: 1
 --- !u!114 &1709765157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10896,6 +10911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb6404781555c04b94d057ffb3676d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SpriteSkin: {fileID: 1709765156}
 --- !u!212 &1709765158
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11068,6 +11084,9 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 0.29865184, y: 0.05599895, z: 0}
     m_Extent: {x: 0.4586963, y: 0.39103016, z: 0}
+  m_SpriteRenderer: {fileID: 1914210615}
+  m_SpriteSkinEntity: {fileID: 1914210614}
+  ForceSkinning: 1
 --- !u!114 &1914210614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11081,6 +11100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb6404781555c04b94d057ffb3676d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SpriteSkin: {fileID: 1914210613}
 --- !u!212 &1914210615
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11218,6 +11238,9 @@ MonoBehaviour:
   m_Bounds:
     m_Center: {x: 0.46749714, y: 0.0836899, z: 0}
     m_Extent: {x: 0.6114557, y: 0.6150267, z: 0}
+  m_SpriteRenderer: {fileID: 2108439912}
+  m_SpriteSkinEntity: {fileID: 2108439911}
+  ForceSkinning: 1
 --- !u!114 &2108439911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11231,6 +11254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb6404781555c04b94d057ffb3676d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SpriteSkin: {fileID: 2108439910}
 --- !u!212 &2108439912
 SpriteRenderer:
   m_ObjectHideFlags: 0
