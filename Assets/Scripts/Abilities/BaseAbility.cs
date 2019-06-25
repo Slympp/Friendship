@@ -8,6 +8,7 @@ namespace Abilities {
         public string Name;
         public string Description;
         public float Cooldown;
+        public float TriggerDelay;
         public AbilityType Type;
 
         protected Transform WeaponRig;

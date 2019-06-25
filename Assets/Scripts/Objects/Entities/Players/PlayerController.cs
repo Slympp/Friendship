@@ -1,6 +1,5 @@
 ﻿using System;
 using Abilities;
-using Entities.Players;
 using UnityEngine;
 
 namespace Objects.Entities.Players {
@@ -15,12 +14,9 @@ namespace Objects.Entities.Players {
             set => m_InputSource = value.ToString();
         }
 
-        [SerializeField] string m_InputSource = "Keyboard";
-
-        [Header("Abilities")]
+        [SerializeField] private string m_InputSource = "Keyboard";
+        
         [SerializeField] private Transform HeadRig;
-        [SerializeField] private Transform WeaponRig;
-        [SerializeField] private Transform ProjectileRig;
 
         public BaseAbility DefaultAbility;
         public BaseAbility OffensiveAbility;
@@ -38,7 +34,7 @@ namespace Objects.Entities.Players {
         private PlayerMovementController m_PlayerMovementController;
         private bool m_OnCooldown;
 
-        private PlayerAnimatorController m_PlayerAnimatorController;
+        private PlayerAnimatorController _mPlayerAnimatorController;
         private PlayerFXController m_PlayerFXController;
 
         void Awake() {
@@ -49,8 +45,8 @@ namespace Objects.Entities.Players {
             m_PlayerMovementController = parent.GetComponent<PlayerMovementController>();
             m_PlayerFXController = parent.GetComponent<PlayerFXController>();
             
-            m_PlayerAnimatorController = parent.GetComponent<PlayerAnimatorController>();
-            m_PlayerAnimatorController.Init(GetComponent<Animator>());
+            _mPlayerAnimatorController = parent.GetComponent<PlayerAnimatorController>();
+            _mPlayerAnimatorController.Init(GetComponent<Animator>());
             
             m_TargetWeaponRotation = WeaponRig.rotation;
             m_CachedMovement = m_Movement;
@@ -66,7 +62,7 @@ namespace Objects.Entities.Players {
             UpdateAiming();
 
             if (PlayerInputController.Shoot(m_InputSource) && !m_DefaultAbility.OnCooldown) {
-                m_PlayerAnimatorController.TriggerShooting();
+                _mPlayerAnimatorController.TriggerShooting();
                 TriggerAbility(m_DefaultAbility);
                 
             } else if (PlayerInputController.OffensiveAbility(m_InputSource) && !m_OffensiveAbility.OnCooldown) {
@@ -113,11 +109,6 @@ namespace Objects.Entities.Players {
             float zAngle = clampedZ.Normalize(minAngle, maxAngle, -1, 1);
 
             return Quaternion.Euler(0, 0, zAngle * transform.localScale.x);
-        }
-        
-        void TriggerAbility(BaseAbility ability) {
-            StartCoroutine(ability.TriggerCooldown());
-            StartCoroutine(ability.Fire());
         }
 
         protected override void UpdateMovement() {

@@ -1,5 +1,4 @@
-﻿using Entities.Players;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Objects.Entities.Players {
 	
@@ -30,12 +29,12 @@ namespace Objects.Entities.Players {
 		private Vector3     m_Velocity    = Vector3.zero;
 		private bool m_WasCrouching;
 		
-		private PlayerAnimatorController m_PlayerAnimatorController;
+		private PlayerAnimatorController _mPlayerAnimatorController;
 		private PlayerFXController       m_PlayerFXController;
 
 		private void Awake() {
 			m_Rigidbody2D = GetComponent<Rigidbody2D>();
-			m_PlayerAnimatorController = GetComponent<PlayerAnimatorController>();
+			_mPlayerAnimatorController = GetComponent<PlayerAnimatorController>();
 			m_PlayerFXController = GetComponent<PlayerFXController>();
 		}
 
@@ -49,7 +48,7 @@ namespace Objects.Entities.Players {
 
 				m_Grounded = true;
 				if (!wasGrounded) {
-					m_PlayerAnimatorController.SetJumping(false);
+					_mPlayerAnimatorController.SetJumping(false);
 				}
 			}
 		}
@@ -69,7 +68,7 @@ namespace Objects.Entities.Players {
 				if (crouch) {
 					if (!m_WasCrouching) {
 						m_WasCrouching = true;
-						m_PlayerAnimatorController.SetCrouching(true);
+						_mPlayerAnimatorController.SetCrouching(true);
 					}
 
 					movementDelta *= m_CrouchSpeed;
@@ -81,7 +80,7 @@ namespace Objects.Entities.Players {
 					if (m_WasCrouching) {
 						
 						m_WasCrouching = false;
-						m_PlayerAnimatorController.SetCrouching(false);
+						_mPlayerAnimatorController.SetCrouching(false);
 					}
 				}
 
@@ -92,7 +91,7 @@ namespace Objects.Entities.Players {
 				Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
 				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-				m_PlayerAnimatorController.SetMoving(!horizontalMovement.Equals(0));
+				_mPlayerAnimatorController.SetMoving(!horizontalMovement.Equals(0));
 
 				if (movementDelta > 0 && !m_FacingRight || movementDelta < 0 && m_FacingRight)
 					Flip();
@@ -106,7 +105,7 @@ namespace Objects.Entities.Players {
 				m_Grounded = false;
 				m_Rigidbody2D.angularVelocity = 0;
 				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
-				m_PlayerAnimatorController.SetJumping(true);
+				_mPlayerAnimatorController.SetJumping(true);
 				m_PlayerFXController.SpawnJumpDust(m_GroundCheck.position);
 			}
 		}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Abilities;
 using UnityEngine;
 
 namespace Objects.Entities {
@@ -12,8 +13,13 @@ namespace Objects.Entities {
         
         [SerializeField] private int MaxHealth;
         protected int CurrentHealth;
-
         protected bool IsDead => CurrentHealth == 0;
+        
+        [SerializeField] protected Transform WeaponRig;
+        [SerializeField] protected Transform ProjectileRig;
+
+        protected Transform _transform;
+        protected Rigidbody2D _rigidbody2D;
         
         private bool m_Rooted;
         private IEnumerator m_RootRoutine;
@@ -28,12 +34,21 @@ namespace Objects.Entities {
 
         protected void Init() {
             CurrentHealth = MaxHealth;
+            
+            _transform = transform;
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+            
             Sprites = GetComponentsInChildren<SpriteRenderer>().ToList();
         }
         
         void FixedUpdate() {
             if (!IsDead && !m_Rooted)
                 UpdateMovement();
+        }
+        
+        protected void TriggerAbility(BaseAbility ability) {
+            StartCoroutine(ability.TriggerCooldown());
+            StartCoroutine(ability.Fire());
         }
         
         public virtual void Damage(int value, Entity origin) {
