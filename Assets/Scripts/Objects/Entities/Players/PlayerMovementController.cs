@@ -8,9 +8,7 @@ namespace Objects.Entities.Players {
 		[SerializeField]                 private float      m_JumpForce         = 400f; 
 		[Range(0, 2)] [SerializeField]   private float      m_MovementSpeed     = 1f;
 		[Range(0, 2)] [SerializeField]   private float      m_InAirSpeed        = 1f;
-		[Range(0, 1)] [SerializeField]   private float      m_CrouchSpeed       = .36f;
 		[Range(0, .3f)] [SerializeField] private float      m_MovementSmoothing = .05f;
-		[SerializeField]                 private bool       m_AirControl        = false;
 		
 		[Header("Collisions")]
 		[SerializeField]                 private LayerMask  m_WhatIsGround;
@@ -18,11 +16,6 @@ namespace Objects.Entities.Players {
 		[Range(0, 1)]
 		[SerializeField] float k_GroundedRadius = .2f;
 		private bool m_Grounded;
-		
-		[SerializeField]                 private Transform  m_CeilingCheck;
-		[SerializeField]                 private Collider2D m_TopCollider;
-		[Range(0, 1)]
-		[SerializeField] float k_CeilingRadius = .1f;
 		
 		private Rigidbody2D m_Rigidbody2D;
 		private bool        m_FacingRight = true;
@@ -55,58 +48,30 @@ namespace Objects.Entities.Players {
 
 
 		public void Move(float movementDelta, string inputSource) {
-
-			bool crouch = PlayerInputController.Crouch(inputSource);
 			
-			if (!crouch) {
-				if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
-					crouch = true;
-			}
+			if (!m_Grounded)
+				movementDelta *= m_InAirSpeed;
 
-			if (m_Grounded || m_AirControl) {
+			float horizontalMovement = PlayerInputController.Lock(inputSource) ? 0 : movementDelta * 10f * m_MovementSpeed;
+			Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
+			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-				if (crouch) {
-					if (!m_WasCrouching) {
-						m_WasCrouching = true;
-						_mPlayerAnimatorController.SetCrouching(true);
-					}
+			_mPlayerAnimatorController.SetMoving(!horizontalMovement.Equals(0));
 
-					movementDelta *= m_CrouchSpeed;
-					m_TopCollider.enabled = false;
-				
-				} else {
-					m_TopCollider.enabled = true;
+			if (movementDelta > 0 && !m_FacingRight || movementDelta < 0 && m_FacingRight)
+				Flip();
 
-					if (m_WasCrouching) {
-						
-						m_WasCrouching = false;
-						_mPlayerAnimatorController.SetCrouching(false);
-					}
-				}
-
-				if (m_AirControl && !m_Grounded)
-					movementDelta *= m_InAirSpeed;
-
-				float horizontalMovement = PlayerInputController.Lock(inputSource) ? 0 : movementDelta * 10f * m_MovementSpeed;
-				Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
-				m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
-
-				_mPlayerAnimatorController.SetMoving(!horizontalMovement.Equals(0));
-
-				if (movementDelta > 0 && !m_FacingRight || movementDelta < 0 && m_FacingRight)
-					Flip();
-
-				if (m_Grounded && Mathf.Abs(m_Rigidbody2D.velocity.x) > 0.1f && !m_PlayerFXController.DustSpawnOnCooldown) {
+			if (m_Grounded) {
+				if (Mathf.Abs(m_Rigidbody2D.velocity.x) > 0.1f && !m_PlayerFXController.DustSpawnOnCooldown)
 					m_PlayerFXController.SpawnRunningDust(m_GroundCheck.position);
+
+				if (PlayerInputController.Jump(inputSource)) {
+					m_Grounded = false;
+					m_Rigidbody2D.angularVelocity = 0;
+					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
+					_mPlayerAnimatorController.SetJumping(true);
+					m_PlayerFXController.SpawnJumpDust(m_GroundCheck.position);
 				}
-			}
-		
-			if (m_Grounded && PlayerInputController.Jump(inputSource)) {
-				m_Grounded = false;
-				m_Rigidbody2D.angularVelocity = 0;
-				m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
-				_mPlayerAnimatorController.SetJumping(true);
-				m_PlayerFXController.SpawnJumpDust(m_GroundCheck.position);
 			}
 		}
 

@@ -256,11 +256,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5906184792460277373, guid: a88af63d4019bc646bc2e2d0c0c95112,
-        type: 3}
-      propertyPath: DustSpawnOffset
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a88af63d4019bc646bc2e2d0c0c95112, type: 3}
 --- !u!4 &303569090 stripped
@@ -428,17 +423,17 @@ PrefabInstance:
     - target: {fileID: 5379599647830825928, guid: bfb8a1120d8121044b52593e167f0a65,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5379599647830825928, guid: bfb8a1120d8121044b52593e167f0a65,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5379599647830825928, guid: bfb8a1120d8121044b52593e167f0a65,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5379599647830825928, guid: bfb8a1120d8121044b52593e167f0a65,
         type: 3}
