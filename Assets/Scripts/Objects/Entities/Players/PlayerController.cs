@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Abilities;
 using UnityEngine;
 
@@ -36,6 +37,9 @@ namespace Objects.Entities.Players {
 
         private PlayerAnimatorController _mPlayerAnimatorController;
         private PlayerFXController m_PlayerFXController;
+        
+        private bool        m_Aura;
+        private IEnumerator m_AuraRoutine;
 
         void Awake() {
             
@@ -122,6 +126,27 @@ namespace Objects.Entities.Players {
             if (oldHealth != CurrentHealth) {
                 m_PlayerFXController.ToggleHealingAura();
             }
+        }
+        
+        public void Aura(float duration) {
+            if (m_AuraRoutine != null)
+                StopCoroutine(m_AuraRoutine);
+            
+            m_AuraRoutine = AuraOvertime(duration);
+            StartCoroutine(m_AuraRoutine);
+        }
+
+        private IEnumerator AuraOvertime(float duration) {
+            float elapsed = 0;
+
+            m_Aura = true;
+            m_PlayerFXController.ToggleBuffAura(true);
+            while (elapsed < duration) {
+                elapsed += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            m_PlayerFXController.ToggleBuffAura(false);
+            m_Aura = false;
         }
 
         public enum InputType {

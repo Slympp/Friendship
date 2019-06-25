@@ -27,23 +27,20 @@ namespace Objects.Projectiles {
             
             if (CollideMask(c)) {
                 if (c.CompareTag("Ground") && !c.transform.root.CompareTag("Player")) {
-                    Debug.Log("Hit ground");
                     if (ShowOnHitGround)
                         OnHitEffect(transform.position);
                     
                     DestroySelf();
                     
                 } else if (HitEnemies && c.CompareTag("Enemy")) {
-                    Debug.Log("Hit enemy");
                     OnHitEffect(c.transform.position);
                     ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Enemy);
                     if (!Pierce)
                         DestroySelf();
                     
                 } else if (HitPlayers && c.CompareTag("Player")) {
-                    Debug.Log("Hit player");
                     OnHitEffect(c.transform.position);
-                    ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Ally);
+                    ApplyEffect(c.gameObject.GetComponentInChildren<Entity>(), TargetType.Ally);
                     if (!Pierce)
                         DestroySelf();
                 }

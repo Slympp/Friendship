@@ -21,6 +21,11 @@ namespace Objects.Entities.Players {
         private                  string      m_HealingAuraPrefabPath = "FX/HealingAura";
         private                  GameObject  m_HealingAura;
         
+        [Header("Buff Aura")]
+        [SerializeField] private Vector3    BuffAuraOffset;
+        private                  string     m_BuffAuraPrefabPath = "FX/HealingAura";
+        private                  GameObject m_BuffAura;
+        
         void Awake() {
             
             m_RunningDustPrefab = Resources.Load<GameObject>(m_RunningDustPrefabPath);
@@ -29,6 +34,10 @@ namespace Objects.Entities.Players {
             m_HealingAura = Instantiate(Resources.Load<GameObject>(m_HealingAuraPrefabPath), transform);
             m_HealingAura.SetActive(false);
             m_HealingAura.transform.localPosition = HealingAuraOffset;
+            
+            m_BuffAura = Instantiate(Resources.Load<GameObject>(m_BuffAuraPrefabPath), transform);
+            m_BuffAura.SetActive(false);
+            m_BuffAura.transform.localPosition = BuffAuraOffset;
         }
         
         public void SpawnRunningDust(Vector3 position) {
@@ -66,6 +75,10 @@ namespace Objects.Entities.Players {
                 yield return new WaitForEndOfFrame();
             }
             m_HealingAura.SetActive(false);
+        }
+
+        public void ToggleBuffAura(bool b) {
+            m_BuffAura.SetActive(b);
         }
     }
 }

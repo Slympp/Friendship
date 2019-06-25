@@ -26,6 +26,7 @@ namespace Abilities {
             instance.Description = Description;
             instance.Cooldown = Cooldown;
             instance.Type = Type;
+            instance.TriggerDelay = TriggerDelay;
             
             instance.WeaponRig = weaponRig;
             instance.ProjectileRig = projectileRig;

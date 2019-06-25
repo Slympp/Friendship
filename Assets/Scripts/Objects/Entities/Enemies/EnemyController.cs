@@ -14,12 +14,12 @@ namespace Objects.Entities.Enemies {
         [SerializeField] protected LayerMask TargetingMask;
         [SerializeField] protected float TargetingRange;
         [SerializeField] protected float TargetingAngle;
-        [SerializeField] protected float TargetingOffset;
+
+        private const float TargetingOffset = 0.5f;
+        private const float RefreshDelay = 0.5f;
         
         protected PlayerController m_TargetController;
         protected Transform        m_TargetTransform;
-
-        private const float RefreshDelay = 0.5f;
 
         [Header("IA")] 
         [SerializeField] private float MovementSpeed;
@@ -114,7 +114,7 @@ namespace Objects.Entities.Enemies {
 
                 // Check LOS
                 RaycastHit2D hit = Physics2D.Raycast(_transform.position, targetDir, AttackRange);
-                if (!hit.collider.CompareTag("Player")) continue;
+                if (hit.collider != null && !hit.collider.CompareTag("Player")) continue;
                 
                 PlayerController playerController = c.gameObject.GetComponentInChildren<PlayerController>();
                 if (playerController != null)

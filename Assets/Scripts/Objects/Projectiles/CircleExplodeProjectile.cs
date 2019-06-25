@@ -28,7 +28,7 @@ namespace Objects.Projectiles {
                     
                 } else if (HitPlayers && c.CompareTag("Player")) {
                     OnHitEffect(c.transform.position);
-                    ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Ally);
+                    ApplyEffect(c.gameObject.GetComponentInChildren<Entity>(), TargetType.Ally);
                     if (!Pierce)
                         DestroySelf();
                 }

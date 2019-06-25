@@ -1,5 +1,46 @@
+using System.Collections;
+using Objects.Entities;
+using Objects.Entities.Players;
+using UnityEngine;
+
 namespace Abilities {
-    public class AuraAbility {
+    
+    [CreateAssetMenu(fileName = "AuraAbility", menuName = "Abilities/AuraAbility")]
+    public class AuraAbility : BaseAbility {
         
+        [SerializeField] private GameObject Indicator;
+        private GameObject m_Indicator;
+        
+        [SerializeField] private float Duration;
+
+        private PlayerController m_Target;
+        
+        public override BaseAbility Init(Transform weaponRig, Transform projectileRig, Entity caster) {
+
+            AuraAbility instance = base.Init(weaponRig, projectileRig, caster) as AuraAbility;
+            if (instance == null) return null;
+
+            Transform t = caster.transform;
+            instance.m_Indicator = Instantiate(Indicator, t.position, Quaternion.identity, t);
+            instance.m_Indicator.SetActive(false);
+            
+            AuraHandler handler = caster.gameObject.AddComponent<AuraHandler>();
+            handler.Init(instance);
+
+            return instance;
+        }
+        
+        public override IEnumerator Fire() {
+            if (m_Target != null) {
+                m_Target.Aura(Duration);
+            }
+            yield return null;
+        }
+
+        public void SetCurrentTarget(PlayerController target) {
+            m_Target = target;
+            
+            // TODO: display indicator on current target
+        }
     }
 }
