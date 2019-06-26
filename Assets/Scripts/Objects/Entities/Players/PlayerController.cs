@@ -40,6 +40,8 @@ namespace Objects.Entities.Players {
         
         private bool        m_Aura;
         private IEnumerator m_AuraRoutine;
+        private readonly float m_AuraFireRateModifier = 1.5f;
+        private readonly float m_AuraMovementSpeedModifier = 1.2f;
 
         void Awake() {
             
@@ -67,13 +69,13 @@ namespace Objects.Entities.Players {
 
             if (PlayerInputController.Shoot(m_InputSource) && !m_DefaultAbility.OnCooldown) {
                 _mPlayerAnimatorController.TriggerShooting();
-                TriggerAbility(m_DefaultAbility);
+                TriggerAbility(m_DefaultAbility, GetAuraFireRateModifier());
                 
             } else if (PlayerInputController.OffensiveAbility(m_InputSource) && !m_OffensiveAbility.OnCooldown) {
-                TriggerAbility(m_OffensiveAbility);
+                TriggerAbility(m_OffensiveAbility, GetAuraFireRateModifier());
                 
             } else if (PlayerInputController.SupportAbility(m_InputSource) && !m_SupportAbility.OnCooldown) {
-                TriggerAbility(m_SupportAbility);
+                TriggerAbility(m_SupportAbility, GetAuraFireRateModifier());
             }
         }
 
@@ -116,7 +118,7 @@ namespace Objects.Entities.Players {
         }
 
         protected override void UpdateMovement() {
-            m_PlayerMovementController.Move(m_Movement.x, m_InputSource);
+            m_PlayerMovementController.Move(m_Movement.x, m_InputSource, GetAuraSpeedModifier());
         }
 
         public override void Heal(int value) {
@@ -147,6 +149,14 @@ namespace Objects.Entities.Players {
             }
             m_PlayerFXController.ToggleBuffAura(false);
             m_Aura = false;
+        }
+
+        private float GetAuraSpeedModifier() {
+            return m_Aura ? m_AuraMovementSpeedModifier : 1;
+        }
+        
+        private float GetAuraFireRateModifier() {
+            return m_Aura ? m_AuraFireRateModifier : 1;
         }
 
         public enum InputType {

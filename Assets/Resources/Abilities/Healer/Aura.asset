@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c9235b31d12452f88e31c73fc52406a, type: 3}
-  m_Name: AuraAbility
+  m_Name: Aura
   m_EditorClassIdentifier: 
   Name: Aura
   Description: 
   Cooldown: 5
   TriggerDelay: 0.5
   Type: 2
-  Indicator: {fileID: 0}
-  FX: {fileID: 0}
+  Indicator: {fileID: 6594150464601248827, guid: a64f103ca0107fe439de3363830e70b7,
+    type: 3}
+  m_Indicator: {fileID: 0}
   Duration: 3
+  Range: 4
+  Offset: {x: 0, y: 0.5, z: 0}

@@ -46,8 +46,8 @@ namespace Objects.Entities {
                 UpdateMovement();
         }
         
-        protected void TriggerAbility(BaseAbility ability) {
-            StartCoroutine(ability.TriggerCooldown());
+        protected void TriggerAbility(BaseAbility ability, float fireRateModifier = 1f) {
+            StartCoroutine(ability.TriggerCooldown(fireRateModifier));
             StartCoroutine(ability.Fire());
         }
         

@@ -9,9 +9,11 @@ namespace Abilities {
     public class AuraAbility : BaseAbility {
         
         [SerializeField] private GameObject Indicator;
-        private GameObject m_Indicator;
+        public GameObject m_Indicator;
         
         [SerializeField] private float Duration;
+        [SerializeField] private float Range;
+        [SerializeField] private Vector3 Offset;
 
         private PlayerController m_Target;
         
@@ -23,9 +25,13 @@ namespace Abilities {
             Transform t = caster.transform;
             instance.m_Indicator = Instantiate(Indicator, t.position, Quaternion.identity, t);
             instance.m_Indicator.SetActive(false);
+
+            instance.Duration = Duration;
+            instance.Range = Range;
+            instance.Offset = Offset;
             
             AuraHandler handler = caster.gameObject.AddComponent<AuraHandler>();
-            handler.Init(instance);
+            handler.Init(instance, weaponRig);
 
             return instance;
         }
@@ -39,8 +45,16 @@ namespace Abilities {
 
         public void SetCurrentTarget(PlayerController target) {
             m_Target = target;
-            
-            // TODO: display indicator on current target
+
+            if (m_Target == null) {
+                m_Indicator.SetActive(false);
+            } else {
+                m_Indicator.transform.parent = target.transform;
+                m_Indicator.transform.localPosition = Offset;
+                m_Indicator.SetActive(true);
+            }
         }
+
+        public float GetRange() { return Range; }
     }
 }

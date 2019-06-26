@@ -46,13 +46,12 @@ namespace Objects.Entities.Players {
 			}
 		}
 
-
-		public void Move(float movementDelta, string inputSource) {
+		public void Move(float movementDelta, string inputSource, float speedModifier = 1) {
 			
 			if (!m_Grounded)
 				movementDelta *= m_InAirSpeed;
 
-			float horizontalMovement = PlayerInputController.Lock(inputSource) ? 0 : movementDelta * 10f * m_MovementSpeed;
+			float horizontalMovement = PlayerInputController.Lock(inputSource) ? 0 : movementDelta * 10f * m_MovementSpeed * speedModifier;
 			Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 

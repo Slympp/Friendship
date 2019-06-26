@@ -37,11 +37,12 @@ namespace Abilities {
         
         public abstract IEnumerator Fire();
 
-        public IEnumerator TriggerCooldown() {
+        public IEnumerator TriggerCooldown(float modifier) {
             float elapsed = 0;
+            float cooldown = Cooldown / modifier;
+            
             OnCooldown = true;
-                
-            while (elapsed < Cooldown) {
+            while (elapsed < cooldown) {
                 elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
