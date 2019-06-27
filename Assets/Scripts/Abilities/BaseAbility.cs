@@ -11,9 +11,9 @@ namespace Abilities {
         public float TriggerDelay;
         public AbilityType Type;
 
-        protected Transform WeaponRig;
-        protected Transform ProjectileRig;
-        protected Entity Caster;
+        protected Transform weaponRig;
+        protected Transform projectileRig;
+        protected Entity caster;
         
         public bool OnCooldown { get; private set; }
 
@@ -28,9 +28,9 @@ namespace Abilities {
             instance.Type = Type;
             instance.TriggerDelay = TriggerDelay;
             
-            instance.WeaponRig = weaponRig;
-            instance.ProjectileRig = projectileRig;
-            instance.Caster = caster;
+            instance.weaponRig = weaponRig;
+            instance.projectileRig = projectileRig;
+            instance.caster = caster;
 
             return instance;
         }

@@ -141,20 +141,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Common
-  MaxHealth: 100
+  MaxHealth: 10
   WeaponRig: {fileID: 5917631081844635262}
   ProjectileRig: {fileID: 8427000296202630594}
   TargetingMask:
     serializedVersion: 2
     m_Bits: 512
   TargetingRange: 5
-  TargetingAngle: 30
-  TargetingOffset: 0.5
+  TargetingAngle: 20
   MovementSpeed: 10
   WaypointReachDistance: 0.5
   StartWaypoint: {fileID: 8427000297808278289}
   EndWaypoint: {fileID: 8427000296868502659}
-  AttackRange: 5
+  AttackRange: 8
   Ability: {fileID: 11400000, guid: cdd5305a4c97efa4d8a1cc67511af561, type: 2}
 --- !u!212 &8427000297574954264
 SpriteRenderer:

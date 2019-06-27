@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Objects.Projectiles {
     
-    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Rigidbody2D), typeof(AudioSource))]
     public abstract class BaseProjectile : MonoBehaviour {
 
         [Header("Base")]
@@ -16,11 +16,15 @@ namespace Objects.Projectiles {
         [SerializeField] private GameObject OnImpactFX;
         [SerializeField] protected bool ShowOnHitGround = true;
         [SerializeField] private float OnImpactFXLifetime;
+
+        [SerializeField] private AudioClip OnImpactSound;
+        private AudioSource m_Audio;
         
         protected Entity Caster;
 
         public void Init(Entity caster) {
             Caster = caster;
+            m_Audio = GetComponent<AudioSource>();
         }
         
         protected virtual void OnTriggerEnter2D(Collider2D c) {
@@ -60,6 +64,9 @@ namespace Objects.Projectiles {
         }
 
         protected void OnHitEffect(Vector3 position) {
+            if (OnImpactSound != null)
+                m_Audio.PlayOneShot(OnImpactSound);
+            
             if (OnImpactFX != null) {
                 GameObject impact = Instantiate(OnImpactFX, position, Quaternion.identity);
                 Destroy(impact, OnImpactFXLifetime);

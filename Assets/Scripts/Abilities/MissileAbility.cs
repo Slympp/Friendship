@@ -28,10 +28,10 @@ namespace Abilities {
         public override IEnumerator Fire() {
             yield return new WaitForSeconds(TriggerDelay);
 
-            Vector3 euler = WeaponRig.eulerAngles;
+            Vector3 euler = weaponRig.eulerAngles;
             Quaternion rotation = Quaternion.Euler(0, euler.y, euler.z);
-            m_Projectile = Instantiate(BaseProjectile, ProjectileRig.position, rotation).GetComponent<BaseProjectile>();
-            m_Projectile.Init(Caster);
+            m_Projectile = Instantiate(BaseProjectile, projectileRig.position, rotation).GetComponent<BaseProjectile>();
+            m_Projectile.Init(caster);
 
             Transform projectileTransform = m_Projectile.transform;
             while (projectileTransform != null) {
