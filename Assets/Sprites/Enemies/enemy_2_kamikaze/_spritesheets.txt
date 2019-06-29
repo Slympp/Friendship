@@ -1,0 +1,2 @@
+kamikaze_idle.png,345,345,5
+kamikaze_attack.png,345,345,2
