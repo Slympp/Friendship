@@ -7,14 +7,7 @@ namespace Objects.Entities.Enemies {
         protected override void UpdateMovement() {
             
             if (m_TargetController == null) {
-
-                // If reached current waypoint, swap
-                if (Vector2.Distance(transform.position, m_CurrentWaypoint.position) < WaypointReachDistance) {
-                    m_CurrentWaypoint = m_CurrentWaypoint == StartWaypoint ? EndWaypoint : StartWaypoint;
-                } else {
-                    MoveTowards(GetWaypoint(m_CurrentWaypoint.position.x));
-                }
-                
+                Patrol();                
             } else {
                 if (Vector2.Distance(m_TargetTransform.position, transform.position) < AttackRange) {
                     Attack();

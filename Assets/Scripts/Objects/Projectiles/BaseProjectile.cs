@@ -26,7 +26,7 @@ namespace Objects.Projectiles {
             Caster = caster;
             m_Audio = GetComponent<AudioSource>();
         }
-        
+
         protected virtual void OnTriggerEnter2D(Collider2D c) {
             
             if (CollideMask(c)) {

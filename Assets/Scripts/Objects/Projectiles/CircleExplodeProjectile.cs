@@ -8,10 +8,12 @@ namespace Objects.Projectiles {
         [SerializeField] private float OnDirectHitDamage;
         [SerializeField] private Vector2 OnDistanceDamage;
         
+        
+        
         protected override void OnTriggerEnter2D(Collider2D c) {
 
             if (CollideMask(c)) {
-
+                
                 if (c.CompareTag("Ground") && !c.transform.root.CompareTag("Player")) {
                     
                     if (ShowOnHitGround)
@@ -20,17 +22,12 @@ namespace Objects.Projectiles {
                     OnAreaEffect();
                     DestroySelf();
                     
-                } else if (HitEnemies && c.CompareTag("Enemy")) {
+                } else if (HitEnemies && c.CompareTag("Enemy") ||
+                           HitPlayers && c.CompareTag("Player")) {
                     OnHitEffect(c.transform.position);
-                    ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Enemy);
-                    if (!Pierce)
-                        DestroySelf();
-                    
-                } else if (HitPlayers && c.CompareTag("Player")) {
-                    OnHitEffect(c.transform.position);
-                    ApplyEffect(c.gameObject.GetComponentInChildren<Entity>(), TargetType.Ally);
-                    if (!Pierce)
-                        DestroySelf();
+                    OnAreaEffect();
+//                    ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Enemy);
+                    DestroySelf();
                 }
             }
         }
@@ -38,12 +35,13 @@ namespace Objects.Projectiles {
         private void OnAreaEffect() {
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, Radius);
             foreach (Collider2D t in colliders) {
+                
                 if (t.gameObject == gameObject) continue;
 
                 if (HitEnemies && t.CompareTag("Enemy"))
                     ApplyEffect(t.gameObject.GetComponent<Entity>(), TargetType.Enemy, GetMultiplierFromDistance(t.transform.position));
                 else if (HitPlayers && t.CompareTag("Player"))
-                    ApplyEffect(t.gameObject.GetComponent<Entity>(), TargetType.Ally, GetMultiplierFromDistance(t.transform.position));
+                    ApplyEffect(t.gameObject.GetComponentInChildren<Entity>(), TargetType.Ally, GetMultiplierFromDistance(t.transform.position));
             }
         }
 

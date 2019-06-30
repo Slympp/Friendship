@@ -5,7 +5,7 @@ namespace GameManager {
     
     [RequireComponent(typeof(UIManager), typeof(AudioManager))]
     public class GameManager : MonoBehaviour {
-
+        [SerializeField] private bool SoloMode;
         [SerializeField] private bool Pause;
         
         public float Score { get; private set; } = 0;
@@ -22,8 +22,6 @@ namespace GameManager {
             m_AudioManager = GetComponent<AudioManager>();
 
             StartCoroutine(nameof(StartTimer));
-            
-            Debug.Log("test");
         }
 
         private IEnumerator StartTimer() {

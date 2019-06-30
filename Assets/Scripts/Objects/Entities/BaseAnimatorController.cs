@@ -12,7 +12,7 @@ namespace Objects.Entities {
             m_Animator = animator;
         }
         
-        public void TriggerShooting() {
+        public virtual void TriggerShooting() {
             m_Animator.Play(Shoot, -1, 0);
         }
         

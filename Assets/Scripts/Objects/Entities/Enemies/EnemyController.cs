@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Abilities;
 using Objects.Entities.Players;
+using Objects.Projectiles;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
@@ -14,6 +15,8 @@ namespace Objects.Entities.Enemies {
         [SerializeField] protected LayerMask TargetingMask;
         [SerializeField] protected float TargetingRange;
         [SerializeField] protected float TargetingAngle;
+        [SerializeField] protected HorizontalAiming Horizontal;
+        [SerializeField] protected VerticalAiming Vertical;
 
         private const float TargetingOffset = 0.5f;
         private const float RefreshDelay = 0.5f;
@@ -37,7 +40,7 @@ namespace Objects.Entities.Enemies {
         private const float       LifeStealMultiplier = 0.5f;
         private       bool        m_Marked;
         private       IEnumerator m_LifeStealRoutine;
-
+        
         protected void Awake() {
             Init();
 
@@ -48,6 +51,14 @@ namespace Objects.Entities.Enemies {
             
             m_CurrentWaypoint = StartWaypoint;
             InvokeRepeating(nameof(SetTarget), 0, RefreshDelay);
+        }
+
+        protected void Patrol() {
+            if (Vector2.Distance(transform.position, m_CurrentWaypoint.position) < WaypointReachDistance) {
+                m_CurrentWaypoint = m_CurrentWaypoint == StartWaypoint ? EndWaypoint : StartWaypoint;
+            } else {
+                MoveTowards(GetWaypoint(m_CurrentWaypoint.position.x));
+            }
         }
 
         protected void Attack() {
@@ -75,10 +86,16 @@ namespace Objects.Entities.Enemies {
             
             if (IsDead) {
                 Debug.Log($"Enemy {Name} is dead");
+
+                foreach (GameObject g in Projectiles) {
+                    if (g != null)
+                        Destroy(g);
+                }
+                
                 Destroy(gameObject);
             }
         }
-        
+
         public void Mark(float duration) {
             if (m_LifeStealRoutine != null)
                 StopCoroutine(m_LifeStealRoutine);
@@ -110,7 +127,9 @@ namespace Objects.Entities.Enemies {
 
                 // Check angle
                 Vector2 targetDir = (c.transform.position - _transform.position).normalized;
-                if (Vector2.Angle(targetDir, transform.right) > TargetingAngle) continue;
+                Vector2 aimingDirection = GetDirection();
+
+                if (Vector2.Angle(targetDir, aimingDirection) > TargetingAngle) continue;
 
                 // Check LOS
                 RaycastHit2D hit = Physics2D.Raycast(_transform.position, targetDir, AttackRange);
@@ -134,8 +153,12 @@ namespace Objects.Entities.Enemies {
             if (m_TargetController != null) {
                 Vector3 position = m_TargetTransform.position;
                 position.y += TargetingOffset;
-                Vector2 targetDir = position - _transform.position;
-                WeaponRig.localEulerAngles = new Vector3(0f, 0, Vector2.SignedAngle(_transform.right, targetDir));
+                float angle = Vector2.SignedAngle(_transform.right, position - _transform.position);
+
+                if (_transform.eulerAngles.y.Equals(180))
+                    angle *= -1;
+
+                WeaponRig.localEulerAngles = new Vector3(0f, 0, angle);
             }
         }
 
@@ -144,21 +167,42 @@ namespace Objects.Entities.Enemies {
         }
 
         private void OnDrawGizmos() {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(GetWaypoint(StartWaypoint.position.x), GetWaypoint(EndWaypoint.position.x));
 
-            if (m_CurrentWaypoint != null) {
+            if (WeaponRig != null) {
+                Gizmos.color = Color.cyan;
+                Vector3 direction = GetDirection();
+                Vector3 position = WeaponRig.position;
+                var topLine = Quaternion.Euler(0, 0, TargetingAngle) * direction * TargetingRange + position;
+                Debug.DrawLine(position, topLine, Color.cyan);
+                var bottomLine = Quaternion.Euler(0, 0, -TargetingAngle) * direction * TargetingRange + position;
+                Debug.DrawLine(position, bottomLine, Color.cyan);
+            }
+            
+            if (StartWaypoint != null && EndWaypoint != null) {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(GetWaypoint(StartWaypoint.position.x), GetWaypoint(EndWaypoint.position.x));
+
+                if (m_CurrentWaypoint == null) return;
                 Gizmos.color = Color.red;
                 Gizmos.DrawSphere(m_CurrentWaypoint.position, 0.2f);
             }
-            
-            Gizmos.color = Color.cyan;
-            Vector3 right = transform.right;
-            Vector3 position = transform.position;
-            var topLine = Quaternion.Euler(0, 0, TargetingAngle) * right * TargetingRange + position;
-            Debug.DrawLine(position, topLine, Color.cyan);
-            var bottomLine = Quaternion.Euler(0, 0, -TargetingAngle) * right * TargetingRange + position;
-            Debug.DrawLine(position, bottomLine, Color.cyan);
+        }
+        
+        private Vector2 GetDirection()
+        {
+            return transform.TransformDirection((float)Horizontal, (float)Vertical, 0);
+        }
+
+        public enum HorizontalAiming {
+            Left = -1,
+            None = 0,
+            Right = 1
+        }
+        
+        public enum VerticalAiming {
+            Down = -1,
+            None = 0,
+            Up = 1
         }
     }
 }

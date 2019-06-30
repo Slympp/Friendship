@@ -35,6 +35,8 @@ namespace Abilities {
             Quaternion rotation = Quaternion.Euler(0, euler.y, euler.z);
             m_Projectile = Instantiate(BaseProjectile, projectileRig.position, rotation).GetComponent<BaseProjectile>();
 
+            caster.Projectiles.Add(m_Projectile.gameObject);
+            
             if (m_Projectile != null) {
                 m_Rigidbody2D = m_Projectile.GetComponent<Rigidbody2D>();
             

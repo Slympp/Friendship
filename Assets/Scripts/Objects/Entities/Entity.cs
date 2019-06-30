@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Abilities;
+using Objects.Projectiles;
 using UnityEngine;
 
 namespace Objects.Entities {
@@ -13,7 +14,7 @@ namespace Objects.Entities {
         
         [SerializeField] private int MaxHealth;
         protected int CurrentHealth;
-        protected bool IsDead => CurrentHealth == 0;
+        public bool IsDead => CurrentHealth == 0;
         
         [SerializeField] protected Transform WeaponRig;
         [SerializeField] protected Transform ProjectileRig;
@@ -32,6 +33,8 @@ namespace Objects.Entities {
         private readonly Color _mFlashColor = Color.red;
         private readonly Color _rootedColor = new Color(0.2116857f, 0.6320754f, 0.2732884f, 1);
 
+        public List<GameObject> Projectiles { get; private set; } = new List<GameObject>();
+        
         protected void Init() {
             CurrentHealth = MaxHealth;
             

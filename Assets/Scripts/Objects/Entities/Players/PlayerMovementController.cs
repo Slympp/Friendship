@@ -15,19 +15,19 @@ namespace Objects.Entities.Players {
 		[SerializeField]                 private Transform  m_GroundCheck;
 		[Range(0, 1)]
 		[SerializeField] float k_GroundedRadius = .2f;
-		private bool m_Grounded;
+		private bool m_Grounded = true;
 		
 		private Rigidbody2D m_Rigidbody2D;
 		private bool        m_FacingRight = true;
 		private Vector3     m_Velocity    = Vector3.zero;
 		private bool m_WasCrouching;
 		
-		private PlayerAnimatorController _mPlayerAnimatorController;
+		private PlayerAnimatorController m_PlayerAnimatorController;
 		private PlayerFXController       m_PlayerFXController;
 
 		private void Awake() {
 			m_Rigidbody2D = GetComponent<Rigidbody2D>();
-			_mPlayerAnimatorController = GetComponent<PlayerAnimatorController>();
+			m_PlayerAnimatorController = GetComponent<PlayerAnimatorController>();
 			m_PlayerFXController = GetComponent<PlayerFXController>();
 		}
 
@@ -41,7 +41,8 @@ namespace Objects.Entities.Players {
 
 				m_Grounded = true;
 				if (!wasGrounded) {
-					_mPlayerAnimatorController.SetJumping(false);
+					m_PlayerAnimatorController.SetJumping(false);
+//					m_PlayerFXController.PlayOnJumpImpactSound();
 				}
 			}
 		}
@@ -55,7 +56,7 @@ namespace Objects.Entities.Players {
 			Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-			_mPlayerAnimatorController.SetMoving(!horizontalMovement.Equals(0));
+			m_PlayerAnimatorController.SetMoving(!horizontalMovement.Equals(0));
 
 			if (movementDelta > 0 && !m_FacingRight || movementDelta < 0 && m_FacingRight)
 				Flip();
@@ -66,9 +67,13 @@ namespace Objects.Entities.Players {
 
 				if (PlayerInputController.Jump(inputSource)) {
 					m_Grounded = false;
+
+					if (m_Rigidbody2D.velocity.y <= 0.1f)
+						m_PlayerFXController.PlayOnJumpSound();
+					
 					m_Rigidbody2D.angularVelocity = 0;
 					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
-					_mPlayerAnimatorController.SetJumping(true);
+					m_PlayerAnimatorController.SetJumping(true);
 					m_PlayerFXController.SpawnJumpDust(m_GroundCheck.position);
 				}
 			}

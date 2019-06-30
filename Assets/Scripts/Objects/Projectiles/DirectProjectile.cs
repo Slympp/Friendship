@@ -5,7 +5,7 @@ namespace Objects.Projectiles {
     public class DirectProjectile : BaseProjectile {
 
         [SerializeField] protected int DamageValue;
-
+        
         protected override void ApplyEffect(Entity target, TargetType targetType, float multiplier = 1) {
             if (target != null)
                 target.Damage(GetDamageValue(multiplier), Caster);

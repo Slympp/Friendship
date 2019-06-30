@@ -123,6 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997da6f0a83a409e9db32e984776ca54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnJump: {fileID: 8300000, guid: 7becee3cf8eaba4458b931e7f08bbb34, type: 3}
+  OnJumpImpact: {fileID: 8300000, guid: 7becee3cf8eaba4458b931e7f08bbb34, type: 3}
   DustSpawnDelay: {x: 0.05, y: 0.2}
   DustLifetime: {x: 0.1, y: 0.2}
   DustSpawnOffset: 0.1
@@ -185,7 +187,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7492474302610772805, guid: 02adedfa4c3f96948b5c131a5a08ade5,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

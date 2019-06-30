@@ -2,8 +2,13 @@ using System.Collections;
 using UnityEngine;
 
 namespace Objects.Entities.Players {
-    public class PlayerFXController : MonoBehaviour {
+    public class PlayerFXController : MonoBehaviour
+    {
 
+        [Header("Audio")] 
+        [SerializeField] private AudioClip OnJump;
+        [SerializeField] private AudioClip OnJumpImpact;
+        
         [Header("Running Dust")]
         [SerializeField] private Vector2 DustSpawnDelay;
         [SerializeField] private Vector2 DustLifetime;
@@ -25,8 +30,11 @@ namespace Objects.Entities.Players {
         [SerializeField] private Vector3    BuffAuraOffset;
         private                  string     m_BuffAuraPrefabPath = "FX/HealingAura";
         private                  GameObject m_BuffAura;
+
+        private AudioSource m_Audio;
         
         void Awake() {
+            m_Audio = GetComponent<AudioSource>();
             
             m_RunningDustPrefab = Resources.Load<GameObject>(m_RunningDustPrefabPath);
             m_JumpDustPrefab = Resources.Load<GameObject>(m_JumpDustPrefabPath);
@@ -79,6 +87,14 @@ namespace Objects.Entities.Players {
 
         public void ToggleBuffAura(bool b) {
             m_BuffAura.SetActive(b);
+        }
+
+        public void PlayOnJumpSound() {
+            m_Audio.PlayOneShot(OnJump);
+        }
+
+        public void PlayOnJumpImpactSound() {
+            m_Audio.PlayOneShot(OnJumpImpact);
         }
     }
 }
