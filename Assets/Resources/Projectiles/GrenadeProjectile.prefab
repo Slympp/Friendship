@@ -93,22 +93,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LightType: 2
+  m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.8490566, g: 0.19624422, b: 0.19624422, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
-  m_LightCookieSprite: {fileID: 21300000, guid: 34c46772334fec44bac670993a421232,
-    type: 3}
+  m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
+  m_PointLightInnerRadius: 0.5
+  m_PointLightOuterRadius: 4
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -169,17 +168,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbbd42c7c227ad41a1ae4f393046518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyOnInvisible: 1
   CollisionMask:
     serializedVersion: 2
     m_Bits: 768
   HitPlayers: 0
   HitEnemies: 1
   Pierce: 0
-  OnImpactFX: {fileID: 0}
+  OnImpactFX: {fileID: 9602499710927323, guid: d13756d8ce0bb714994383c5056d2596, type: 3}
   ShowOnHitGround: 1
-  OnImpactFXLifetime: 0
+  OnImpactFXLifetime: 0.25
+  FlipImpactWithVelocity: 0
   OnImpactSound: {fileID: 0}
-  Radius: 5
+  Radius: 1.5
   OnDirectHitDamage: 2
   OnDistanceDamage: {x: 1, y: 3}
 --- !u!50 &7694870494163671557
@@ -231,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac351f348f3403a469a99152c3886cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 500
+  RotationSpeed: 300
 --- !u!82 &-7475587975078903253
 AudioSource:
   m_ObjectHideFlags: 0

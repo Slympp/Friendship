@@ -9,7 +9,7 @@ namespace Abilities {
     public class AuraAbility : BaseAbility {
         
         [SerializeField] private GameObject Indicator;
-        public GameObject m_Indicator;
+        private GameObject m_Indicator;
         
         [SerializeField] private float Duration;
         [SerializeField] private float Range;

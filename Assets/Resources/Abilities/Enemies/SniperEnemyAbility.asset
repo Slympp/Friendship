@@ -24,6 +24,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   Ray: {fileID: 6045151850620574729, guid: c4a43e7eef58801499dcc3bb29d3f0b1, type: 3}
-  Width: {x: 0.01, y: 0.35}
+  RayEndFX: {fileID: 839530900248838440, guid: 6d81b0903ad94524f8d9d0ae8f4c5c03, type: 3}
+  RayEndFXOffset: {x: 0, y: 0.4}
+  ImpactFX: {fileID: 8538087231377608307, guid: 074ba4420b3ab434bbdb02e813fbdfc4,
+    type: 3}
+  ImpactFXLifetime: 0.25
+  Width: {x: 0.05, y: 0.4}
   ChargeTime: 0.6
-  DamageValue: 5
+  DamageValue: 2

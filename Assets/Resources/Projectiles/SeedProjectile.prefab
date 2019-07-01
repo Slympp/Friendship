@@ -46,7 +46,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0, g: 0.71931314, b: 1, a: 1}
+  m_Color: {r: 0.34575653, g: 0.84599996, b: 0.3604696, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
@@ -56,8 +56,8 @@ MonoBehaviour:
   m_AlphaBlendOnOverlap: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 2
+  m_PointLightInnerRadius: 0.5
+  m_PointLightOuterRadius: 4
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b549314842443d9a309b79b1305ced8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyOnInvisible: 1
   CollisionMask:
     serializedVersion: 2
     m_Bits: 768
@@ -129,6 +130,7 @@ MonoBehaviour:
     type: 3}
   ShowOnHitGround: 1
   OnImpactFXLifetime: 2
+  FlipImpactWithVelocity: 0
   OnImpactSound: {fileID: 0}
   Radius: 2
   OnDirectHitDamage: 1

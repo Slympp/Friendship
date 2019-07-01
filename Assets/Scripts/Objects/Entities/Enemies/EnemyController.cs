@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Abilities;
 using Objects.Entities.Players;
 using Objects.Projectiles;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 
@@ -20,20 +22,20 @@ namespace Objects.Entities.Enemies {
 
         private const float TargetingOffset = 0.5f;
         private const float RefreshDelay = 0.5f;
+        private const float WaypointReachDistance = 0.8f;
         
         protected PlayerController m_TargetController;
         protected Transform        m_TargetTransform;
 
         [Header("IA")] 
         [SerializeField] private float MovementSpeed;
-        [SerializeField] protected float WaypointReachDistance;
         [SerializeField] protected Transform StartWaypoint;
         [SerializeField] protected Transform EndWaypoint;
-        protected Transform m_CurrentWaypoint;
+        private Transform m_CurrentWaypoint;
         
         [SerializeField] protected float AttackRange = 5f;
         [SerializeField] private BaseAbility Ability;
-        protected BaseAbility m_Ability;
+        private BaseAbility m_Ability;
         
         protected EnemyAnimatorController m_EnemyAnimatorController;
         
@@ -41,6 +43,25 @@ namespace Objects.Entities.Enemies {
         private       bool        m_Marked;
         private       IEnumerator m_LifeStealRoutine;
         
+        private IEnumerator m_RootRoutine;
+        
+        private bool m_Shielded;
+        [SerializeField] private Vector2 m_ShieldOffset = Vector2.zero;
+        private const string m_ShieldedIndicatorPath = "FX/ShieldIndicator";
+        private GameObject m_ShieldedIndicator;
+
+        private const string m_MarkedIndicatorPath = "FX/HealingMarkIndicator";
+        private readonly Vector2 m_MarkedOffset = new Vector2(0, 1.75f);
+        private GameObject m_MarkedIndicator;
+        
+        [SerializeField] private Vector2 m_RootedOffset = new Vector2(0, 1.75f);
+        private const string m_RootedIndicatorPath = "FX/RootedIndicator";
+        private GameObject m_RootedIndicator;
+
+        private const string m_OnDeathFXPath = "FX/PoofEnemyDeath";
+        private readonly Vector2 m_OnDeathOffset = new Vector2(0, 1.3f);
+        private float m_OnDeathFXLifetime = 0.25f;
+
         protected void Awake() {
             Init();
 
@@ -48,7 +69,19 @@ namespace Objects.Entities.Enemies {
             m_EnemyAnimatorController.Init(GetComponent<Animator>());
             
             m_Ability = Ability.Init(WeaponRig, ProjectileRig, this);
+
+            m_MarkedIndicator = Instantiate(Resources.Load<GameObject>(m_MarkedIndicatorPath), _transform);
+            m_MarkedIndicator.transform.localPosition = m_MarkedOffset;
+            m_MarkedIndicator.SetActive(false);
             
+            m_RootedIndicator = Instantiate(Resources.Load<GameObject>(m_RootedIndicatorPath), _transform);
+            m_RootedIndicator.transform.localPosition = m_RootedOffset;
+            m_RootedIndicator.SetActive(false);
+            
+            m_ShieldedIndicator = Instantiate(Resources.Load<GameObject>(m_ShieldedIndicatorPath), _transform);
+            m_ShieldedIndicator.transform.localPosition = m_ShieldOffset;
+            m_ShieldedIndicator.SetActive(false);
+
             m_CurrentWaypoint = StartWaypoint;
             InvokeRepeating(nameof(SetTarget), 0, RefreshDelay);
         }
@@ -77,6 +110,9 @@ namespace Objects.Entities.Enemies {
 
         public override void Damage(int value, Entity origin) {
             int oldHealth = CurrentHealth;
+            
+            if (m_Shielded) return;
+            
             base.Damage(value, origin);
 
             if (m_Marked && origin != null) {
@@ -87,6 +123,11 @@ namespace Objects.Entities.Enemies {
             if (IsDead) {
                 Debug.Log($"Enemy {Name} is dead");
 
+                OnDeath();
+                
+                GameObject onDeathFX = Instantiate(Resources.Load<GameObject>(m_OnDeathFXPath), (Vector2)_transform.position + m_OnDeathOffset, Quaternion.identity);
+                Destroy(onDeathFX, m_OnDeathFXLifetime);
+
                 foreach (GameObject g in Projectiles) {
                     if (g != null)
                         Destroy(g);
@@ -95,8 +136,15 @@ namespace Objects.Entities.Enemies {
                 Destroy(gameObject);
             }
         }
-
-        public void Mark(float duration) {
+        
+        protected virtual void OnDeath() { }
+        
+        public void Shield(bool b) {
+            m_Shielded = b;
+            m_ShieldedIndicator.SetActive(b);
+        }
+        
+       public void Mark(float duration) {
             if (m_LifeStealRoutine != null)
                 StopCoroutine(m_LifeStealRoutine);
             
@@ -108,11 +156,37 @@ namespace Objects.Entities.Enemies {
             float elapsed = 0;
 
             m_Marked = true;
+            m_MarkedIndicator.SetActive(true);
             while (elapsed < duration) {
                 elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
+            m_MarkedIndicator.SetActive(true);
             m_Marked = false;
+        }
+        
+        public void Root(float duration) {
+            if (m_RootRoutine != null)
+                StopCoroutine(m_RootRoutine);
+            
+            m_RootRoutine = RootOvertime(duration);
+            StartCoroutine(m_RootRoutine);
+        }
+
+        private IEnumerator RootOvertime(float duration) {
+            float elapsed = 0;
+
+            m_Rooted = true;
+            m_RootedIndicator.SetActive(true);
+            while (elapsed < duration) {
+                elapsed += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+
+            m_RootedIndicator.SetActive(false);
+            m_CurrentColor = Color.white;
+            UpdateSpritesColor(m_CurrentColor);
+            m_Rooted = false;
         }
         
         protected void SetTarget() {
@@ -130,9 +204,11 @@ namespace Objects.Entities.Enemies {
                 Vector2 aimingDirection = GetDirection();
 
                 if (Vector2.Angle(targetDir, aimingDirection) > TargetingAngle) continue;
-
+                
                 // Check LOS
                 RaycastHit2D hit = Physics2D.Raycast(_transform.position, targetDir, AttackRange);
+                Debug.DrawLine(WeaponRig.position, hit.point, Color.blue);
+                
                 if (hit.collider != null && !hit.collider.CompareTag("Player")) continue;
                 
                 PlayerController playerController = c.gameObject.GetComponentInChildren<PlayerController>();
@@ -157,7 +233,7 @@ namespace Objects.Entities.Enemies {
 
                 if (_transform.eulerAngles.y.Equals(180))
                     angle *= -1;
-
+                
                 WeaponRig.localEulerAngles = new Vector3(0f, 0, angle);
             }
         }
@@ -194,9 +270,8 @@ namespace Objects.Entities.Enemies {
         }
 
         public enum HorizontalAiming {
-            Left = -1,
-            None = 0,
-            Right = 1
+            False = 0,
+            True = 1
         }
         
         public enum VerticalAiming {

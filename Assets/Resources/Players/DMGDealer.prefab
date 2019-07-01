@@ -159,11 +159,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: DMGDealer
-  MaxHealth: 100
+  MaxHealth: 20
   WeaponRig: {fileID: 8529487106984450401}
   ProjectileRig: {fileID: 8529487107082046406}
   PlayerId: 1
-  m_InputSource: Keyboard
+  m_InputSource: KeyboardLeft
   HeadRig: {fileID: 794085121}
   DefaultAbility: {fileID: 11400000, guid: 7041c87bf6e37f44bae801b5b965b340, type: 2}
   OffensiveAbility: {fileID: 11400000, guid: d47ec1dd1f4bbef4684b112128661a17, type: 2}

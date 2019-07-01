@@ -56,6 +56,8 @@ namespace Objects.Entities.Players {
             
             m_TargetWeaponRotation = WeaponRig.rotation;
             m_CachedMovement = m_Movement;
+            
+            GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
 
             UpdateAbility(BaseAbility.AbilityType.Default);
             UpdateAbility(BaseAbility.AbilityType.Offensive);
@@ -63,6 +65,8 @@ namespace Objects.Entities.Players {
         }
 
         void Update() {
+            if (IsDead) return;
+            
             m_Movement = PlayerInputController.Movement(m_InputSource).normalized;
             
             UpdateAiming();
@@ -119,6 +123,11 @@ namespace Objects.Entities.Players {
 
         protected override void UpdateMovement() {
             m_PlayerMovementController.Move(m_Movement.x, m_InputSource, GetAuraSpeedModifier());
+        }
+
+        public override void Damage(int value, Entity origin) {
+            base.Damage(value, origin);
+            GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
         }
 
         public override void Heal(int value) {

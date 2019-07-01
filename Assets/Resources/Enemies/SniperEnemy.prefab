@@ -92,7 +92,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2396037426190640256}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.31, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 553222963862333402}
@@ -118,20 +118,21 @@ MonoBehaviour:
   TargetingMask:
     serializedVersion: 2
     m_Bits: 512
-  TargetingRange: 30
-  TargetingAngle: 10
+  TargetingRange: 20
+  TargetingAngle: 20
   Horizontal: 1
-  Vertical: -1
+  Vertical: 0
   MovementSpeed: 0
   WaypointReachDistance: 0
   StartWaypoint: {fileID: 0}
   EndWaypoint: {fileID: 0}
-  AttackRange: 30
+  AttackRange: 50
   Ability: {fileID: 11400000, guid: e3ee654396767e64f8d10fd11baee815, type: 2}
+  m_RootedOffset: {x: -0.3, y: 1.5}
   HidingMask:
     serializedVersion: 2
     m_Bits: 512
-  HidingRange: 15
+  HidingRange: 5
   Hitbox: {fileID: 2396037426190640257}
 --- !u!50 &2396037426190640318
 Rigidbody2D:

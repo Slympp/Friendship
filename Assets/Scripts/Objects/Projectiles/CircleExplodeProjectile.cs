@@ -1,3 +1,4 @@
+using System;
 using Objects.Entities;
 using UnityEngine;
 
@@ -7,8 +8,6 @@ namespace Objects.Projectiles {
         [SerializeField] private float Radius;
         [SerializeField] private float OnDirectHitDamage;
         [SerializeField] private Vector2 OnDistanceDamage;
-        
-        
         
         protected override void OnTriggerEnter2D(Collider2D c) {
 
@@ -24,9 +23,9 @@ namespace Objects.Projectiles {
                     
                 } else if (HitEnemies && c.CompareTag("Enemy") ||
                            HitPlayers && c.CompareTag("Player")) {
+                    
                     OnHitEffect(c.transform.position);
                     OnAreaEffect();
-//                    ApplyEffect(c.gameObject.GetComponent<Entity>(), TargetType.Enemy);
                     DestroySelf();
                 }
             }

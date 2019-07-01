@@ -10,8 +10,8 @@ namespace Objects.Projectiles {
         protected override void ApplyEffect(Entity target, TargetType targetType, float multiplier = 1) {
             base.ApplyEffect(target, targetType, multiplier);
 
-            if (target.GetType() == typeof(EnemyController)) {
-                ((EnemyController)target).Mark(MarkDuration);
+            if (target is EnemyController controller) {
+                controller.Mark(MarkDuration);
             }
         }
     }

@@ -117,7 +117,7 @@ MonoBehaviour:
   ProjectileRig: {fileID: 0}
   TargetingMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
   TargetingRange: 12
   TargetingAngle: 20
   Horizontal: 1
@@ -128,6 +128,7 @@ MonoBehaviour:
   EndWaypoint: {fileID: 6584259958725684417}
   AttackRange: 5
   Ability: {fileID: 11400000, guid: f84a4fde1ac9e0845af6549299a66118, type: 2}
+  m_RootedOffset: {x: 0.1, y: 1.15}
 --- !u!114 &8427000296638231981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,16 +141,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbbd42c7c227ad41a1ae4f393046518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyOnInvisible: 0
   CollisionMask:
     serializedVersion: 2
     m_Bits: 768
   HitPlayers: 1
   HitEnemies: 0
   Pierce: 0
-  OnImpactFX: {fileID: 8538087231377608307, guid: fa82803ce169b934984e12c06e3fa59d,
+  OnImpactFX: {fileID: 719262256842219476, guid: b427da2297f8186489edbfe737828b4a,
     type: 3}
   ShowOnHitGround: 1
   OnImpactFXLifetime: 0.25
+  FlipImpactWithVelocity: 1
   OnImpactSound: {fileID: 0}
   Radius: 2.5
   OnDirectHitDamage: 2

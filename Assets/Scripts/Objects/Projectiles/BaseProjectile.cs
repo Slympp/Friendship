@@ -5,8 +5,8 @@ namespace Objects.Projectiles {
     
     [RequireComponent(typeof(Rigidbody2D), typeof(AudioSource))]
     public abstract class BaseProjectile : MonoBehaviour {
-
-        [Header("Base")]
+        [Header("Base")] 
+        [SerializeField] private bool DestroyOnInvisible = true;
         [SerializeField] private LayerMask CollisionMask;
         [SerializeField] protected bool HitPlayers;
         [SerializeField] protected bool HitEnemies;
@@ -16,6 +16,7 @@ namespace Objects.Projectiles {
         [SerializeField] private GameObject OnImpactFX;
         [SerializeField] protected bool ShowOnHitGround = true;
         [SerializeField] private float OnImpactFXLifetime;
+        [SerializeField] private bool FlipImpactWithVelocity;
 
         [SerializeField] private AudioClip OnImpactSound;
         private AudioSource m_Audio;
@@ -56,7 +57,8 @@ namespace Objects.Projectiles {
         }
 
         private void OnBecameInvisible() {
-            Destroy(gameObject);
+            if (DestroyOnInvisible)
+                DestroySelf();
         }
 
         protected void DestroySelf() {
@@ -69,13 +71,20 @@ namespace Objects.Projectiles {
             
             if (OnImpactFX != null) {
                 GameObject impact = Instantiate(OnImpactFX, position, Quaternion.identity);
+
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                
+                if (FlipImpactWithVelocity && rb.velocity.x >= 0.01f) {
+                    impact.GetComponentInChildren<SpriteRenderer>().flipX = true;
+                }
+                
                 Destroy(impact, OnImpactFXLifetime);
             }
         }
         
         protected abstract void ApplyEffect(Entity target, TargetType targetType, float multiplier = 1f);
 
-        public enum TargetType {
+        protected enum TargetType {
             Ally,
             Enemy
         }

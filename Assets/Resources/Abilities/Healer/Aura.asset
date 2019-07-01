@@ -19,7 +19,6 @@ MonoBehaviour:
   Type: 2
   Indicator: {fileID: 6594150464601248827, guid: a64f103ca0107fe439de3363830e70b7,
     type: 3}
-  m_Indicator: {fileID: 0}
   Duration: 3
-  Range: 4
-  Offset: {x: 0, y: 0.5, z: 0}
+  Range: 8
+  Offset: {x: 0, y: 2, z: 0}

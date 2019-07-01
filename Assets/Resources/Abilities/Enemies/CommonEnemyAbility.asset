@@ -19,4 +19,4 @@ MonoBehaviour:
   Type: 0
   BaseProjectile: {fileID: 9006822507492414162, guid: 8cb5817a95c300246a6a781e147c85e5,
     type: 3}
-  MovementSpeed: 8
+  MovementSpeed: 9

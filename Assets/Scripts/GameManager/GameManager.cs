@@ -14,10 +14,17 @@ namespace GameManager {
         [SerializeField] private float MaxFriendship;
         public float CurrentFriendship { get; private set; } = 0;
 
-        private UIManager m_UIManager;
-        private AudioManager m_AudioManager;
+        public UIManager m_UIManager { get; private set; }
+        public AudioManager m_AudioManager { get; private set; }
+
+        public static GameManager Instance { get; private set; }
 
         void Awake() {
+            
+            if (Instance != null)
+                Destroy(this);
+
+            Instance = this;
             m_UIManager = GetComponent<UIManager>();
             m_AudioManager = GetComponent<AudioManager>();
 

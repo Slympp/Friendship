@@ -159,11 +159,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Healer
-  MaxHealth: 100
+  MaxHealth: 20
   WeaponRig: {fileID: 8529487106984450401}
   ProjectileRig: {fileID: 8529487107082046406}
   PlayerId: 2
-  m_InputSource: Controller1
+  m_InputSource: KeyboardRight
   HeadRig: {fileID: 794085121}
   DefaultAbility: {fileID: 11400000, guid: c190ae0cff0ebb74ea8213a7c23af847, type: 2}
   OffensiveAbility: {fileID: 11400000, guid: 2cf40e17b984b804983a0694d517798e, type: 2}

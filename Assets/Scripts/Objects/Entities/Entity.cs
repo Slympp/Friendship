@@ -12,7 +12,7 @@ namespace Objects.Entities {
         [Header("Entity")] 
         [SerializeField] protected string Name;
         
-        [SerializeField] private int MaxHealth;
+        [SerializeField] protected int MaxHealth;
         protected int CurrentHealth;
         public bool IsDead => CurrentHealth == 0;
         
@@ -21,17 +21,16 @@ namespace Objects.Entities {
 
         protected Transform _transform;
         protected Rigidbody2D _rigidbody2D;
-        
-        private bool m_Rooted;
-        private IEnumerator m_RootRoutine;
 
+        protected bool m_Rooted;
+        
         private float OnHitFlashDuration = 0.3f;
         private List<SpriteRenderer> Sprites;
         private IEnumerator m_FlashRoutine;
 
-        private Color m_CurrentColor = Color.white;
+        protected Color m_CurrentColor = Color.white;
         private readonly Color _mFlashColor = Color.red;
-        private readonly Color _rootedColor = new Color(0.2116857f, 0.6320754f, 0.2732884f, 1);
+        private readonly Color _rootedColor = new Color(0.3457565f, 0.846f, 0.3604696f, 1);
 
         public List<GameObject> Projectiles { get; private set; } = new List<GameObject>();
         
@@ -62,7 +61,7 @@ namespace Objects.Entities {
                     updatedHealth = 0;
                 
                 FlashOnHit();
-                Debug.Log($"{Name} damaged {value} [{updatedHealth}/{MaxHealth}]");
+                Debug.Log($"{Name} take {value} damage from {(origin != null ? origin.Name : "Invalid")} [{updatedHealth}/{MaxHealth}]");
 
                 CurrentHealth = updatedHealth;
             }
@@ -77,28 +76,6 @@ namespace Objects.Entities {
             
                 Debug.Log($"{Name} healed {value} [{CurrentHealth}/{MaxHealth}]");
             }
-        }
-        
-        public void Root(float duration) {
-            if (m_RootRoutine != null)
-                StopCoroutine(m_RootRoutine);
-            
-            m_RootRoutine = RootOvertime(duration);
-            StartCoroutine(m_RootRoutine);
-        }
-
-        private IEnumerator RootOvertime(float duration) {
-            float elapsed = 0;
-
-            m_Rooted = true;
-            while (elapsed < duration) {
-                elapsed += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-            }
-
-            m_CurrentColor = Color.white;
-            UpdateSpritesColor(m_CurrentColor);
-            m_Rooted = false;
         }
 
         private void FlashOnHit() {
@@ -126,7 +103,7 @@ namespace Objects.Entities {
             }
         }
 
-        private void UpdateSpritesColor(Color c) {
+        protected void UpdateSpritesColor(Color c) {
             foreach (SpriteRenderer r in Sprites) {
                 r.color = c;
             }
