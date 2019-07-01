@@ -123,11 +123,11 @@ MonoBehaviour:
   Horizontal: 1
   Vertical: -1
   MovementSpeed: 15
-  WaypointReachDistance: 0.5
   StartWaypoint: {fileID: 6584259959932863315}
   EndWaypoint: {fileID: 6584259958725684417}
   AttackRange: 5
   Ability: {fileID: 11400000, guid: f84a4fde1ac9e0845af6549299a66118, type: 2}
+  m_ShieldOffset: {x: 0, y: 0}
   m_RootedOffset: {x: 0.1, y: 1.15}
 --- !u!114 &8427000296638231981
 MonoBehaviour:

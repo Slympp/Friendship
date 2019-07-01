@@ -119,21 +119,21 @@ MonoBehaviour:
   TargetingMask:
     serializedVersion: 2
     m_Bits: 512
-  TargetingRange: 0
-  TargetingAngle: 0
-  Horizontal: 0
+  TargetingRange: 10
+  TargetingAngle: 10
+  Horizontal: 1
   Vertical: 0
-  MovementSpeed: 0
-  WaypointReachDistance: 0
-  StartWaypoint: {fileID: 0}
-  EndWaypoint: {fileID: 0}
-  AttackRange: 5
-  Ability: {fileID: 0}
+  MovementSpeed: 7
+  StartWaypoint: {fileID: 2731532931555073138}
+  EndWaypoint: {fileID: 2731532932225397728}
+  AttackRange: 8
+  Ability: {fileID: 11400000, guid: 697ace002f1d4024693f327a92a9285c, type: 2}
+  m_ShieldOffset: {x: 0, y: 0}
   m_RootedOffset: {x: 0, y: 1.75}
   ShieldMask:
     serializedVersion: 2
-    m_Bits: 0
-  ShieldRange: 0
+    m_Bits: 512
+  ShieldRange: 5
 --- !u!212 &2731532931837647483
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -236,9 +236,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: 0, y: -0.08}
+  m_Size: {x: 2.7, y: 1.6}
+  m_Direction: 1
 --- !u!114 &5844232668160954940
 MonoBehaviour:
   m_ObjectHideFlags: 0

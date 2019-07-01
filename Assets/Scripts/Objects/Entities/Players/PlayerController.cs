@@ -128,6 +128,9 @@ namespace Objects.Entities.Players {
         public override void Damage(int value, Entity origin) {
             base.Damage(value, origin);
             GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
+
+            if (IsDead)
+                m_PlayerFXController.ToggleDeath(true, gameObject);
         }
 
         public override void Heal(int value) {

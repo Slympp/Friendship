@@ -30,6 +30,10 @@ namespace Objects.Entities.Players {
         [SerializeField] private Vector3    BuffAuraOffset;
         private                  string     m_BuffAuraPrefabPath = "FX/HealingAura";
         private                  GameObject m_BuffAura;
+        
+        private const string m_OnDeathFXPath = "FX/PlayerDeathFX";
+        private readonly Vector2 m_OnDeathOffset = new Vector2(0, 0.55f);
+        private GameObject m_DeathFX;
 
         private AudioSource m_Audio;
         
@@ -95,6 +99,18 @@ namespace Objects.Entities.Players {
 
         public void PlayOnJumpImpactSound() {
             m_Audio.PlayOneShot(OnJumpImpact);
+        }
+
+        public void ToggleDeath(bool b, GameObject playerObject) {
+
+            if (b) {
+                playerObject.SetActive(false);
+                m_DeathFX = Instantiate(Resources.Load<GameObject>(m_OnDeathFXPath), (Vector2)transform.position + m_OnDeathOffset, Quaternion.identity, transform);
+            } else {
+                if (m_DeathFX != null)
+                    Destroy(m_DeathFX);
+                playerObject.SetActive(true);
+            }
         }
     }
 }

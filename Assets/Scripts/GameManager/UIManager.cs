@@ -17,6 +17,7 @@ namespace GameManager {
         [SerializeField] private Image FriendshipBar;
 
         [SerializeField] private Vector2 HealthBarRadiusBoudaries = new Vector2(0.1f, 0.71f);
+        [SerializeField] private Vector2 FriendshipBarBoudaries = new Vector2(0.05f, 0.93f);
         
         public void UpdateScore(float score) {
             ScoreText.text = $"Score: {score}";
@@ -58,6 +59,23 @@ namespace GameManager {
         private struct HealthBarUpdateInfos {
             public Image image;
             public float newValue;
+        }
+
+        public void UpdateFriendshipBar(float amount) {
+            float clamped = amount.Normalize(FriendshipBarBoudaries.x, FriendshipBarBoudaries.y, 0, 100);
+            StartCoroutine(UpdateFriendshipBarOvertime(clamped));
+        }
+
+        private IEnumerator UpdateFriendshipBarOvertime(float newValue) {
+            float oldValue = FriendshipBar.fillAmount;
+            float elapsed = 0;
+
+            while (elapsed < ProgressDuration) {
+                elapsed += Time.deltaTime;
+                FriendshipBar.fillAmount = Mathf.Lerp(oldValue, newValue, elapsed / ProgressDuration);
+                yield return new WaitForEndOfFrame();
+            }
+            FriendshipBar.fillAmount = newValue;
         }
     }
 }

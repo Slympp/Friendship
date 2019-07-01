@@ -9,7 +9,7 @@ namespace Objects.Entities.Enemies {
         [SerializeField] private LayerMask ShieldMask;
         [SerializeField] private float ShieldRange;
 
-        private List<EnemyController> m_ShieldedEnemies = new List<EnemyController>();
+        private readonly List<EnemyController> m_ShieldedEnemies = new List<EnemyController>();
         
         protected override void UpdateMovement() {
             ShieldAround();
@@ -47,7 +47,6 @@ namespace Objects.Entities.Enemies {
 
                     if (!m_ShieldedEnemies.Contains(enemy)) {
                         enemy.Shield(true);
-                        Debug.Log($"{enemy.name} enter shield area");
                         m_ShieldedEnemies.Add(enemy);
                     }
                     
@@ -58,7 +57,8 @@ namespace Objects.Entities.Enemies {
             List<EnemyController> tmpList = m_ShieldedEnemies.ToList();
             foreach (EnemyController e in tmpList) {
                 if (!enemiesInRange.Contains(e)) {
-                    e.Shield(false);
+                    if (e != null && e.gameObject != null)
+                        e.Shield(false);
                     m_ShieldedEnemies.Remove(e);
                 }
             }
