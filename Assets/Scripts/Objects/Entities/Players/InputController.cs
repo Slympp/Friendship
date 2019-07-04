@@ -9,7 +9,9 @@ namespace Objects.Entities.Players {
         public static bool Jump(string inputSource) => Input.GetButton($"{inputSource}_Jump");
         public static bool Crouch(string inputSource) => Input.GetButton($"{inputSource}_Crouch");
         public static bool Lock(string inputSource) => Input.GetAxis($"{inputSource}_Lock") >= 0.9;
+        public static bool Swap(string inputSource) => Input.GetButtonDown($"{inputSource}_Swap");
         public static bool OffensiveAbility(string inputSource) => Input.GetButtonDown($"{inputSource}_OffensiveAbility");
         public static bool SupportAbility(string inputSource) => Input.GetButtonDown($"{inputSource}_SupportAbility");
+        public static bool ComboAbility(string inputSource) => Input.GetButtonDown($"{inputSource}_ComboAbility");
     }
 }

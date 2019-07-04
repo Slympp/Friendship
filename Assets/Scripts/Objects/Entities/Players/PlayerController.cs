@@ -6,17 +6,10 @@ using UnityEngine;
 namespace Objects.Entities.Players {
     
     public class PlayerController : Entity {
-        
         [Header("Player")]
-        [SerializeField] private int PlayerId = 1;
+        public InputType Input;
+        public string InputSource => Input.ToString();
 
-        // TODO: Implement in code
-        private InputType InputSource { 
-            set => m_InputSource = value.ToString();
-        }
-
-        [SerializeField] private string m_InputSource = "Keyboard";
-        
         [SerializeField] private Transform HeadRig;
 
         public BaseAbility DefaultAbility;
@@ -67,18 +60,18 @@ namespace Objects.Entities.Players {
         void Update() {
             if (IsDead) return;
             
-            m_Movement = PlayerInputController.Movement(m_InputSource).normalized;
+            m_Movement = PlayerInputController.Movement(InputSource).normalized;
             
             UpdateAiming();
 
-            if (PlayerInputController.Shoot(m_InputSource) && !m_DefaultAbility.OnCooldown) {
+            if (PlayerInputController.Shoot(InputSource) && !m_DefaultAbility.OnCooldown) {
                 _mPlayerAnimatorController.TriggerShooting();
                 TriggerAbility(m_DefaultAbility, GetAuraFireRateModifier());
                 
-            } else if (PlayerInputController.OffensiveAbility(m_InputSource) && !m_OffensiveAbility.OnCooldown) {
+            } else if (PlayerInputController.OffensiveAbility(InputSource) && !m_OffensiveAbility.OnCooldown) {
                 TriggerAbility(m_OffensiveAbility, GetAuraFireRateModifier());
                 
-            } else if (PlayerInputController.SupportAbility(m_InputSource) && !m_SupportAbility.OnCooldown) {
+            } else if (PlayerInputController.SupportAbility(InputSource) && !m_SupportAbility.OnCooldown) {
                 TriggerAbility(m_SupportAbility, GetAuraFireRateModifier());
             }
         }
@@ -122,7 +115,7 @@ namespace Objects.Entities.Players {
         }
 
         protected override void UpdateMovement() {
-            m_PlayerMovementController.Move(m_Movement.x, m_InputSource, GetAuraSpeedModifier());
+            m_PlayerMovementController.Move(m_Movement.x, InputSource, GetAuraSpeedModifier());
         }
 
         public override void Damage(int value, Entity origin) {
