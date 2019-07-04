@@ -8,9 +8,8 @@ namespace GameManager {
     
     public class UIManager : MonoBehaviour {
 
-        [SerializeField] private TMP_Text TimerText;
         [SerializeField] private TMP_Text ScoreText;
-
+        
         [SerializeField] private float ProgressDuration = 1f;
         [SerializeField] private Image HealerHealthBar;
         [SerializeField] private Image DMGDealerHealthBar;
@@ -20,14 +19,9 @@ namespace GameManager {
         [SerializeField] private Vector2 FriendshipBarBoudaries = new Vector2(0.05f, 0.93f);
         
         public void UpdateScore(float score) {
-            ScoreText.text = $"Score: {score}";
+            ScoreText.text = $"{score}";
         }
-
-        public void UpdateTimer(float time) {
-            // TODO: seconds to xx:xx:xx
-            ScoreText.text = $"Time: {time}";
-        }
-
+        
         public void UpdateHealthBar(string player, float newHealth, float maxHealth) {
             float clamped = newHealth.Normalize(HealthBarRadiusBoudaries.x, HealthBarRadiusBoudaries.y, 0, maxHealth);
 
