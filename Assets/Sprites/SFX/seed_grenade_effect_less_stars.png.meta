@@ -1,43 +1,43 @@
 fileFormatVersion: 2
-guid: 4ab4a2126ce6eab439b2c522f9d8dee9
+guid: d04079b0381967d4f8c1b30e5cfce9c0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2098623996159245294
-    second: seed_grenade_effect_loop_0
+      213: -2931280165105534664
+    second: seed_grenade_effect_less_stars_0
   - first:
-      213: 2456854853547264827
-    second: seed_grenade_effect_loop_1
+      213: 8420840126076367698
+    second: seed_grenade_effect_less_stars_1
   - first:
-      213: -4166380311595727066
-    second: seed_grenade_effect_loop_2
+      213: -6894150026504901122
+    second: seed_grenade_effect_less_stars_2
   - first:
-      213: -3243415827041223616
-    second: seed_grenade_effect_loop_3
+      213: 1959748918479074486
+    second: seed_grenade_effect_less_stars_3
   - first:
-      213: 1927275161628978401
-    second: seed_grenade_effect_loop_4
+      213: -5325765304317095939
+    second: seed_grenade_effect_less_stars_4
   - first:
-      213: 6469298975770284097
-    second: seed_grenade_effect_loop_5
+      213: -1389374596182064965
+    second: seed_grenade_effect_less_stars_5
   - first:
-      213: -7012043072421187977
-    second: seed_grenade_effect_loop_6
+      213: -3821893847717620586
+    second: seed_grenade_effect_less_stars_6
   - first:
-      213: 8577864289234828451
-    second: seed_grenade_effect_loop_7
+      213: 798035879479526417
+    second: seed_grenade_effect_less_stars_7
   - first:
-      213: -8444361354732797608
-    second: seed_grenade_effect_loop_8
+      213: 7950397776471928250
+    second: seed_grenade_effect_less_stars_8
   - first:
-      213: -4777735711428169826
-    second: seed_grenade_effect_loop_9
+      213: -2458554756006721596
+    second: seed_grenade_effect_less_stars_9
   - first:
-      213: 1223380291115281492
-    second: seed_grenade_effect_loop_10
+      213: -2322599528439034625
+    second: seed_grenade_effect_less_stars_10
   - first:
-      213: 2140116132294460713
-    second: seed_grenade_effect_loop_11
+      213: 592186730642878739
+    second: seed_grenade_effect_less_stars_11
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -146,7 +146,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_0
+      name: seed_grenade_effect_less_stars_0
       rect:
         serializedVersion: 2
         x: 0
@@ -160,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19e2e606f6ba8f54287ba632ead7ee5d
-      internalID: -2098623996159245294
+      spriteID: 8a26d08aeff1ed04181e5bc982d46e12
+      internalID: -2931280165105534664
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_1
+      name: seed_grenade_effect_less_stars_1
       rect:
         serializedVersion: 2
         x: 286
@@ -181,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1f94b759a74aea40bb7f79502d8b53d
-      internalID: 2456854853547264827
+      spriteID: e27f7cf46044b584f9262ce57bf8f3a6
+      internalID: 8420840126076367698
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_2
+      name: seed_grenade_effect_less_stars_2
       rect:
         serializedVersion: 2
         x: 572
@@ -202,14 +202,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31063470dae05204cb6ea69307da8b8f
-      internalID: -4166380311595727066
+      spriteID: f0d6c195608508245aef2a79b151db6e
+      internalID: -6894150026504901122
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_3
+      name: seed_grenade_effect_less_stars_3
       rect:
         serializedVersion: 2
         x: 858
@@ -223,14 +223,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf494bcf6462ecb4b982df6e9ce3bec7
-      internalID: -3243415827041223616
+      spriteID: d713bd6e7ac8e214ead7e30dc7506c96
+      internalID: 1959748918479074486
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_4
+      name: seed_grenade_effect_less_stars_4
       rect:
         serializedVersion: 2
         x: 0
@@ -244,14 +244,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34b2fb6856309ce43a9465e7bf0a41e9
-      internalID: 1927275161628978401
+      spriteID: ba2a60df27610c745b0a1323794dbecd
+      internalID: -5325765304317095939
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_5
+      name: seed_grenade_effect_less_stars_5
       rect:
         serializedVersion: 2
         x: 286
@@ -265,14 +265,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95c74d61de7c439409c46e15c8827c2f
-      internalID: 6469298975770284097
+      spriteID: d471dbc379995244b95ddd2f83d9c5f5
+      internalID: -1389374596182064965
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_6
+      name: seed_grenade_effect_less_stars_6
       rect:
         serializedVersion: 2
         x: 572
@@ -286,14 +286,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f78e77847e212194cbaff9f0654cf6ea
-      internalID: -7012043072421187977
+      spriteID: 372d6d804d45850418a06c449c1e1a3d
+      internalID: -3821893847717620586
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_7
+      name: seed_grenade_effect_less_stars_7
       rect:
         serializedVersion: 2
         x: 858
@@ -307,14 +307,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 961f6b2dc3096fa4893ed6599fb2ebdc
-      internalID: 8577864289234828451
+      spriteID: 222b7dbfc3b033547aae46de107c7ab5
+      internalID: 798035879479526417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_8
+      name: seed_grenade_effect_less_stars_8
       rect:
         serializedVersion: 2
         x: 0
@@ -328,14 +328,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9beae4f8ac7d38045b841434ae4364ff
-      internalID: -8444361354732797608
+      spriteID: 5f45a4ded8b681343b55f71fdaf98738
+      internalID: 7950397776471928250
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_9
+      name: seed_grenade_effect_less_stars_9
       rect:
         serializedVersion: 2
         x: 286
@@ -349,14 +349,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce4130226491801488e89fb0b56f666a
-      internalID: -4777735711428169826
+      spriteID: f1af98f2cbf3e9044abf4dfc81650952
+      internalID: -2458554756006721596
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_10
+      name: seed_grenade_effect_less_stars_10
       rect:
         serializedVersion: 2
         x: 572
@@ -370,14 +370,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb75ac5a82cdc58409c16c4aa089901c
-      internalID: 1223380291115281492
+      spriteID: f627665ea8d5caf4e9b40e60be7244dd
+      internalID: -2322599528439034625
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: seed_grenade_effect_loop_11
+      name: seed_grenade_effect_less_stars_11
       rect:
         serializedVersion: 2
         x: 858
@@ -391,8 +391,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d9725678611cd843a2fa72c19c6a4d8
-      internalID: 2140116132294460713
+      spriteID: 01d7e61ad3821da4d853fb5b109a3494
+      internalID: 592186730642878739
       vertices: []
       indices: 
       edges: []
