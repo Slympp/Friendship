@@ -36,6 +36,13 @@ namespace Objects.Entities.Players {
         private readonly float m_AuraFireRateModifier = 1.5f;
         private readonly float m_AuraMovementSpeedModifier = 1.2f;
 
+        [Header("Respawn")] 
+        [SerializeField] private LayerMask EntityMask;
+        [SerializeField] private float RespawnRadius;
+        [SerializeField] private float TimeToRespawn;
+        private float remainingTimeToRespawn;
+        private PlayerController cachedPlayerController;
+
         void Awake() {
             
             Init();
@@ -51,14 +58,17 @@ namespace Objects.Entities.Players {
             m_CachedMovement = m_Movement;
             
             GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
-
+            
             UpdateAbility(BaseAbility.AbilityType.Default);
             UpdateAbility(BaseAbility.AbilityType.Offensive);
             UpdateAbility(BaseAbility.AbilityType.Support);
         }
 
         void Update() {
-            if (IsDead) return;
+            if (IsDead) {
+                UpdateRespawn();
+                return;
+            }
             
             m_Movement = PlayerInputController.Movement(InputSource).normalized;
             
@@ -122,8 +132,10 @@ namespace Objects.Entities.Players {
             base.Damage(value, origin);
             GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
 
-            if (IsDead)
+            if (IsDead) {
+                remainingTimeToRespawn = TimeToRespawn;
                 m_PlayerFXController.ToggleDeath(true, gameObject);
+            }
         }
 
         public override void Heal(int value) {
@@ -141,6 +153,45 @@ namespace Objects.Entities.Players {
             
             m_AuraRoutine = AuraOvertime(duration);
             StartCoroutine(m_AuraRoutine);
+        }
+
+        void UpdateRespawn() {
+            PlayerController found = null;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, RespawnRadius, EntityMask);
+            foreach (Collider2D c in colliders) {
+                if (c.gameObject == gameObject) continue;
+
+                if (c.CompareTag("Player"))
+                    found = c.GetComponentInChildren<PlayerController>();
+            }
+
+            if (cachedPlayerController != found)
+                cachedPlayerController = found;
+
+            if (cachedPlayerController == null) {
+                if (remainingTimeToRespawn != TimeToRespawn) {
+                    m_PlayerFXController.ToggleReviveProgressBar(false);
+                }
+                remainingTimeToRespawn = TimeToRespawn;
+            } else {
+                if (remainingTimeToRespawn == TimeToRespawn)
+                    m_PlayerFXController.ToggleReviveProgressBar(true, TimeToRespawn);
+                remainingTimeToRespawn -= Time.deltaTime;
+            }
+
+            if (remainingTimeToRespawn <= 0 && cachedPlayerController != null) {
+                m_PlayerFXController.ToggleReviveProgressBar(false);
+                cachedPlayerController.OnReviveAlly();
+                OnGetRevived();
+            }
+        }
+
+        private void OnReviveAlly() {
+            
+        }
+
+        private void OnGetRevived() {
+            CurrentHealth = MaxHealth / 2;
         }
 
         private IEnumerator AuraOvertime(float duration) {
@@ -162,6 +213,14 @@ namespace Objects.Entities.Players {
         
         private float GetAuraFireRateModifier() {
             return m_Aura ? m_AuraFireRateModifier : 1;
+        }
+
+        private void OnDrawGizmos() {
+            
+            if (IsDead) {
+                Gizmos.color = cachedPlayerController == null ? Color.red : Color.green;
+                Gizmos.DrawWireSphere(transform.position, RespawnRadius);
+            }
         }
 
         public enum InputType {

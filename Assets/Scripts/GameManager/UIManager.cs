@@ -19,7 +19,7 @@ namespace GameManager {
         [SerializeField] private Vector2 FriendshipBarBoudaries = new Vector2(0.05f, 0.93f);
         
         public void UpdateScore(float score) {
-            ScoreText.text = $"{score}";
+            ScoreText.text = $"{Mathf.FloorToInt(score)}";
         }
         
         public void UpdateHealthBar(string player, float newHealth, float maxHealth) {

@@ -1,5 +1,6 @@
 using System.Collections;
 using Abilities;
+using Cinemachine;
 using Objects.Entities.Players;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace GameManager {
         [SerializeField] private bool SoloMode;
         [SerializeField] private GameObject DMGDealer;
         [SerializeField] private GameObject Healer;
+
+        [SerializeField] private CinemachineVirtualCamera VirtualCam;
         
         private ComboAbility m_comboAbility;
 
@@ -88,7 +91,9 @@ namespace GameManager {
                 m_DMGDealer.Input = m_Healer.Input;
                 m_Healer.Input = tmp;
             }
-            
+
+            VirtualCam.Follow = m_MainPlayer.transform.parent;
+
             // TODO: Start delay coroutine
         }
 
@@ -124,6 +129,19 @@ namespace GameManager {
 
             if (oldValue != CurrentFriendship) {
                 m_UIManager.UpdateFriendshipBar(CurrentFriendship);
+            }
+        }
+        
+        public void UpdateScoreAmount(float value) {
+            
+            float oldValue = Score;
+            if (value > 0) {
+                Debug.Log($"Score (+{value})");
+                Score += value;
+            }
+
+            if (oldValue != Score) {
+                m_UIManager.UpdateScore(Score);
             }
         }
     }

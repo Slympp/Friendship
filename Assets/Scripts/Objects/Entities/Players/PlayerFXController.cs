@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Objects.Entities.Players {
     public class PlayerFXController : MonoBehaviour
@@ -35,6 +36,13 @@ namespace Objects.Entities.Players {
         private readonly Vector2 m_OnDeathOffset = new Vector2(0, 0.55f);
         private GameObject m_DeathFX;
 
+        // TODO: Add revive progress bar
+        [SerializeField] private readonly Vector2 ReviveProgressBarOffset = new Vector2(0, 0.55f);
+//        private const string m_ReviveProgressBarPath = "";
+        private GameObject m_ReviveProgressBar;
+        private Image m_ReviveProgressBarImage;
+        private IEnumerator reviveCoroutine;
+
         private AudioSource m_Audio;
         
         void Awake() {
@@ -50,6 +58,11 @@ namespace Objects.Entities.Players {
             m_BuffAura = Instantiate(Resources.Load<GameObject>(m_BuffAuraPrefabPath), transform);
             m_BuffAura.SetActive(false);
             m_BuffAura.transform.localPosition = BuffAuraOffset;
+            
+//            m_ReviveProgressBar = Instantiate(Resources.Load<GameObject>(m_ReviveProgressBarPath), transform);
+//            m_ReviveProgressBar.SetActive(false);
+//            m_ReviveProgressBar.transform.localPosition = ReviveProgressBarOffset;
+            // m_ReviveProgressBarImage = TODO: Get image in children
         }
         
         public void SpawnRunningDust(Vector3 position) {
@@ -103,14 +116,59 @@ namespace Objects.Entities.Players {
 
         public void ToggleDeath(bool b, GameObject playerObject) {
 
+            Transform parent = playerObject.transform.parent;
+            
             if (b) {
-                playerObject.SetActive(false);
+                SpriteRenderer[] sr = playerObject.GetComponentsInChildren<SpriteRenderer>();
+                foreach (SpriteRenderer s in sr) {
+                    s.enabled = false;
+                }
+
+
+                parent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                parent.GetComponent<Collider2D>().enabled = false;
+                
                 m_DeathFX = Instantiate(Resources.Load<GameObject>(m_OnDeathFXPath), (Vector2)transform.position + m_OnDeathOffset, Quaternion.identity, transform);
+                
             } else {
+                
+                SpriteRenderer[] sr = playerObject.GetComponentsInChildren<SpriteRenderer>();
+                foreach (SpriteRenderer s in sr) {
+                    s.enabled = false;
+                }
+                
+                parent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                parent.GetComponent<Collider2D>().enabled = true;
+                
                 if (m_DeathFX != null)
                     Destroy(m_DeathFX);
-                playerObject.SetActive(true);
             }
+        }
+
+        public void ToggleReviveProgressBar(bool b, float timeToRespawn = 0) {
+            
+            m_ReviveProgressBar.SetActive(b);
+            
+            if (reviveCoroutine != null)
+                StopCoroutine(reviveCoroutine);
+            
+            if (b) {
+                reviveCoroutine = UpdateReviveProgressBar(timeToRespawn);
+                StartCoroutine(reviveCoroutine);
+            }
+        }
+
+        private IEnumerator UpdateReviveProgressBar(float timeToRespawn) {
+            // progressImage.fillAmount = 1;
+
+            float elapsed = 0;
+            while (elapsed < timeToRespawn) {
+                // float value = 
+                // progressImage.fillAmount = elapsed.Normalize(1, 0, 0, timeToRespawn);
+                elapsed += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            // progressImage.fillAmount = 0;
         }
     }
 }

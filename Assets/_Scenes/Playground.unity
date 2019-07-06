@@ -504,6 +504,7 @@ MonoBehaviour:
   SoloMode: 1
   DMGDealer: {fileID: 228334181}
   Healer: {fileID: 931326263}
+  VirtualCam: {fileID: 268054214}
 --- !u!82 &371318820
 AudioSource:
   m_ObjectHideFlags: 0
@@ -23564,6 +23565,26 @@ PrefabInstance:
       propertyPath: Input
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1411512223820263622, guid: a88af63d4019bc646bc2e2d0c0c95112,
+        type: 3}
+      propertyPath: MaxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1411512223820263622, guid: a88af63d4019bc646bc2e2d0c0c95112,
+        type: 3}
+      propertyPath: EntityMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 1411512223820263622, guid: a88af63d4019bc646bc2e2d0c0c95112,
+        type: 3}
+      propertyPath: RespawnRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1411512223820263622, guid: a88af63d4019bc646bc2e2d0c0c95112,
+        type: 3}
+      propertyPath: TimeToRespawn
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a88af63d4019bc646bc2e2d0c0c95112, type: 3}
 --- !u!4 &196983423024137668 stripped
@@ -23949,6 +23970,26 @@ PrefabInstance:
         type: 3}
       propertyPath: OnJumpImpact
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196328967423818814, guid: bfb8a1120d8121044b52593e167f0a65,
+        type: 3}
+      propertyPath: MaxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196328967423818814, guid: bfb8a1120d8121044b52593e167f0a65,
+        type: 3}
+      propertyPath: EntityMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196328967423818814, guid: bfb8a1120d8121044b52593e167f0a65,
+        type: 3}
+      propertyPath: RespawnRadius
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196328967423818814, guid: bfb8a1120d8121044b52593e167f0a65,
+        type: 3}
+      propertyPath: TimeToRespawn
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfb8a1120d8121044b52593e167f0a65, type: 3}

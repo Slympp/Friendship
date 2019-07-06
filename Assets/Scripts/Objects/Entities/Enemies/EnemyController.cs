@@ -7,6 +7,7 @@ using Objects.Projectiles;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.SocialPlatforms.Impl;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 
@@ -62,6 +63,12 @@ namespace Objects.Entities.Enemies {
         private readonly Vector2 m_OnDeathOffset = new Vector2(0, 1.3f);
         private float m_OnDeathFXLifetime = 0.25f;
 
+        [Header("Scoring")] 
+        [SerializeField] protected float TimeToKillCap = 3f;
+        [SerializeField] protected Vector2 BaseScore = new Vector2(10, 5);
+        private bool m_FirstHit = false;
+        private float m_TimeSinceFirstHit;
+
         protected void Awake() {
             Init();
 
@@ -110,6 +117,11 @@ namespace Objects.Entities.Enemies {
 
         public override void Damage(int value, Entity origin) {
             int oldHealth = CurrentHealth;
+
+            if (!m_FirstHit) {
+                m_FirstHit = true;
+                StartCoroutine(nameof(ScoreTimer));
+            }
             
             if (m_Shielded) return;
             
@@ -127,6 +139,8 @@ namespace Objects.Entities.Enemies {
                 
                 GameObject onDeathFX = Instantiate(Resources.Load<GameObject>(m_OnDeathFXPath), (Vector2)_transform.position + m_OnDeathOffset, Quaternion.identity);
                 Destroy(onDeathFX, m_OnDeathFXLifetime);
+                
+                AttributeScore();
 
                 foreach (GameObject g in Projectiles) {
                     if (g != null)
@@ -135,6 +149,23 @@ namespace Objects.Entities.Enemies {
                 
                 Destroy(gameObject);
             }
+        }
+
+        private IEnumerator ScoreTimer() {
+            m_TimeSinceFirstHit = 0;
+            while (m_TimeSinceFirstHit < TimeToKillCap) {
+                yield return new WaitForEndOfFrame();
+                m_TimeSinceFirstHit += Time.deltaTime;
+            }
+            yield return null;
+        }
+
+        private void AttributeScore() {
+            float points = m_TimeSinceFirstHit < TimeToKillCap ? 
+                m_TimeSinceFirstHit.Normalize(BaseScore.x, BaseScore.y, 0, TimeToKillCap) : 
+                BaseScore.y;
+            
+            GameManager.GameManager.Instance.UpdateScoreAmount(points);
         }
         
         protected virtual void OnDeath() { }
@@ -188,8 +219,8 @@ namespace Objects.Entities.Enemies {
             UpdateSpritesColor(m_CurrentColor);
             m_Rooted = false;
         }
-        
-        protected void SetTarget() {
+
+        private void SetTarget() {
             
             m_TargetController = null;
             m_TargetTransform = null;
@@ -264,8 +295,7 @@ namespace Objects.Entities.Enemies {
             }
         }
         
-        private Vector2 GetDirection()
-        {
+        private Vector2 GetDirection() {
             return transform.TransformDirection((float)Horizontal, (float)Vertical, 0);
         }
 

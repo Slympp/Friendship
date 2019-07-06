@@ -75,7 +75,6 @@ GameObject:
   - component: {fileID: 1443511324744421056}
   - component: {fileID: 2879635457006417803}
   - component: {fileID: 61666785740113899}
-  - component: {fileID: 6900071118742475040}
   - component: {fileID: 3119775716102929346}
   m_Layer: 9
   m_Name: DMGDealer
@@ -155,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997da6f0a83a409e9db32e984776ca54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnJump: {fileID: 8300000, guid: 7becee3cf8eaba4458b931e7f08bbb34, type: 3}
-  OnJumpImpact: {fileID: 8300000, guid: 7becee3cf8eaba4458b931e7f08bbb34, type: 3}
+  OnJump: {fileID: 0}
+  OnJumpImpact: {fileID: 0}
   DustSpawnDelay: {x: 0.05, y: 0.2}
   DustLifetime: {x: 0.1, y: 0.2}
   DustSpawnOffset: 0.1
@@ -186,22 +185,6 @@ CapsuleCollider2D:
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 16dcf7e116f382f409bbf750ee39b776, type: 2}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.4}
-  m_Size: {x: 0.8, y: 1.7}
-  m_Direction: 0
---- !u!70 &6900071118742475040
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081133657169732809}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.4}
@@ -464,15 +447,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: DMGDealer
-  MaxHealth: 20
+  MaxHealth: 5
   WeaponRig: {fileID: 2180930472337435006}
   ProjectileRig: {fileID: 1759031324631995169}
-  PlayerId: 1
-  m_InputSource: KeyboardLeft
+  Input: 0
   HeadRig: {fileID: 7955647029232817030}
   DefaultAbility: {fileID: 11400000, guid: 7041c87bf6e37f44bae801b5b965b340, type: 2}
   OffensiveAbility: {fileID: 11400000, guid: d47ec1dd1f4bbef4684b112128661a17, type: 2}
   SupportAbility: {fileID: 11400000, guid: fda7b36611c209d48b5ceced11a3e2a4, type: 2}
+  EntityMask:
+    serializedVersion: 2
+    m_Bits: 512
+  RespawnRadius: 3
+  TimeToRespawn: 5
 --- !u!212 &2026792566756530064
 SpriteRenderer:
   m_ObjectHideFlags: 0
