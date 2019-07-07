@@ -29,7 +29,7 @@ namespace Objects.Entities.Players {
         
         [Header("Buff Aura")]
         [SerializeField] private Vector3    BuffAuraOffset;
-        private                  string     m_BuffAuraPrefabPath = "FX/HealingAura";
+        private                  string     m_BuffAuraPrefabPath = "FX/BuffAura";
         private                  GameObject m_BuffAura;
         
         private const string m_OnDeathFXPath = "FX/PlayerDeathFX";

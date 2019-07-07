@@ -2,7 +2,9 @@ using System.Collections;
 using Abilities;
 using Cinemachine;
 using Objects.Entities.Players;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace GameManager {
     
@@ -25,8 +27,9 @@ namespace GameManager {
         public float Time { get; private set; } = 0;
 
         private const int MaxFriendship = 100;
+        [SerializeField] private float NaturalGenerationDelay = 1f;
         public int CurrentFriendship { get; private set; } = 0;
-        
+
         public UIManager m_UIManager { get; private set; }
         public AudioManager m_AudioManager { get; private set; }
 
@@ -41,9 +44,6 @@ namespace GameManager {
             m_UIManager = GetComponent<UIManager>();
             m_AudioManager = GetComponent<AudioManager>();
 
-            // TODO: remove after test
-            CurrentFriendship = MaxFriendship;
-
             m_MainPlayer = m_DMGDealer = DMGDealer.GetComponentInChildren<PlayerController>();
             m_Healer = Healer.GetComponentInChildren<PlayerController>();
             
@@ -54,17 +54,41 @@ namespace GameManager {
         }
 
         void Update() {
+            UpdateGameOver();
+            UpdateComboAbility();
+            UpdateSwapCharacter();
+        }
 
+        void UpdateGameOver() {
+            
+            if (SoloMode) {
+                
+                if (m_MainPlayer.IsDead && (!m_Healer.IsDead || !m_DMGDealer.IsDead))
+                    SwapCharacters();
+                else {
+                    // TODO: GAMEOVER
+                }
+            } else if (m_Healer.IsDead && m_DMGDealer.IsDead) {
+                // TODO: GAMEOVER
+            }
+        }
+
+        void UpdateComboAbility() {
             if (CurrentFriendship >= MaxFriendship) {
                
                 if (SoloMode) {
-                    if (InputController.ComboAbility(m_MainPlayer.InputSource))
+                    if (!m_MainPlayer.IsDead && InputController.ComboAbility(m_MainPlayer.InputSource))
                         ComboAbility();
                 
-                } else if (InputController.ComboAbility(m_DMGDealer.InputSource) 
-                           && InputController.ComboAbility(m_Healer.InputSource))
+                } else if (!m_DMGDealer.IsDead && InputController.ComboAbility(m_DMGDealer.InputSource)
+                           || !m_Healer.IsDead && InputController.ComboAbility(m_Healer.InputSource))
                     ComboAbility();
             }
+        }
+
+        void UpdateSwapCharacter() {
+            if ((m_DMGDealer.isActiveAndEnabled && m_DMGDealer.IsDead) 
+                || (m_Healer.isActiveAndEnabled && m_Healer.IsDead)) return;
             
             if (SoloMode) {
                 if (InputController.Swap(m_MainPlayer.InputSource))
@@ -104,9 +128,17 @@ namespace GameManager {
         }
 
         private IEnumerator StartTimer() {
+            float naturalGeneration = 0;
             
             while (!Pause) {
                 Time += UnityEngine.Time.deltaTime;
+
+                if (naturalGeneration >= NaturalGenerationDelay) {
+                    UpdateFriendshipAmount(1);
+                    naturalGeneration = 0;
+                }
+                naturalGeneration += UnityEngine.Time.deltaTime;
+                
                 yield return new WaitForEndOfFrame();
             }
         }
@@ -119,7 +151,6 @@ namespace GameManager {
             
             int oldValue = CurrentFriendship;
             if (value > 0) {
-                Debug.Log($"Friendship (+{value})");
                 CurrentFriendship += value;
                 if (CurrentFriendship > MaxFriendship)
                     CurrentFriendship = MaxFriendship;
@@ -135,10 +166,8 @@ namespace GameManager {
         public void UpdateScoreAmount(float value) {
             
             float oldValue = Score;
-            if (value > 0) {
-                Debug.Log($"Score (+{value})");
+            if (value > 0)
                 Score += value;
-            }
 
             if (oldValue != Score) {
                 m_UIManager.UpdateScore(Score);
