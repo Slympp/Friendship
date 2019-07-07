@@ -67,9 +67,11 @@ namespace GameManager {
                     SwapCharacters();
                 else {
                     // TODO: GAMEOVER
+                    Debug.Log("GameOver");
                 }
             } else if (m_Healer.IsDead && m_DMGDealer.IsDead) {
                 // TODO: GAMEOVER
+                Debug.Log("GameOver");
             }
         }
 

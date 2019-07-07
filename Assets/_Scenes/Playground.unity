@@ -505,6 +505,7 @@ MonoBehaviour:
   DMGDealer: {fileID: 228334181}
   Healer: {fileID: 931326263}
   VirtualCam: {fileID: 268054214}
+  NaturalGenerationDelay: 1
 --- !u!82 &371318820
 AudioSource:
   m_ObjectHideFlags: 0
@@ -21590,16 +21591,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5330450343565032826, guid: a88af63d4019bc646bc2e2d0c0c95112,
-        type: 3}
-      propertyPath: OnJump
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5330450343565032826, guid: a88af63d4019bc646bc2e2d0c0c95112,
-        type: 3}
-      propertyPath: OnJumpImpact
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1411512223820263622, guid: a88af63d4019bc646bc2e2d0c0c95112,
         type: 3}
       propertyPath: Input
@@ -21624,6 +21615,16 @@ PrefabInstance:
         type: 3}
       propertyPath: TimeToRespawn
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330450343565032826, guid: a88af63d4019bc646bc2e2d0c0c95112,
+        type: 3}
+      propertyPath: OnJump
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5330450343565032826, guid: a88af63d4019bc646bc2e2d0c0c95112,
+        type: 3}
+      propertyPath: OnJumpImpact
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a88af63d4019bc646bc2e2d0c0c95112, type: 3}

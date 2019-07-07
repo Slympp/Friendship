@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Grenade
   Description: 
-  Cooldown: 0.3
+  Cooldown: 10
+  TriggerDelay: 0
   Type: 1
   BaseProjectile: {fileID: 7766534083706815649, guid: 0cf318d9d464c8148b633cde7173d3cd,
     type: 3}

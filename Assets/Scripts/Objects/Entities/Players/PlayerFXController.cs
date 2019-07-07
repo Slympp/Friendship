@@ -33,15 +33,19 @@ namespace Objects.Entities.Players {
         private                  GameObject m_BuffAura;
         
         private const string m_OnDeathFXPath = "FX/PlayerDeathFX";
-        private readonly Vector2 m_OnDeathOffset = new Vector2(0, 0.55f);
+        private readonly Vector2 m_OnDeathOffset = new Vector2(0, 1.2f);
         private GameObject m_DeathFX;
 
-        // TODO: Add revive progress bar
-        [SerializeField] private readonly Vector2 ReviveProgressBarOffset = new Vector2(0, 0.55f);
-//        private const string m_ReviveProgressBarPath = "";
+        private readonly Vector2 ReviveProgressBarOffset = new Vector2(0, 2.5f);
+        private const string m_ReviveProgressBarPath = "FX/ReviveBar";
         private GameObject m_ReviveProgressBar;
         private Image m_ReviveProgressBarImage;
         private IEnumerator reviveCoroutine;
+
+        private readonly Vector2 OnReviveFXOffset = new Vector2();
+        private const string m_OnReviveFXPath = "FX/OnReviveFX";
+        private GameObject m_OnReviveFX;
+        private float m_OnReviveFXLifetime;
 
         private AudioSource m_Audio;
         
@@ -59,10 +63,9 @@ namespace Objects.Entities.Players {
             m_BuffAura.SetActive(false);
             m_BuffAura.transform.localPosition = BuffAuraOffset;
             
-//            m_ReviveProgressBar = Instantiate(Resources.Load<GameObject>(m_ReviveProgressBarPath), transform);
-//            m_ReviveProgressBar.SetActive(false);
-//            m_ReviveProgressBar.transform.localPosition = ReviveProgressBarOffset;
-            // m_ReviveProgressBarImage = TODO: Get image in children
+            m_ReviveProgressBar = Instantiate(Resources.Load<GameObject>(m_ReviveProgressBarPath));
+            m_ReviveProgressBar.SetActive(false);
+            m_ReviveProgressBarImage = m_ReviveProgressBar.transform.GetChild(1).GetComponent<Image>();
         }
         
         public void SpawnRunningDust(Vector3 position) {
@@ -124,7 +127,6 @@ namespace Objects.Entities.Players {
                     s.enabled = false;
                 }
 
-
                 parent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 parent.GetComponent<Collider2D>().enabled = false;
                 
@@ -134,7 +136,7 @@ namespace Objects.Entities.Players {
                 
                 SpriteRenderer[] sr = playerObject.GetComponentsInChildren<SpriteRenderer>();
                 foreach (SpriteRenderer s in sr) {
-                    s.enabled = false;
+                    s.enabled = true;
                 }
                 
                 parent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
@@ -147,6 +149,7 @@ namespace Objects.Entities.Players {
 
         public void ToggleReviveProgressBar(bool b, float timeToRespawn = 0) {
             
+            m_ReviveProgressBar.transform.localPosition = (Vector2)transform.position + ReviveProgressBarOffset;
             m_ReviveProgressBar.SetActive(b);
             
             if (reviveCoroutine != null)
@@ -159,16 +162,15 @@ namespace Objects.Entities.Players {
         }
 
         private IEnumerator UpdateReviveProgressBar(float timeToRespawn) {
-            // progressImage.fillAmount = 1;
+            m_ReviveProgressBarImage.fillAmount = 1;
 
             float elapsed = 0;
             while (elapsed < timeToRespawn) {
-                // float value = 
-                // progressImage.fillAmount = elapsed.Normalize(1, 0, 0, timeToRespawn);
-                elapsed += Time.deltaTime;
+                m_ReviveProgressBarImage.fillAmount = elapsed.Normalize(1, 0, 0, timeToRespawn);
                 yield return new WaitForEndOfFrame();
+                elapsed += Time.deltaTime;
             }
-            // progressImage.fillAmount = 0;
+            m_ReviveProgressBarImage.fillAmount = 0;
         }
     }
 }

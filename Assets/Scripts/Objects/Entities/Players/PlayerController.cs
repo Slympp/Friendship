@@ -187,11 +187,16 @@ namespace Objects.Entities.Players {
         }
 
         private void OnReviveAlly() {
-            
+            int healthReduction = MaxHealth / 2;
+            if (CurrentHealth <= healthReduction)
+                CurrentHealth = 1;
+            else
+                CurrentHealth -= healthReduction;
         }
 
         private void OnGetRevived() {
             CurrentHealth = MaxHealth / 2;
+            m_PlayerFXController.ToggleDeath(false, gameObject);
         }
 
         private IEnumerator AuraOvertime(float duration) {

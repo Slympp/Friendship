@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Aura
   Description: 
-  Cooldown: 5
+  Cooldown: 10
   TriggerDelay: 0.5
   Type: 2
   Indicator: {fileID: 6594150464601248827, guid: a64f103ca0107fe439de3363830e70b7,

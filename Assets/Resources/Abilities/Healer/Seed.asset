@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Seed
   Description: 
-  Cooldown: 0.3
+  Cooldown: 10
+  TriggerDelay: 0
   Type: 1
   BaseProjectile: {fileID: 7766534083706815649, guid: 94523fc637d2223439c5ed1d41ba61a1,
     type: 3}
