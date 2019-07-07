@@ -149,6 +149,12 @@ namespace GameManager {
             Pause = !Pause;
         }
 
+        public void MoveToMainPlayer(Transform player) {
+            if (m_MainPlayer) {
+                player.transform.position = m_MainPlayer.transform.parent.position;
+            }
+        }
+
         public void UpdateFriendshipAmount(int value) {
             
             int oldValue = CurrentFriendship;

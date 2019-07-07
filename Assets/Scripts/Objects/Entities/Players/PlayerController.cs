@@ -220,6 +220,10 @@ namespace Objects.Entities.Players {
             return m_Aura ? m_AuraFireRateModifier : 1;
         }
 
+        private void OnBecameInvisible() {
+            GameManager.GameManager.Instance.MoveToMainPlayer(transform.parent);
+        }
+
         private void OnDrawGizmos() {
             
             if (IsDead) {
