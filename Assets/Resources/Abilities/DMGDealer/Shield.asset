@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Shield
   Description: 
-  Cooldown: 3
+  Cooldown: 10
+  TriggerDelay: 0
   Type: 2
   Shield: {fileID: 5938256361981173376, guid: 056d23ae9e709ba4faca61757a5e0859, type: 3}
   Duration: 3

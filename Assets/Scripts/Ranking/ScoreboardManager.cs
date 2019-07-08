@@ -16,11 +16,6 @@ namespace Ranking {
     
         void Awake() {
             InitRanking();
-            
-//            AddEntry("Lorem", 300);
-//            AddEntry("Ipsum", 24);
-//            AddEntry("Blabla", 345);
-
             GetEntries();
         }
 
@@ -48,10 +43,12 @@ namespace Ranking {
             foreach (Dictionary<string, object> entryData in scores.Values) {
                 string name = entryData.ContainsKey("name") ? entryData["name"].ToString() : "!ERROR";
                 string score = entryData.ContainsKey("score") ? entryData["score"].ToString() : "0";
+                string time = entryData.ContainsKey("time") ? entryData["time"].ToString() : "0";
                 
                 updatedScoreboard.Add(new Entry {
                     Name = name,
-                    Score = int.Parse(score)
+                    Score = int.Parse(score),
+                    Time = int.Parse(time)
                 });
             }
 
@@ -66,11 +63,12 @@ namespace Ranking {
             Debug.LogError($"Failed to retrieve entries: {error.Message}");
         }
         
-        public void AddEntry(string entryName, int score) {
+        public void AddEntry(string entryName, int score, int time) {
 
             Dictionary<string, object> entry = new Dictionary<string, object> {
                 {"name", entryName},
-                {"score", score}
+                {"score", score},
+                {"time", time}
             };
             m_ScoresBase.Push(entry);
         }
@@ -104,6 +102,7 @@ namespace Ranking {
         public struct Entry {
             public string Name;
             public int Score;
+            public int Time;
         }
     }
 }
