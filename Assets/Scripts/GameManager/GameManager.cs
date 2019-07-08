@@ -2,9 +2,8 @@ using System.Collections;
 using Abilities;
 using Cinemachine;
 using Objects.Entities.Players;
-using UnityEditorInternal;
+using Ranking;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 namespace GameManager {
     
@@ -41,6 +40,7 @@ namespace GameManager {
                 Destroy(this);
 
             Instance = this;
+
             m_UIManager = GetComponent<UIManager>();
             m_AudioManager = GetComponent<AudioManager>();
 
@@ -51,6 +51,10 @@ namespace GameManager {
             m_comboAbility.Player = m_MainPlayer;
 
             StartCoroutine(nameof(StartTimer));
+            
+            SoloMode = SceneLoadingParameters.SoloMode;
+            m_DMGDealer.Input = SceneLoadingParameters.PlayerOneInputs;
+            m_Healer.Input = SceneLoadingParameters.PlayerOneInputs;
         }
 
         void Update() {
@@ -65,14 +69,17 @@ namespace GameManager {
                 
                 if (m_MainPlayer.IsDead && (!m_Healer.IsDead || !m_DMGDealer.IsDead))
                     SwapCharacters();
-                else {
-                    // TODO: GAMEOVER
-                    Debug.Log("GameOver");
-                }
+                else
+                    m_UIManager.EnableGameOver();
+                
             } else if (m_Healer.IsDead && m_DMGDealer.IsDead) {
-                // TODO: GAMEOVER
-                Debug.Log("GameOver");
+                m_UIManager.EnableGameOver();
             }
+        }
+
+        void OnGameEnd() {
+            ScoreboardManager manager = GetComponent<ScoreboardManager>();
+            manager.AddEntry(SceneLoadingParameters.Name, Mathf.FloorToInt(Score), Mathf.FloorToInt(Time));
         }
 
         void UpdateComboAbility() {

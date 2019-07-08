@@ -1,13 +1,16 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace GameManager {
     
     public class UIManager : MonoBehaviour {
-
+        
+        [Header("Scores")]
         [SerializeField] private TMP_Text ScoreText;
         
         [SerializeField] private float ProgressDuration = 1f;
@@ -17,6 +20,20 @@ namespace GameManager {
 
         [SerializeField] private Vector2 HealthBarRadiusBoudaries = new Vector2(0.1f, 0.71f);
         [SerializeField] private Vector2 FriendshipBarBoudaries = new Vector2(0.05f, 0.93f);
+
+        [Header("GameOver")] 
+        [SerializeField] private GameObject GameOverScreen;
+        [SerializeField] private Button MainMenuButton;
+        [SerializeField] private Button QuitButton;
+
+        void Awake() {
+            MainMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("MainMenu"); });
+            QuitButton.onClick.AddListener(Application.Quit);
+        }
+
+        public void EnableGameOver() {
+            GameOverScreen.SetActive(true);
+        }
         
         public void UpdateScore(float score) {
             ScoreText.text = $"{Mathf.FloorToInt(score)}";
