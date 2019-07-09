@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using Ranking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -21,16 +24,59 @@ namespace GameManager {
         [SerializeField] private Vector2 HealthBarRadiusBoudaries = new Vector2(0.1f, 0.71f);
         [SerializeField] private Vector2 FriendshipBarBoudaries = new Vector2(0.05f, 0.93f);
 
-        [Header("GameOver")] 
+        [Header("GameOver Screen")] 
         [SerializeField] private GameObject GameOverScreen;
         [SerializeField] private Button MainMenuButton;
         [SerializeField] private Button QuitButton;
+        
+        [Header("Win Screen")] 
+        [SerializeField] private GameObject WinScreen;
+        [SerializeField] private GameObject WinScreenNormal;
+        [SerializeField] private GameObject WinScreenRanking;
+        [SerializeField] private Button WinRankingButton;
+        [SerializeField] private Button WinMainMenuButton;
+        [SerializeField] private Button WinRankingBackButton;
+
+        [Header("Ranking")] 
+        [SerializeField] private List<ScoreboardEntryController> ScoreboardEntries;
 
         void Awake() {
             MainMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("MainMenu"); });
             QuitButton.onClick.AddListener(Application.Quit);
+            
+            WinRankingButton.onClick.AddListener(() => { SwitchWinScreens(true); });
+            WinMainMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("MainMenu"); });
+            WinRankingBackButton.onClick.AddListener(() => { SwitchWinScreens(); });
         }
 
+        public void EnableWinScreen() {
+            WinScreen.SetActive(true);
+        }
+
+        private void SwitchWinScreens(bool ranking = false) {
+            
+            if (ranking)
+                GetComponent<ScoreboardManager>().GetEntries();
+            
+            WinScreenNormal.SetActive(!ranking);
+            WinScreenRanking.SetActive(ranking);
+        }
+
+        public void UpdateScoreboard(List<ScoreboardManager.Entry> entries) {
+            for (int i = 0; i < 5; i++) {
+                if (i < entries.Count)
+                {
+                    TimeSpan timeSpan = TimeSpan.FromSeconds(entries[i].Time);
+                    string minutes = timeSpan.Minutes == 0 ? "00" : timeSpan.Minutes < 10 ? $"0{timeSpan.Minutes}" : $"{timeSpan.Minutes}";
+                    string seconds = timeSpan.Seconds == 0 ? "00" : timeSpan.Seconds < 10 ? $"0{timeSpan.Seconds}" : $"{timeSpan.Seconds}";
+                    
+                    ScoreboardEntries[i].SetValues(entries[i].Name, minutes + ":" + seconds, entries[i].Score.ToString());
+                    ScoreboardEntries[i].gameObject.SetActive(true);
+                } else
+                    ScoreboardEntries[i].gameObject.SetActive(false);
+            }
+        }
+        
         public void EnableGameOver() {
             GameOverScreen.SetActive(true);
         }

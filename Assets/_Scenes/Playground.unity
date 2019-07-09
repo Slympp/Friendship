@@ -488,6 +488,16 @@ MonoBehaviour:
   FriendshipBar: {fileID: 465468823}
   HealthBarRadiusBoudaries: {x: 0.1, y: 0.72}
   FriendshipBarBoudaries: {x: 0.05, y: 0.93}
+  GameOverScreen: {fileID: 0}
+  MainMenuButton: {fileID: 0}
+  QuitButton: {fileID: 0}
+  WinScreen: {fileID: 0}
+  WinScreenNormal: {fileID: 0}
+  WinScreenRanking: {fileID: 0}
+  WinRankingButton: {fileID: 0}
+  WinMainMenuButton: {fileID: 0}
+  WinRankingBackButton: {fileID: 0}
+  ScoreboardEntries: []
 --- !u!114 &371318819
 MonoBehaviour:
   m_ObjectHideFlags: 0
