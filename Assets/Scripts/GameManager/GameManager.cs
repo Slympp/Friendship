@@ -34,6 +34,8 @@ namespace GameManager {
 
         public static GameManager Instance { get; private set; }
 
+        private bool m_GameEnded;
+
         void Awake() {
             
             if (Instance != null)
@@ -69,17 +71,28 @@ namespace GameManager {
                 
                 if (m_MainPlayer.IsDead && (!m_Healer.IsDead || !m_DMGDealer.IsDead))
                     SwapCharacters();
-                else
+                else {
+                    OnGameEnd();
                     m_UIManager.EnableGameOver();
+                }
                 
             } else if (m_Healer.IsDead && m_DMGDealer.IsDead) {
+                OnGameEnd();
                 m_UIManager.EnableGameOver();
             }
         }
 
+        public void EnableWin() {
+            OnGameEnd();
+            m_UIManager.EnableWinScreen();
+        }
+
         void OnGameEnd() {
-            ScoreboardManager manager = GetComponent<ScoreboardManager>();
-            manager.AddEntry(SceneLoadingParameters.Name, Mathf.FloorToInt(Score), Mathf.FloorToInt(Time));
+            if (!m_GameEnded) {
+                ScoreboardManager manager = GetComponent<ScoreboardManager>();
+                manager.AddEntry(SceneLoadingParameters.Name, Mathf.FloorToInt(Score), Mathf.FloorToInt(Time));
+                m_GameEnded = true;
+            }
         }
 
         void UpdateComboAbility() {

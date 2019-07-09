@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameManager;
 using SimpleFirebaseUnity;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Ranking {
         private Firebase m_ScoresBase;
         
         private const string Host = "friendship-75839.firebaseio.com/";
-        private const string Credential = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InVpZCI6IkdhbWVDbGllbnQifSwiaWF0IjoxNTYwODg2NjUxfQ.Y8QRBKm7GhGjukgziOMb8XJtRnRDE2yuX6bsiRqV5zY";
+//        private const string Credential = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InVpZCI6IkdhbWVDbGllbnQifSwiaWF0IjoxNTYwODg2NjUxfQ.Y8QRBKm7GhGjukgziOMb8XJtRnRDE2yuX6bsiRqV5zY";
 
         private List<Entry> m_Scoreboard;
     
@@ -20,7 +21,7 @@ namespace Ranking {
         }
 
         private void InitRanking() {
-            m_Firebase = Firebase.CreateNew(Host, Credential);
+            m_Firebase = Firebase.CreateNew(Host);
             
             m_ScoresBase = m_Firebase.Child("scores");
             
@@ -44,7 +45,7 @@ namespace Ranking {
                 string name = entryData.ContainsKey("name") ? entryData["name"].ToString() : "!ERROR";
                 string score = entryData.ContainsKey("score") ? entryData["score"].ToString() : "0";
                 string time = entryData.ContainsKey("time") ? entryData["time"].ToString() : "0";
-                
+
                 updatedScoreboard.Add(new Entry {
                     Name = name,
                     Score = int.Parse(score),
@@ -55,7 +56,7 @@ namespace Ranking {
             if (updatedScoreboard.Any()) {
                 updatedScoreboard.Sort((e1, e2) => e2.Score.CompareTo(e1.Score));
                 m_Scoreboard = updatedScoreboard;
-                LogEntries();
+                GetComponent<UIManager>().UpdateScoreboard(m_Scoreboard);
             }
         }
 
