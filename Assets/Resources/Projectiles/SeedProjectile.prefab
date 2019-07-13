@@ -129,7 +129,7 @@ MonoBehaviour:
   OnImpactFX: {fileID: 3944684599549933851, guid: 7480704aab75cd542a603b3d7fe64958,
     type: 3}
   ShowOnHitGround: 1
-  OnImpactFXLifetime: 2
+  OnImpactFXLifetime: 1
   FlipImpactWithVelocity: 0
   OnImpactSound: {fileID: 0}
   Radius: 2

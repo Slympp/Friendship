@@ -55,21 +55,28 @@ namespace GameManager {
             StartCoroutine(nameof(StartTimer));
             
             SoloMode = SceneLoadingParameters.SoloMode;
+
+            if (SoloMode) {
+                // TODO: Clean disable 2nd character
+                m_Healer.transform.root.gameObject.SetActive(false);
+            }
+            
             m_DMGDealer.Input = SceneLoadingParameters.PlayerOneInputs;
             m_Healer.Input = SceneLoadingParameters.PlayerOneInputs;
         }
 
         void Update() {
-            UpdateGameOver();
+            if (!m_GameEnded)
+                UpdateGameOver();
+            
             UpdateComboAbility();
             UpdateSwapCharacter();
         }
 
         void UpdateGameOver() {
             
-            if (SoloMode) {
-                
-                if (m_MainPlayer.IsDead && (!m_Healer.IsDead || !m_DMGDealer.IsDead))
+            if (SoloMode && m_MainPlayer.IsDead) {
+                if (!m_Healer.IsDead || !m_DMGDealer.IsDead)
                     SwapCharacters();
                 else {
                     OnGameEnd();
@@ -123,6 +130,10 @@ namespace GameManager {
 
         void SwapCharacters() {
             GameObject oldRoot = m_MainPlayer.transform.root.gameObject;
+            
+            if (SoloMode)
+                m_MainPlayer.ClearProjectiles();
+            
             m_MainPlayer = m_MainPlayer == m_DMGDealer ? m_Healer : m_DMGDealer;
 
             if (SoloMode) {
@@ -130,6 +141,7 @@ namespace GameManager {
                 GameObject newRoot = m_MainPlayer.transform.root.gameObject;
                 newRoot.transform.position = oldRoot.transform.position;
 
+                // TODO: Clean disable 2nd character
                 oldRoot.SetActive(false);
                 newRoot.SetActive(true);
             } else {

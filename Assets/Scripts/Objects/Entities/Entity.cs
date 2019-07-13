@@ -108,6 +108,13 @@ namespace Objects.Entities {
                 r.color = c;
             }
         }
+
+        public void ClearProjectiles() {
+            foreach (GameObject g in Projectiles) {
+                if (g != null)
+                    Destroy(g);
+            }
+        }
         
         protected abstract void UpdateMovement();
     }

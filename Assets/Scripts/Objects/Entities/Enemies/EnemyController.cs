@@ -1,13 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Abilities;
 using Objects.Entities.Players;
-using Objects.Projectiles;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.SocialPlatforms.Impl;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 
@@ -141,11 +136,7 @@ namespace Objects.Entities.Enemies {
                 Destroy(onDeathFX, m_OnDeathFXLifetime);
                 
                 AttributeScore();
-
-                foreach (GameObject g in Projectiles) {
-                    if (g != null)
-                        Destroy(g);
-                }
+                ClearProjectiles();
                 
                 Destroy(gameObject);
             }

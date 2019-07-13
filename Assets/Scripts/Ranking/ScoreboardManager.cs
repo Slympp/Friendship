@@ -53,8 +53,11 @@ namespace Ranking {
                 });
             }
 
-            if (updatedScoreboard.Any()) {
-                updatedScoreboard.Sort((e1, e2) => e2.Score.CompareTo(e1.Score));
+            if (updatedScoreboard.Any())
+            {
+                updatedScoreboard.Sort((e1, e2) =>
+                    e1.Score != e2.Score ? e2.Score.CompareTo(e1.Score) : e1.Time.CompareTo(e2.Time)
+                );
                 m_Scoreboard = updatedScoreboard;
                 GetComponent<UIManager>().UpdateScoreboard(m_Scoreboard);
             }
@@ -80,17 +83,6 @@ namespace Ranking {
 
         private void OnAddFailed(Firebase b, FirebaseError error) {
             Debug.LogError($"Failed to add entry: {error.Message}");
-        }
-
-        private string GetRandomId() {
-            const string glyphs = "abcdefghijklmnopqrstuvwxyz0123456789";
-            const int length = 10;
-
-            string id = "";
-            for (int i = 0; i < length; i++) {
-                id += glyphs[Random.Range(0, glyphs.Length)];
-            }
-            return id;
         }
 
         private void LogEntries() {
