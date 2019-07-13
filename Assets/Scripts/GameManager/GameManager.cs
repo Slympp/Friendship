@@ -62,7 +62,7 @@ namespace GameManager {
             }
             
             m_DMGDealer.Input = SceneLoadingParameters.PlayerOneInputs;
-            m_Healer.Input = SceneLoadingParameters.PlayerOneInputs;
+            m_Healer.Input = SceneLoadingParameters.PlayerTwoInputs;
         }
 
         void Update() {

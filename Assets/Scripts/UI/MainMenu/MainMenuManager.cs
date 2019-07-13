@@ -44,12 +44,12 @@ namespace UI.MainMenu
         [SerializeField] private Button P1Left;
         [SerializeField] private Button P1Right;
         [SerializeField] private TMP_Text P1Text;
-        private PlayerController.InputType P1InputType = PlayerController.InputType.Keyboard;
+        private InputScheme P1InputType = InputScheme.KeyboardA;
         
         [SerializeField] private Button P2Left;
         [SerializeField] private Button P2Right;
         [SerializeField] private TMP_Text P2Text;
-        private PlayerController.InputType P2InputType = PlayerController.InputType.KeyboardRight;
+        private InputScheme P2InputType = InputScheme.KeyboardC;
         
         [SerializeField] private GameObject P1Indicator;
         [SerializeField] private GameObject P2Slider;
@@ -60,6 +60,8 @@ namespace UI.MainMenu
         [SerializeField] private Button ValidButton;
         [SerializeField] private Button NameInputBackButton;
         [SerializeField] private GameObject NameRequiredError;
+
+        [SerializeField] private GameObject Loading;
         
         void Awake() {
             
@@ -103,57 +105,56 @@ namespace UI.MainMenu
             ModeLeft.onClick.AddListener(SwapMode);
             ModeRight.onClick.AddListener(SwapMode);
             
-            P1Left.onClick.AddListener(() => SwapInputScheme(ref P1InputType, -1, P1Text));
-            P1Right.onClick.AddListener(() => SwapInputScheme(ref P1InputType, 1, P1Text));
+            P1Left.onClick.AddListener(() => SwapInputScheme(1, ref P1InputType, -1, P1Text));
+            P1Right.onClick.AddListener(() => SwapInputScheme(1, ref P1InputType, 1, P1Text));
 
-            P2Left.onClick.AddListener(() => SwapInputScheme(ref P2InputType, -1, P2Text));
-            P2Right.onClick.AddListener(() => SwapInputScheme(ref P2InputType, 1, P2Text));
+            P2Left.onClick.AddListener(() => SwapInputScheme(2, ref P2InputType, -1, P2Text));
+            P2Right.onClick.AddListener(() => SwapInputScheme(2, ref P2InputType, 1, P2Text));
         }
 
         private void SwapMode() {
             SoloMode = !SoloMode;
             ModeText.text = SoloMode ? "Solo" : "Multi";
-            P1InputType = SoloMode ? PlayerController.InputType.Keyboard : PlayerController.InputType.KeyboardLeft;
-            SwapInputScheme(ref P1InputType, 0, P1Text);
+            P1InputType = SoloMode ? InputScheme.KeyboardA : InputScheme.KeyboardB;
+            SwapInputScheme(1, ref P1InputType, 0, P1Text);
 
             P1Indicator.SetActive(!SoloMode);
             P2Slider.SetActive(!SoloMode);
         }
 
-        private void SwapInputScheme(ref PlayerController.InputType type, int modifier, TMP_Text text) {
+        private void SwapInputScheme(int id, ref InputScheme type, int modifier, TMP_Text text) {
             
             // TODO: REWORK TO AVOID DUPLICATE INPUTS
             var updatedValue = type + modifier;
-            if (updatedValue < 0)
-                type = PlayerController.InputType.Controller1;
-            else if ((float) updatedValue >= Enum.GetNames(typeof(PlayerController.InputType)).Length - 1)
-                type = PlayerController.InputType.Keyboard;
-            else
-                type = updatedValue;
+            CheckBoundaries(ref updatedValue);
+            if (updatedValue != InputScheme.Controller && ((!SoloMode && id == 1 && updatedValue == P2InputType) || (id == 2 && updatedValue == P1InputType)))
+                updatedValue += modifier;
+            CheckBoundaries(ref updatedValue);
 
-            if ((P1InputType == PlayerController.InputType.Controller1 ||
-                 P1InputType == PlayerController.InputType.Controller1) &&
-                updatedValue == PlayerController.InputType.Controller1) 
-            {
-                P2InputType = PlayerController.InputType.Controller2;
-            } else if (P1InputType == P2InputType)
-                SwapInputScheme(ref type, +1, text);
-
+            type = updatedValue;
+          
             FormatInput(type, text);
         }
 
-        private void FormatInput(PlayerController.InputType type, TMP_Text text) {
+        private void CheckBoundaries(ref InputScheme value) {
+            if ((int)value >= Enum.GetNames(typeof(InputScheme)).Length) {
+                value = 0;
+            } else if ((int) value < 0)
+                value = InputScheme.Controller;
+        }
+
+        private void FormatInput(InputScheme type, TMP_Text text) {
             switch (type) {
-                case PlayerController.InputType.Controller1: case PlayerController.InputType.Controller2:
+                case InputScheme.Controller:
                     text.text = "controller";
                     break;
-                case PlayerController.InputType.Keyboard:
+                case InputScheme.KeyboardA:
                     text.text = "keyboard a";
                     break;
-                case PlayerController.InputType.KeyboardLeft:
+                case InputScheme.KeyboardB:
                     text.text = "keyboard b";
                     break;
-                case PlayerController.InputType.KeyboardRight:
+                case InputScheme.KeyboardC:
                     text.text = "keyboard c";
                     break;
             }
@@ -192,8 +193,15 @@ namespace UI.MainMenu
             SceneLoadingParameters.SoloMode = SoloMode;
             SceneLoadingParameters.Name = NameInputField.text;
             
-            SceneLoadingParameters.PlayerOneInputs = P1InputType;
-            SceneLoadingParameters.PlayerTwoInputs = SoloMode ? SceneLoadingParameters.PlayerOneInputs : P2InputType;
+            SceneLoadingParameters.PlayerOneInputs = (PlayerController.InputType)P1InputType;
+            
+            PlayerController.InputType p2 = (P1InputType == InputScheme.Controller && P2InputType == InputScheme.Controller) ? PlayerController.InputType.Controller2 : (
+                PlayerController.InputType) P2InputType;
+            
+            SceneLoadingParameters.PlayerTwoInputs = SoloMode ? SceneLoadingParameters.PlayerOneInputs : p2;
+            
+            NameInput.SetActive(false);
+            Loading.SetActive(true);
             
             SceneManager.LoadScene("Level1");
         }
@@ -208,6 +216,13 @@ namespace UI.MainMenu
             Normal,
             Blurry,
             NoChar
+        }
+
+        private enum InputScheme {
+            KeyboardA = 0,
+            KeyboardB = 1,
+            KeyboardC = 2,
+            Controller = 3
         }
     }
 }
