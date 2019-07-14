@@ -39,5 +39,10 @@ namespace Abilities {
             }
             m_Shield.SetActive(false);
         }
+
+        public override void OnSwap(bool e) {
+            if (!e)
+                m_Shield.SetActive(false);
+        }
     }
 }

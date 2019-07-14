@@ -1,7 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 public static class ExtensionMethods {
 
+    public static void Invoke(this MonoBehaviour behaviour, Action myDelegate, float time) {
+        behaviour.StartCoroutine(ExecuteAfterTime(myDelegate, time));
+    }
+ 
+    private static IEnumerator ExecuteAfterTime(Action myDelegate, float delay) {
+        yield return new WaitForSeconds(delay);
+        myDelegate();
+    }
+    
     public static float Normalize(this float v, float a, float b, float min, float max) {
         return (b - a) * ((v - min) / (max - min)) + a;
     }

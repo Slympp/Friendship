@@ -50,6 +50,8 @@ namespace Abilities {
             OnCooldown = false;
         }
 
+        public virtual void OnSwap(bool e) { }
+
         public enum AbilityType {
             Default,
             Offensive,

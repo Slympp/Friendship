@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Abilities;
 using Cinemachine;
 using Objects.Entities.Players;
 using Ranking;
 using UnityEngine;
+using VisualStudioEditor;
 
 namespace GameManager {
     
@@ -36,6 +40,9 @@ namespace GameManager {
 
         private bool m_GameEnded;
 
+        private bool m_CanSwap = true;
+        private const float SwapDelay = 1f;
+
         void Awake() {
             
             if (Instance != null)
@@ -51,18 +58,17 @@ namespace GameManager {
             
             m_comboAbility = GetComponent<ComboAbility>();
             m_comboAbility.Player = m_MainPlayer;
-
-            StartCoroutine(nameof(StartTimer));
             
-            SoloMode = SceneLoadingParameters.SoloMode;
-
-            if (SoloMode) {
-                // TODO: Clean disable 2nd character
-                m_Healer.transform.root.gameObject.SetActive(false);
-            }
+            SoloMode = SceneLoadingParameters.SoloMode = true;
             
             m_DMGDealer.Input = SceneLoadingParameters.PlayerOneInputs;
             m_Healer.Input = SceneLoadingParameters.PlayerTwoInputs;
+        }
+
+        void Start() {
+            StartCoroutine(nameof(StartTimer));
+            if (SoloMode)
+                ToggleCharacter(m_Healer, false);
         }
 
         void Update() {
@@ -116,7 +122,7 @@ namespace GameManager {
         }
 
         void UpdateSwapCharacter() {
-            if ((m_DMGDealer.isActiveAndEnabled && m_DMGDealer.IsDead) 
+            if (!m_CanSwap || (m_DMGDealer.isActiveAndEnabled && m_DMGDealer.IsDead) 
                 || (m_Healer.isActiveAndEnabled && m_Healer.IsDead)) return;
             
             if (SoloMode) {
@@ -129,21 +135,21 @@ namespace GameManager {
         }
 
         void SwapCharacters() {
-            GameObject oldRoot = m_MainPlayer.transform.root.gameObject;
+            m_CanSwap = false;
             
-            if (SoloMode)
-                m_MainPlayer.ClearProjectiles();
+            Transform oldRoot = m_MainPlayer.transform.root;
+            PlayerController oldPlayer = m_MainPlayer;
             
             m_MainPlayer = m_MainPlayer == m_DMGDealer ? m_Healer : m_DMGDealer;
 
             if (SoloMode) {
                 
-                GameObject newRoot = m_MainPlayer.transform.root.gameObject;
-                newRoot.transform.position = oldRoot.transform.position;
+                Transform newRoot = m_MainPlayer.transform.root;
+                newRoot.position = oldRoot.position;
+                newRoot.rotation = oldRoot.rotation;
 
-                // TODO: Clean disable 2nd character
-                oldRoot.SetActive(false);
-                newRoot.SetActive(true);
+                ToggleCharacter(oldPlayer, false);
+                ToggleCharacter(m_MainPlayer, true);
             } else {
                 PlayerController.InputType tmp = m_DMGDealer.Input;
                 m_DMGDealer.Input = m_Healer.Input;
@@ -152,7 +158,22 @@ namespace GameManager {
 
             VirtualCam.Follow = m_MainPlayer.transform.parent;
 
-            // TODO: Start delay coroutine
+            this.Invoke(() => { m_CanSwap = true; }, SwapDelay);
+        }
+
+        private void ToggleCharacter(PlayerController player, bool e) {
+            Transform root = player.transform.root;
+            
+            root.GetComponent<Rigidbody2D>().bodyType = e ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static;
+            root.GetComponent<Collider2D>().enabled = e;
+            player.enabled = e;
+            
+            List<SpriteRenderer> sr = root.GetComponentsInChildren<SpriteRenderer>(true).ToList();
+            foreach (SpriteRenderer s in sr) {
+                s.enabled = e;
+            }
+            
+            player.OnSwap(e);
         }
 
         private void ComboAbility() {

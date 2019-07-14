@@ -16,6 +16,8 @@ namespace Abilities {
         [SerializeField] private Vector3 Offset;
 
         private PlayerController m_Target;
+
+        public bool Active { get; private set; } = true;
         
         public override BaseAbility Init(Transform weaponRig, Transform projectileRig, Entity caster) {
 
@@ -56,5 +58,9 @@ namespace Abilities {
         }
 
         public float GetRange() { return Range; }
+        
+        public override void OnSwap(bool e) {
+            Active = e;
+        }
     }
 }

@@ -155,6 +155,12 @@ namespace Objects.Entities.Players {
             StartCoroutine(m_AuraRoutine);
         }
 
+        public void OnSwap(bool e) {
+            m_DefaultAbility.OnSwap(e);
+            m_OffensiveAbility.OnSwap(e);
+            m_SupportAbility.OnSwap(e);
+        }
+
         void UpdateRespawn() {
             PlayerController found = null;
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, RespawnRadius, EntityMask);

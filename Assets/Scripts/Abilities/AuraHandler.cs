@@ -16,6 +16,9 @@ namespace Abilities {
         }
         
         void Update() {
+            if (!m_Ability.Active)
+                return;
+            
             if (m_Initialized && !m_Ability.OnCooldown) {
 
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, m_Rig.right, m_Ability.GetRange());
@@ -29,7 +32,9 @@ namespace Abilities {
                     if (hit.collider.gameObject == m_CachedTarget) return;
                     
                     m_CachedTarget = hit.collider.gameObject;
-                    m_Ability.SetCurrentTarget(hit.collider.gameObject.GetComponentInChildren<PlayerController>());
+                    PlayerController hitPlayer = hit.collider.gameObject.GetComponentInChildren<PlayerController>();
+                    if (hitPlayer != null)
+                        m_Ability.SetCurrentTarget(hitPlayer);
                 }
             } else {
                 m_Ability.SetCurrentTarget(null);  
