@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,6 @@ using Cinemachine;
 using Objects.Entities.Players;
 using Ranking;
 using UnityEngine;
-using VisualStudioEditor;
 
 namespace GameManager {
     
@@ -177,8 +175,7 @@ namespace GameManager {
         }
 
         private void ComboAbility() {
-            // TODO: remove after test
-//            CurrentFriendship = 0;
+            CurrentFriendship = 0;
             m_comboAbility.Use();
         }
 

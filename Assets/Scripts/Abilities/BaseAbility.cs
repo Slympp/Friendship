@@ -6,7 +6,6 @@ namespace Abilities {
     public abstract class BaseAbility : ScriptableObject {
 
         public string Name;
-        public string Description;
         public float Cooldown;
         public float TriggerDelay;
         public AbilityType Type;
@@ -23,7 +22,6 @@ namespace Abilities {
             if (instance == null) return null;
             
             instance.Name = Name;
-            instance.Description = Description;
             instance.Cooldown = Cooldown;
             instance.Type = Type;
             instance.TriggerDelay = TriggerDelay;

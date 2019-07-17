@@ -24,11 +24,13 @@ namespace Objects.Entities.Players {
 		
 		private PlayerAnimatorController m_PlayerAnimatorController;
 		private PlayerFXController       m_PlayerFXController;
+		private PlayerAudioController m_PlayerAudioController;
 
 		private void Awake() {
 			m_Rigidbody2D = GetComponent<Rigidbody2D>();
 			m_PlayerAnimatorController = GetComponent<PlayerAnimatorController>();
 			m_PlayerFXController = GetComponent<PlayerFXController>();
+			m_PlayerAudioController = GetComponent<PlayerAudioController>();
 		}
 
 		private void FixedUpdate() {
@@ -42,7 +44,7 @@ namespace Objects.Entities.Players {
 				m_Grounded = true;
 				if (!wasGrounded) {
 					m_PlayerAnimatorController.SetJumping(false);
-//					m_PlayerFXController.PlayOnJumpImpactSound();
+//					m_PlayerAudioController.PlayOnJumpImpactSound();
 				}
 			}
 		}
@@ -56,6 +58,7 @@ namespace Objects.Entities.Players {
 			Vector3 targetVelocity = new Vector2(horizontalMovement, m_Rigidbody2D.velocity.y);
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
+			m_PlayerAudioController.ToggleWalk(!horizontalMovement.Equals(0) && m_Grounded);
 			m_PlayerAnimatorController.SetMoving(!horizontalMovement.Equals(0));
 
 			if (movementDelta > 0 && !m_FacingRight || movementDelta < 0 && m_FacingRight)
@@ -67,9 +70,8 @@ namespace Objects.Entities.Players {
 
 				if (PlayerInputController.Jump(inputSource)) {
 					m_Grounded = false;
-
-					if (m_Rigidbody2D.velocity.y <= 0.1f)
-						m_PlayerFXController.PlayOnJumpSound();
+					m_PlayerAudioController.ToggleWalk(false);
+					m_PlayerAudioController.PlayOnJumpSound();
 					
 					m_Rigidbody2D.angularVelocity = 0;
 					m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);

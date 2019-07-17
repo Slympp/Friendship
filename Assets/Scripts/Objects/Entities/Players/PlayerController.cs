@@ -65,6 +65,8 @@ namespace Objects.Entities.Players {
         }
 
         void Update() {
+            base.Update();
+            
             if (IsDead) {
                 UpdateRespawn();
                 return;

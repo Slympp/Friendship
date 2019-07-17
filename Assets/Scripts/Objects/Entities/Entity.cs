@@ -43,7 +43,7 @@ namespace Objects.Entities {
             Sprites = GetComponentsInChildren<SpriteRenderer>().ToList();
         }
         
-        void FixedUpdate() {
+        protected void Update() {
             if (!IsDead && !m_Rooted)
                 UpdateMovement();
         }
