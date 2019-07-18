@@ -18,11 +18,11 @@ namespace Objects.Entities.Players {
 
         public void ToggleWalk(bool enabled) {
             if (enabled && !m_WalkAudioSource.isPlaying && !isWalking) {
-                Debug.Log("Play");
+//                Debug.Log("Play");
                 isWalking = true;
                 m_WalkAudioSource.Play();
             } else if (!enabled && m_WalkAudioSource.isPlaying && isWalking) {
-                Debug.Log("Stop");
+//                Debug.Log("Stop");
                 isWalking = false;
                 m_WalkAudioSource.Stop();
             }
