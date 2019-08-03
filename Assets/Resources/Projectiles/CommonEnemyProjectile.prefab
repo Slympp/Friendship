@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4370a94fc24413c4c81ac65e84340372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyOnInvisible: 1
   CollisionMask:
     serializedVersion: 2
     m_Bits: 768
@@ -128,6 +129,7 @@ MonoBehaviour:
     type: 3}
   ShowOnHitGround: 1
   OnImpactFXLifetime: 0.25
+  FlipImpactWithVelocity: 0
   OnImpactSound: {fileID: 0}
   DamageValue: 1
 --- !u!50 &9079053653408058486

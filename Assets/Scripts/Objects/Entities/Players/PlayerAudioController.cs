@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Objects.Entities.Players {
@@ -8,6 +9,7 @@ namespace Objects.Entities.Players {
         [SerializeField] private AudioClip OnJumpImpact;
 
         private bool isWalking = false;
+        private float walkLoopDelay = 0.2f;
         
         [SerializeField] private AudioSource m_WalkAudioSource;
         [SerializeField] private AudioSource m_JumpAudioSource;
@@ -18,18 +20,21 @@ namespace Objects.Entities.Players {
 
         public void ToggleWalk(bool enabled) {
             if (enabled && !m_WalkAudioSource.isPlaying && !isWalking) {
-                Debug.Log("Play");
                 isWalking = true;
-                m_WalkAudioSource.Play();
+                StartCoroutine(nameof(WalkDelay));
             } else if (!enabled && m_WalkAudioSource.isPlaying && isWalking) {
-                Debug.Log("Stop");
                 isWalking = false;
+                StopCoroutine(nameof(WalkDelay));
                 m_WalkAudioSource.Stop();
             }
         }
+
+        private IEnumerator WalkDelay() {
+            yield return new WaitForSeconds(walkLoopDelay);
+            m_WalkAudioSource.PlayScheduled(0);
+        }
         
         public void PlayOnJumpSound() {
-            Debug.Log("Jump");
             m_JumpAudioSource.PlayOneShot(OnJump);
         }
 

@@ -121,7 +121,7 @@ namespace Objects.Entities.Enemies {
             if (m_Shielded) return;
             
             base.Damage(value, origin);
-
+            
             if (m_Marked && origin != null) {
                 int healValue = Mathf.FloorToInt((oldHealth - CurrentHealth) * LifeStealMultiplier);
                 origin.Heal(healValue);
@@ -183,7 +183,7 @@ namespace Objects.Entities.Enemies {
                 elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
-            m_MarkedIndicator.SetActive(true);
+            m_MarkedIndicator.SetActive(false);
             m_Marked = false;
         }
         

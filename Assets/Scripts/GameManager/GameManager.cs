@@ -57,7 +57,7 @@ namespace GameManager {
             m_comboAbility = GetComponent<ComboAbility>();
             m_comboAbility.Player = m_MainPlayer;
             
-            SoloMode = SceneLoadingParameters.SoloMode = true;
+            SoloMode = SceneLoadingParameters.SoloMode;
             
             m_DMGDealer.Input = SceneLoadingParameters.PlayerOneInputs;
             m_Healer.Input = SceneLoadingParameters.PlayerTwoInputs;
@@ -120,8 +120,8 @@ namespace GameManager {
         }
 
         void UpdateSwapCharacter() {
-            if (!m_CanSwap || (m_DMGDealer.isActiveAndEnabled && m_DMGDealer.IsDead) 
-                || (m_Healer.isActiveAndEnabled && m_Healer.IsDead)) return;
+            if (!m_CanSwap || (!m_DMGDealer.isActiveAndEnabled && m_DMGDealer.IsDead) 
+                || (!m_Healer.isActiveAndEnabled && m_Healer.IsDead)) return;
             
             if (SoloMode) {
                 if (InputController.Swap(m_MainPlayer.InputSource))

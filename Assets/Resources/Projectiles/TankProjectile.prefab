@@ -61,7 +61,7 @@ MonoBehaviour:
   OnImpactFXLifetime: 0.25
   FlipImpactWithVelocity: 0
   OnImpactSound: {fileID: 0}
-  DamageValue: 0
+  DamageValue: 2
 --- !u!212 &1952583300497284600
 SpriteRenderer:
   m_ObjectHideFlags: 0

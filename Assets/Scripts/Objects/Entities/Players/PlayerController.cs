@@ -2,6 +2,7 @@
 using System.Collections;
 using Abilities;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Objects.Entities.Players {
     
@@ -28,6 +29,7 @@ namespace Objects.Entities.Players {
         private PlayerMovementController m_PlayerMovementController;
         private bool m_OnCooldown;
 
+        private PlayerAudioController m_PlayerAudioController;
         private PlayerAnimatorController _mPlayerAnimatorController;
         private PlayerFXController m_PlayerFXController;
         
@@ -50,6 +52,7 @@ namespace Objects.Entities.Players {
             Transform parent = transform.parent;
             m_PlayerMovementController = parent.GetComponent<PlayerMovementController>();
             m_PlayerFXController = parent.GetComponent<PlayerFXController>();
+            m_PlayerAudioController = parent.GetComponent<PlayerAudioController>();
             
             _mPlayerAnimatorController = parent.GetComponent<PlayerAnimatorController>();
             _mPlayerAnimatorController.Init(GetComponent<Animator>());
@@ -146,6 +149,7 @@ namespace Objects.Entities.Players {
 
             if (oldHealth != CurrentHealth) {
                 m_PlayerFXController.ToggleHealingAura();
+                GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
             }
         }
         
@@ -158,6 +162,8 @@ namespace Objects.Entities.Players {
         }
 
         public void OnSwap(bool e) {
+            
+            m_PlayerAudioController.ToggleWalk(false);
             m_DefaultAbility.OnSwap(e);
             m_OffensiveAbility.OnSwap(e);
             m_SupportAbility.OnSwap(e);

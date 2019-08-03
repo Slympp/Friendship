@@ -237,7 +237,7 @@ MonoBehaviour:
   DestroyOnInvisible: 1
   CollisionMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 512
   HitPlayers: 0
   HitEnemies: 1
   Pierce: 0

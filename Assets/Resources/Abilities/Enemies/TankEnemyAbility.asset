@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: TankEnemyAbility
   m_EditorClassIdentifier: 
   Name: TankEnemyAbility
-  Description: 
-  Cooldown: 3
+  Cooldown: 2.5
   TriggerDelay: 0.2
   Type: 0
   BaseProjectile: {fileID: 134667990312173936, guid: b93c9b2b166378348902026d5c80ca36,

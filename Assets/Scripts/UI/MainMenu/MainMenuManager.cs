@@ -189,7 +189,7 @@ namespace UI.MainMenu
                 NameRequiredError.SetActive(true);
                 return;
             }
-
+            
             SceneLoadingParameters.SoloMode = SoloMode;
             SceneLoadingParameters.Name = NameInputField.text;
             

@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804c1634a61f88e4f8b25d9dff25ce5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 12
+  m_JumpForce: 14
   m_MovementSpeed: 0.9
   m_InAirSpeed: 1
   m_MovementSmoothing: 0.05
@@ -332,11 +332,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -7492474302610772805, guid: 02adedfa4c3f96948b5c131a5a08ade5,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e84d0962320a6044ab24f860397124b1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -446,7 +446,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Healer
-  MaxHealth: 5
+  MaxHealth: 10
   WeaponRig: {fileID: 1716662007163560749}
   ProjectileRig: {fileID: 8801345758661284032}
   Input: 3
