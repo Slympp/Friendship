@@ -56,7 +56,7 @@ namespace Objects.Entities.Enemies {
 
         private const string m_OnDeathFXPath = "FX/PoofEnemyDeath";
         private readonly Vector2 m_OnDeathOffset = new Vector2(0, 1.3f);
-        private float m_OnDeathFXLifetime = 0.25f;
+        private float m_OnDeathFXLifetime = 0.55f;
 
         [Header("Scoring")] 
         [SerializeField] protected float TimeToKillCap = 3f;
@@ -121,6 +121,7 @@ namespace Objects.Entities.Enemies {
             if (m_Shielded) return;
             
             base.Damage(value, origin);
+            _entityAudioController.OnTakeDamage();
             
             if (m_Marked && origin != null) {
                 int healValue = Mathf.FloorToInt((oldHealth - CurrentHealth) * LifeStealMultiplier);
@@ -158,7 +159,7 @@ namespace Objects.Entities.Enemies {
             
             GameManager.GameManager.Instance.UpdateScoreAmount(points);
         }
-        
+
         protected virtual void OnDeath() { }
         
         public void Shield(bool b) {

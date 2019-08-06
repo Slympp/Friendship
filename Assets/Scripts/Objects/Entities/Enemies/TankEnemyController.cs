@@ -14,15 +14,18 @@ namespace Objects.Entities.Enemies {
             ShieldAround();
             
             if (m_TargetController == null) {
-                Patrol();                
+                _entityAudioController.ToggleWalk(true);
+                Patrol();
             } else {
                 if (Vector2.Distance(m_TargetTransform.position, transform.position) < AttackRange) {
+                    _entityAudioController.ToggleWalk(false);
                     Attack();
                 } else {
                     Vector2 point = ((Vector2) m_TargetTransform.position).NearestPointOnFiniteLine(
                         GetWaypoint(StartWaypoint.position.x), 
                         GetWaypoint(EndWaypoint.position.x)
                     );
+                    _entityAudioController.ToggleWalk(true);
                     MoveTowards(point);
                 }
             }

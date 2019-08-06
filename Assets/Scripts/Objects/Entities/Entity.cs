@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Abilities;
+using Objects.Entities.Players;
 using Objects.Projectiles;
 using UnityEngine;
 
@@ -33,12 +34,18 @@ namespace Objects.Entities {
         private readonly Color _rootedColor = new Color(0.3457565f, 0.846f, 0.3604696f, 1);
 
         public List<GameObject> Projectiles { get; private set; } = new List<GameObject>();
+
+        protected EntityAudioController _entityAudioController;
         
         protected void Init() {
             CurrentHealth = MaxHealth;
             
             _transform = transform;
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            _entityAudioController = transform.parent.GetComponent<EntityAudioController>();
+
+            if (_entityAudioController == null)
+                _entityAudioController = GetComponent<EntityAudioController>();
             
             Sprites = GetComponentsInChildren<SpriteRenderer>().ToList();
         }
@@ -51,6 +58,7 @@ namespace Objects.Entities {
         protected void TriggerAbility(BaseAbility ability, float fireRateModifier = 1f) {
             StartCoroutine(ability.TriggerCooldown(fireRateModifier));
             StartCoroutine(ability.Fire());
+            _entityAudioController.PlayOneShotSound(ability.OnCastSound);
         }
         
         public virtual void Damage(int value, Entity origin) {

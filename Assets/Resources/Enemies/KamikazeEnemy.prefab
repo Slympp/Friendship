@@ -76,7 +76,8 @@ GameObject:
   - component: {fileID: 6584259959172203866}
   - component: {fileID: 6584259959172203865}
   - component: {fileID: 3435478589008039197}
-  - component: {fileID: 8427000296638231982}
+  - component: {fileID: 4062286310050983927}
+  - component: {fileID: 6370621248987275180}
   m_Layer: 9
   m_Name: Kamikaze
   m_TagString: Enemy
@@ -129,6 +130,8 @@ MonoBehaviour:
   Ability: {fileID: 11400000, guid: f84a4fde1ac9e0845af6549299a66118, type: 2}
   m_ShieldOffset: {x: 0, y: 0}
   m_RootedOffset: {x: 0.1, y: 1.15}
+  TimeToKillCap: 3
+  BaseScore: {x: 10, y: 5}
 --- !u!114 &8427000296638231981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,7 +156,6 @@ MonoBehaviour:
   ShowOnHitGround: 1
   OnImpactFXLifetime: 0.25
   FlipImpactWithVelocity: 1
-  OnImpactSound: {fileID: 0}
   Radius: 2.5
   OnDirectHitDamage: 2
   OnDistanceDamage: {x: 1, y: 5}
@@ -276,7 +278,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoopedAttackAnimation: 1
---- !u!82 &8427000296638231982
+--- !u!114 &4062286310050983927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584259959172203878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50059b4ad2f343539723c6060bfcb79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WalkAudioSource: {fileID: 0}
+  m_EffectAudioSource: {fileID: 6370621248987275180}
+  OnCooldownSound: {fileID: 0}
+  OnReviveSound: {fileID: 0}
+  OnTakeDamageSound: {fileID: 8300000, guid: 2935b5d0ef95d0640baa996e02a13d38, type: 3}
+  OnHealedSound: {fileID: 0}
+  OnDeathSound: {fileID: 0}
+--- !u!82 &6370621248987275180
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,9 +306,10 @@ AudioSource:
   m_GameObject: {fileID: 6584259959172203878}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7492474302610772805, guid: 02adedfa4c3f96948b5c131a5a08ade5,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

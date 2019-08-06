@@ -29,8 +29,7 @@ namespace Objects.Entities.Players {
         private PlayerMovementController m_PlayerMovementController;
         private bool m_OnCooldown;
 
-        private PlayerAudioController m_PlayerAudioController;
-        private PlayerAnimatorController _mPlayerAnimatorController;
+        private PlayerAnimatorController m_PlayerAnimatorController;
         private PlayerFXController m_PlayerFXController;
         
         private bool        m_Aura;
@@ -52,10 +51,9 @@ namespace Objects.Entities.Players {
             Transform parent = transform.parent;
             m_PlayerMovementController = parent.GetComponent<PlayerMovementController>();
             m_PlayerFXController = parent.GetComponent<PlayerFXController>();
-            m_PlayerAudioController = parent.GetComponent<PlayerAudioController>();
             
-            _mPlayerAnimatorController = parent.GetComponent<PlayerAnimatorController>();
-            _mPlayerAnimatorController.Init(GetComponent<Animator>());
+            m_PlayerAnimatorController = parent.GetComponent<PlayerAnimatorController>();
+            m_PlayerAnimatorController.Init(GetComponent<Animator>());
             
             m_TargetWeaponRotation = WeaponRig.rotation;
             m_CachedMovement = m_Movement;
@@ -80,13 +78,25 @@ namespace Objects.Entities.Players {
             UpdateAiming();
 
             if (PlayerInputController.Shoot(InputSource) && !m_DefaultAbility.OnCooldown) {
-                _mPlayerAnimatorController.TriggerShooting();
+                m_PlayerAnimatorController.TriggerShooting();
                 TriggerAbility(m_DefaultAbility, GetAuraFireRateModifier());
                 
-            } else if (PlayerInputController.OffensiveAbility(InputSource) && !m_OffensiveAbility.OnCooldown) {
+            } else if (PlayerInputController.OffensiveAbility(InputSource)) {
+                
+                if (m_OffensiveAbility.OnCooldown) {
+                    _entityAudioController.OnCooldown();
+                    return;
+                }
+                
                 TriggerAbility(m_OffensiveAbility, GetAuraFireRateModifier());
                 
-            } else if (PlayerInputController.SupportAbility(InputSource) && !m_SupportAbility.OnCooldown) {
+            } else if (PlayerInputController.SupportAbility(InputSource)) {
+                
+                if (m_SupportAbility.OnCooldown) {
+                    _entityAudioController.OnCooldown();
+                    return;
+                }
+                
                 TriggerAbility(m_SupportAbility, GetAuraFireRateModifier());
             }
         }
@@ -135,9 +145,13 @@ namespace Objects.Entities.Players {
 
         public override void Damage(int value, Entity origin) {
             base.Damage(value, origin);
+            
+            _entityAudioController.OnTakeDamage();
+            
             GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
 
             if (IsDead) {
+                _entityAudioController.OnDeath();
                 remainingTimeToRespawn = TimeToRespawn;
                 m_PlayerFXController.ToggleDeath(true, gameObject);
             }
@@ -148,6 +162,7 @@ namespace Objects.Entities.Players {
             base.Heal(value);
 
             if (oldHealth != CurrentHealth) {
+                _entityAudioController.OnHealed();
                 m_PlayerFXController.ToggleHealingAura();
                 GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
             }
@@ -162,8 +177,7 @@ namespace Objects.Entities.Players {
         }
 
         public void OnSwap(bool e) {
-            
-            m_PlayerAudioController.ToggleWalk(false);
+            _entityAudioController.ToggleWalk(false);
             m_DefaultAbility.OnSwap(e);
             m_OffensiveAbility.OnSwap(e);
             m_SupportAbility.OnSwap(e);
@@ -209,6 +223,7 @@ namespace Objects.Entities.Players {
         }
 
         private void OnGetRevived() {
+            _entityAudioController.OnRevive();
             CurrentHealth = MaxHealth / 2;
             m_PlayerFXController.ToggleDeath(false, gameObject);
         }

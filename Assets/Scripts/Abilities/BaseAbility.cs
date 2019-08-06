@@ -9,11 +9,12 @@ namespace Abilities {
         public float Cooldown;
         public float TriggerDelay;
         public AbilityType Type;
+        public AudioClip OnCastSound;
 
         protected Transform weaponRig;
         protected Transform projectileRig;
         protected Entity caster;
-        
+
         public bool OnCooldown { get; private set; }
 
         public virtual BaseAbility Init(Transform weaponRig, Transform projectileRig, Entity caster) {
@@ -25,6 +26,7 @@ namespace Abilities {
             instance.Cooldown = Cooldown;
             instance.Type = Type;
             instance.TriggerDelay = TriggerDelay;
+            instance.OnCastSound = OnCastSound;
             
             instance.weaponRig = weaponRig;
             instance.projectileRig = projectileRig;

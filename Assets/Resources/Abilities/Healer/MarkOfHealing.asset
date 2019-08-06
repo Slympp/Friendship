@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: MarkOfHealing
   m_EditorClassIdentifier: 
   Name: Mark of Healing
-  Description: 
   Cooldown: 0.3
+  TriggerDelay: 0
   Type: 0
+  OnCastSound: {fileID: 8300000, guid: 7d1ab7d5fab68c34bbfd8a53a287c93f, type: 3}
   BaseProjectile: {fileID: 7766534083706815649, guid: 92ca7b25e2b77ea468e366a35e8df0b3,
     type: 3}
   MovementSpeed: 15

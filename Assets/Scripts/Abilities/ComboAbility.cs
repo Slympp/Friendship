@@ -18,14 +18,17 @@ namespace Abilities  {
         [SerializeField] private Vector2 SpawnDelay;
         [SerializeField] private Vector2 Speed;
 
-        private List<ComboProjectile> m_Projectiles; 
-
+        private List<ComboProjectile> m_Projectiles;
+        [SerializeField] private AudioSource m_Audio;
+        
         public void Use() {
             StartCoroutine(nameof(Fire));
         }
         
         private IEnumerator Fire() {
             if (Player == null) yield return null;
+
+            m_Audio.Play();
             
             m_Projectiles = new List<ComboProjectile>();
             for (int i = 0; i < ProjectilesCount; i++) {

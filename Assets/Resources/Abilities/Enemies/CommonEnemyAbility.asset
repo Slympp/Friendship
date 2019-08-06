@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CommonEnemyAbility
   m_EditorClassIdentifier: 
   Name: CommonEnemyAbility
-  Description: 
   Cooldown: 1.5
   TriggerDelay: 0.5
   Type: 0
+  OnCastSound: {fileID: 8300000, guid: c9527cb3363509d4abe99e6f8c227f88, type: 3}
   BaseProjectile: {fileID: 9006822507492414162, guid: 8cb5817a95c300246a6a781e147c85e5,
     type: 3}
   MovementSpeed: 9

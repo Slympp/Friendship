@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: KamikazeEnemyAbility
   m_EditorClassIdentifier: 
   Name: KamikazeEnemyAbility
-  Description: 
   Cooldown: 0
   TriggerDelay: 0
   Type: 0
+  OnCastSound: {fileID: 8300000, guid: 6e5fe75ae74ad154ebb788e69d2792c7, type: 3}
   TargetingLayerMask:
     serializedVersion: 2
     m_Bits: 768

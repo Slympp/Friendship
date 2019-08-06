@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Grenade
   m_EditorClassIdentifier: 
   Name: Grenade
-  Description: 
   Cooldown: 10
   TriggerDelay: 0
   Type: 1
+  OnCastSound: {fileID: 8300000, guid: 719e30c1af927814facb0121010178a4, type: 3}
   BaseProjectile: {fileID: 7766534083706815649, guid: 0cf318d9d464c8148b633cde7173d3cd,
     type: 3}
   ForceImpulse: {x: 1, y: 1}

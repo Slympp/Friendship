@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 4136244504270634931}
   - component: {fileID: 2396037426190640316}
   - component: {fileID: 2396037426190640319}
+  - component: {fileID: 5243371354439147992}
   - component: {fileID: 1075562938666865736}
   m_Layer: 9
   m_Name: Sniper
@@ -129,6 +130,8 @@ MonoBehaviour:
   Ability: {fileID: 11400000, guid: e3ee654396767e64f8d10fd11baee815, type: 2}
   m_ShieldOffset: {x: 0, y: 0.3}
   m_RootedOffset: {x: -0.3, y: 1.5}
+  TimeToKillCap: 3
+  BaseScore: {x: 10, y: 5}
   HidingMask:
     serializedVersion: 2
     m_Bits: 512
@@ -252,6 +255,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5243371354439147992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396037426190640256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50059b4ad2f343539723c6060bfcb79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WalkAudioSource: {fileID: 0}
+  m_EffectAudioSource: {fileID: 1075562938666865736}
+  OnCooldownSound: {fileID: 0}
+  OnReviveSound: {fileID: 0}
+  OnTakeDamageSound: {fileID: 8300000, guid: 2935b5d0ef95d0640baa996e02a13d38, type: 3}
+  OnHealedSound: {fileID: 0}
+  OnDeathSound: {fileID: 0}
 --- !u!82 &1075562938666865736
 AudioSource:
   m_ObjectHideFlags: 0
@@ -261,9 +283,10 @@ AudioSource:
   m_GameObject: {fileID: 2396037426190640256}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7492474302610772805, guid: 02adedfa4c3f96948b5c131a5a08ade5,
+    type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

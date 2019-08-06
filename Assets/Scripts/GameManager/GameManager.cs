@@ -17,6 +17,7 @@ namespace GameManager {
         [SerializeField] private GameObject Healer;
 
         [SerializeField] private CinemachineVirtualCamera VirtualCam;
+        [SerializeField] private AudioSource MainThemeAudioSource;
         
         private ComboAbility m_comboAbility;
 
@@ -95,13 +96,14 @@ namespace GameManager {
 
         public void EnableWin() {
             OnGameEnd();
+            ScoreboardManager manager = GetComponent<ScoreboardManager>();
+            manager.AddEntry(SceneLoadingParameters.Name, Mathf.FloorToInt(Score), Mathf.FloorToInt(Time));
             m_UIManager.EnableWinScreen();
         }
 
         void OnGameEnd() {
             if (!m_GameEnded) {
-                ScoreboardManager manager = GetComponent<ScoreboardManager>();
-                manager.AddEntry(SceneLoadingParameters.Name, Mathf.FloorToInt(Score), Mathf.FloorToInt(Time));
+                MainThemeAudioSource.Stop();
                 m_GameEnded = true;
             }
         }

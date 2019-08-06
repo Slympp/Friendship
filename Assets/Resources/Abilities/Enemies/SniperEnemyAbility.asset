@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SniperEnemyAbility
   m_EditorClassIdentifier: 
   Name: SniperEnemyAbility
-  Description: 
   Cooldown: 2.5
   TriggerDelay: 0
   Type: 0
+  OnCastSound: {fileID: 8300000, guid: 1337bbff204e52a4bba486771b397501, type: 3}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 256

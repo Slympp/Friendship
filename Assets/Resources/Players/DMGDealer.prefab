@@ -75,8 +75,8 @@ GameObject:
   - component: {fileID: 1443511324744421056}
   - component: {fileID: 2879635457006417803}
   - component: {fileID: 61666785740113899}
-  - component: {fileID: 3119775716102929346}
   - component: {fileID: 2214826681067131132}
+  - component: {fileID: 3119775716102929346}
   - component: {fileID: 3801592924066690152}
   m_Layer: 9
   m_Name: DMGDealer
@@ -121,7 +121,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &8009172454334051595
 MonoBehaviour:
@@ -144,6 +144,7 @@ MonoBehaviour:
     m_Bits: 256
   m_GroundCheck: {fileID: 8846455219471678836}
   k_GroundedRadius: 0.15
+  OnJumpSound: {fileID: 8300000, guid: 569bfacf051e47443b02bef1e8f5a4fc, type: 3}
 --- !u!114 &1443511324744421056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +191,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.4}
   m_Size: {x: 0.8, y: 1.7}
   m_Direction: 0
+--- !u!114 &2214826681067131132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081133657169732809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50059b4ad2f343539723c6060bfcb79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_WalkAudioSource: {fileID: 3119775716102929346}
+  m_EffectAudioSource: {fileID: 3801592924066690152}
+  OnCooldownSound: {fileID: 8300000, guid: 57d51685b2c10e3469b7db89f39c1c47, type: 3}
+  OnReviveSound: {fileID: 8300000, guid: 91bd3570cf54ebe48b02f78db4a171d1, type: 3}
+  OnTakeDamageSound: {fileID: 8300000, guid: b8908f15f1b50174194590a713fd1566, type: 3}
+  OnHealedSound: {fileID: 8300000, guid: 028afde72a35eed428a2a379b51b927e, type: 3}
+  OnDeathSound: {fileID: 8300000, guid: c3f9e11ce2f476945a5d49239e532e9c, type: 3}
 --- !u!82 &3119775716102929346
 AudioSource:
   m_ObjectHideFlags: 0
@@ -203,7 +223,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: e84d0962320a6044ab24f860397124b1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -287,22 +307,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2214826681067131132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081133657169732809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50059b4ad2f343539723c6060bfcb79e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnJump: {fileID: 8300000, guid: dea0b445f53a1a440b5b5890b294c52a, type: 3}
-  OnJumpImpact: {fileID: 0}
-  m_WalkAudioSource: {fileID: 3119775716102929346}
-  m_JumpAudioSource: {fileID: 0}
 --- !u!82 &3801592924066690152
 AudioSource:
   m_ObjectHideFlags: 0
@@ -312,7 +316,8 @@ AudioSource:
   m_GameObject: {fileID: 2081133657169732809}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7492474302610772805, guid: 02adedfa4c3f96948b5c131a5a08ade5,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

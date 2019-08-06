@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   Name: Shield
-  Description: 
   Cooldown: 10
   TriggerDelay: 0
   Type: 2
+  OnCastSound: {fileID: 8300000, guid: 93a3e054500ae694ab9b903420cafd32, type: 3}
   Shield: {fileID: 5938256361981173376, guid: 056d23ae9e709ba4faca61757a5e0859, type: 3}
   Duration: 3
   Offset: {x: 0, y: 0.8, z: 0}

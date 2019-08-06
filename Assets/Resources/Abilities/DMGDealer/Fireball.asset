@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   Name: Fireball
-  Description: 
   Cooldown: 0.4
+  TriggerDelay: 0
   Type: 0
+  OnCastSound: {fileID: 8300000, guid: 13bc8ee18e742ae4b86666ccce728406, type: 3}
   BaseProjectile: {fileID: 7766534083706815649, guid: fe46fb149b5464c4da4579a72a04e743,
     type: 3}
   MovementSpeed: 15

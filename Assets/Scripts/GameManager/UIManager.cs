@@ -15,6 +15,8 @@ namespace GameManager {
         
         [Header("Scores")]
         [SerializeField] private TMP_Text ScoreText;
+        [SerializeField] private Animator ScoreAnimator;
+        private int ScoreIncreaseAnimation = Animator.StringToHash("ScoreIncrease");
         
         [SerializeField] private float ProgressDuration = 1f;
         [SerializeField] private Image HealerHealthBar;
@@ -82,6 +84,7 @@ namespace GameManager {
         }
         
         public void UpdateScore(float score) {
+            ScoreAnimator.Play(ScoreIncreaseAnimation);
             ScoreText.text = $"{Mathf.FloorToInt(score)}";
         }
         

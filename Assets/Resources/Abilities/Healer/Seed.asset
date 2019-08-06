@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Seed
   m_EditorClassIdentifier: 
   Name: Seed
-  Description: 
   Cooldown: 10
   TriggerDelay: 0
   Type: 1
+  OnCastSound: {fileID: 8300000, guid: 28e2aaf2d0c3e034487a46c78cc0c001, type: 3}
   BaseProjectile: {fileID: 7766534083706815649, guid: 94523fc637d2223439c5ed1d41ba61a1,
     type: 3}
   ForceImpulse: {x: 1, y: 1}
