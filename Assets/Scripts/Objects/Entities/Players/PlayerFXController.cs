@@ -29,7 +29,7 @@ namespace Objects.Entities.Players {
         private                  GameObject m_BuffAura;
         
         private const string m_OnDeathFXPath = "FX/PlayerDeathFX";
-        private readonly Vector2 m_OnDeathOffset = new Vector2(0, 1.2f);
+        private readonly Vector2 m_OnDeathOffset = new Vector2(0, 1.35f);
         private GameObject m_DeathFX;
 
         private readonly Vector2 ReviveProgressBarOffset = new Vector2(0, 2.5f);

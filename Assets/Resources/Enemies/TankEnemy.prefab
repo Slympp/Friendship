@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2731532931563193057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.75, y: -2.97, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2731532931837647485}
@@ -118,17 +118,18 @@ MonoBehaviour:
   MaxHealth: 20
   WeaponRig: {fileID: 217655715208026397}
   ProjectileRig: {fileID: 2731532933140765345}
+  ReactionSystem: 1
   TargetingMask:
     serializedVersion: 2
     m_Bits: 512
-  TargetingRange: 10
-  TargetingAngle: 10
+  TargetingRange: 7
+  TargetingAngle: 12
   Horizontal: 1
   Vertical: 0
   MovementSpeed: 7
   StartWaypoint: {fileID: 2731532931555073138}
   EndWaypoint: {fileID: 2731532932225397728}
-  AttackRange: 8
+  AttackRange: 12
   Ability: {fileID: 11400000, guid: 697ace002f1d4024693f327a92a9285c, type: 2}
   m_ShieldOffset: {x: 0, y: 0}
   m_RootedOffset: {x: 0, y: 1.75}
@@ -137,7 +138,7 @@ MonoBehaviour:
   ShieldMask:
     serializedVersion: 2
     m_Bits: 512
-  ShieldRange: 5
+  ShieldRange: 11
 --- !u!212 &2731532931837647483
 SpriteRenderer:
   m_ObjectHideFlags: 0

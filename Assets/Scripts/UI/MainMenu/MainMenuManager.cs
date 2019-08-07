@@ -62,8 +62,17 @@ namespace UI.MainMenu
         [SerializeField] private GameObject NameRequiredError;
 
         [SerializeField] private GameObject Loading;
+
+        [Header("Audio")] 
+        [SerializeField] private AudioClip OnClick;
+        [SerializeField] private AudioClip OnHover;
+        [SerializeField] private AudioClip OnError;
+        [SerializeField] private AudioClip OnStart;
+        private AudioSource m_Audio;
         
         void Awake() {
+
+            m_Audio = GetComponent<AudioSource>();
             
             ButtonStart.onClick.AddListener(() => {
                 SwapBackground(BackgroundType.NoChar);
@@ -187,6 +196,7 @@ namespace UI.MainMenu
             
             if (NameInputField.text.Length <= 0) {
                 NameRequiredError.SetActive(true);
+                m_Audio.PlayOneShot(OnError);
                 return;
             }
             
@@ -203,6 +213,8 @@ namespace UI.MainMenu
             NameInput.SetActive(false);
             Loading.SetActive(true);
             
+            m_Audio.PlayOneShot(OnStart);
+            
             SceneManager.LoadScene("Level1");
         }
 
@@ -210,6 +222,14 @@ namespace UI.MainMenu
             BackgroundNormal.SetActive(type == BackgroundType.Normal);
             BackgroundBlurry.SetActive(type == BackgroundType.Blurry);
             BackgroundNoChar.SetActive(type == BackgroundType.NoChar);
+        }
+
+        public void OnButtonHover() {
+            m_Audio.PlayOneShot(OnHover);
+        }
+
+        public void OnButtonClick() {
+            m_Audio.PlayOneShot(OnClick);
         }
 
         private enum BackgroundType {

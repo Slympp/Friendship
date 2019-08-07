@@ -9,7 +9,8 @@ using Vector2 = UnityEngine.Vector2;
 namespace Objects.Entities.Enemies {
     public abstract class EnemyController : Entity {
 
-        [Header("Targeting")]
+        [Header("Targeting")] 
+        [SerializeField] private bool ReactionSystem = false;
         [SerializeField] protected LayerMask TargetingMask;
         [SerializeField] protected float TargetingRange;
         [SerializeField] protected float TargetingAngle;
@@ -111,25 +112,29 @@ namespace Objects.Entities.Enemies {
         }
 
         public override void Damage(int value, Entity origin) {
-            int oldHealth = CurrentHealth;
+
+//            if (ReactionSystem && m_TargetController == null && origin != null) {
+//                m_TargetController = (PlayerController)origin;
+//                m_TargetTransform = m_TargetController.transform;
+//            }
+
+            if (m_Shielded) return;
 
             if (!m_FirstHit) {
                 m_FirstHit = true;
                 StartCoroutine(nameof(ScoreTimer));
             }
             
-            if (m_Shielded) return;
-            
             base.Damage(value, origin);
             _entityAudioController.OnTakeDamage();
             
-            if (m_Marked && origin != null) {
-                int healValue = Mathf.FloorToInt((oldHealth - CurrentHealth) * LifeStealMultiplier);
-                origin.Heal(healValue);
-            }
-            
             if (IsDead) {
                 Debug.Log($"Enemy {Name} is dead");
+                
+                if (m_Marked && origin != null) {
+                    int healValue = Mathf.FloorToInt(MaxHealth / 2);
+                    origin.Heal(healValue);
+                }
 
                 OnDeath();
                 
@@ -173,20 +178,21 @@ namespace Objects.Entities.Enemies {
             
             m_LifeStealRoutine = MarkOvertime(duration);
             StartCoroutine(m_LifeStealRoutine);
-        }
-        
-        public IEnumerator MarkOvertime(float duration) {
-            float elapsed = 0;
+       }
+       
+       public IEnumerator MarkOvertime(float duration) { 
+           float elapsed = 0; 
 
-            m_Marked = true;
-            m_MarkedIndicator.SetActive(true);
-            while (elapsed < duration) {
-                elapsed += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-            }
-            m_MarkedIndicator.SetActive(false);
-            m_Marked = false;
-        }
+           m_Marked = true;
+           m_MarkedIndicator.SetActive(true);
+           while (elapsed < duration) {
+               elapsed += Time.deltaTime;
+               yield return new WaitForEndOfFrame();
+           }
+           m_MarkedIndicator.SetActive(false);
+           m_Marked = false;
+           
+       }
         
         public void Root(float duration) {
             if (m_RootRoutine != null)
@@ -213,6 +219,13 @@ namespace Objects.Entities.Enemies {
         }
 
         private void SetTarget() {
+
+//            if (m_TargetController != null) {
+//                if (Vector2.Distance(_transform.position, m_TargetTransform.position) < AttackRange * 2) {
+//                    RaycastHit2D hit = Physics2D.Linecast(_transform.position, m_TargetTransform.position);
+//                    if (hit.collider.transform.Equals(m_TargetTransform)) return;
+//                }
+//            }
             
             m_TargetController = null;
             m_TargetTransform = null;
