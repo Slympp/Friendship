@@ -33,10 +33,12 @@ namespace Abilities {
             float elapsed = 0;
             
             m_Shield.SetActive(true);
+            caster.Shield(true);
             while (elapsed < Duration) {
                 elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();
             }
+            caster.Shield(false);
             m_Shield.SetActive(false);
         }
 

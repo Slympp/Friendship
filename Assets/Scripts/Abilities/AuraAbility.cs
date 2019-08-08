@@ -16,6 +16,7 @@ namespace Abilities {
         [SerializeField] private Vector3 Offset;
 
         private PlayerController m_Target;
+        private AuraHandler m_Handler;
 
         public bool Active { get; private set; } = true;
         
@@ -32,8 +33,8 @@ namespace Abilities {
             instance.Range = Range;
             instance.Offset = Offset;
             
-            AuraHandler handler = caster.gameObject.AddComponent<AuraHandler>();
-            handler.Init(instance, weaponRig);
+            instance.m_Handler = caster.gameObject.AddComponent<AuraHandler>();
+            instance.m_Handler.Init(instance, weaponRig);
 
             return instance;
         }
@@ -41,6 +42,7 @@ namespace Abilities {
         public override IEnumerator Fire() {
             if (m_Target != null) {
                 m_Target.Aura(Duration);
+                m_Handler.ResetCachedTarget();
             }
             yield return null;
         }

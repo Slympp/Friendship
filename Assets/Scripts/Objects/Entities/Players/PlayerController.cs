@@ -34,7 +34,7 @@ namespace Objects.Entities.Players {
         
         private bool        m_Aura;
         private IEnumerator m_AuraRoutine;
-        private readonly float m_AuraFireRateModifier = 1.5f;
+        private readonly float m_AuraFireRateModifier = 1.3f;
         private readonly float m_AuraMovementSpeedModifier = 1.2f;
 
         [Header("Respawn")] 
@@ -144,6 +144,9 @@ namespace Objects.Entities.Players {
         }
 
         public override void Damage(int value, Entity origin) {
+            
+            if (m_Shielded) return;
+            
             base.Damage(value, origin);
             
             _entityAudioController.OnTakeDamage();

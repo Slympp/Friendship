@@ -36,13 +36,11 @@ namespace Objects.Entities.Enemies {
         
         protected EnemyAnimatorController m_EnemyAnimatorController;
         
-        private const float       LifeStealMultiplier = 0.5f;
         private       bool        m_Marked;
         private       IEnumerator m_LifeStealRoutine;
         
         private IEnumerator m_RootRoutine;
         
-        private bool m_Shielded;
         [SerializeField] private Vector2 m_ShieldOffset = Vector2.zero;
         private const string m_ShieldedIndicatorPath = "FX/ShieldIndicator";
         private GameObject m_ShieldedIndicator;
@@ -132,7 +130,7 @@ namespace Objects.Entities.Enemies {
                 Debug.Log($"Enemy {Name} is dead");
                 
                 if (m_Marked && origin != null) {
-                    int healValue = Mathf.FloorToInt(MaxHealth / 2);
+                    int healValue = Mathf.FloorToInt(MaxHealth / 10 * 3);
                     origin.Heal(healValue);
                 }
 
@@ -167,8 +165,8 @@ namespace Objects.Entities.Enemies {
 
         protected virtual void OnDeath() { }
         
-        public void Shield(bool b) {
-            m_Shielded = b;
+        public override void Shield(bool b) {
+            base.Shield(b);
             m_ShieldedIndicator.SetActive(b);
         }
         

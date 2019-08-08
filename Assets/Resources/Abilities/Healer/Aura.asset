@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Aura
   m_EditorClassIdentifier: 
   Name: Aura
-  Cooldown: 10
+  Cooldown: 18
   TriggerDelay: 0.5
   Type: 2
   OnCastSound: {fileID: 8300000, guid: df9da77bdeac3414fb0d87cd0a8c323d, type: 3}
   Indicator: {fileID: 6594150464601248827, guid: a64f103ca0107fe439de3363830e70b7,
     type: 3}
-  Duration: 3
+  Duration: 6
   Range: 8
   Offset: {x: 0, y: 2, z: 0}

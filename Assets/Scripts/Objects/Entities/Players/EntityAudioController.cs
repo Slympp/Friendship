@@ -58,6 +58,7 @@ namespace Objects.Entities.Players {
         }
 
         public void OnDeath() {
+            ToggleWalk(false);
             m_EffectAudioSource.PlayOneShot(OnDeathSound);
         }
     }

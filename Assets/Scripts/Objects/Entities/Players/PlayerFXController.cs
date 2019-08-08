@@ -27,6 +27,7 @@ namespace Objects.Entities.Players {
         [SerializeField] private Vector3    BuffAuraOffset;
         private                  string     m_BuffAuraPrefabPath = "FX/BuffAura";
         private                  GameObject m_BuffAura;
+        [SerializeField] private GameObject m_UIAuraIndicator;
         
         private const string m_OnDeathFXPath = "FX/PlayerDeathFX";
         private readonly Vector2 m_OnDeathOffset = new Vector2(0, 1.35f);
@@ -104,6 +105,7 @@ namespace Objects.Entities.Players {
 
         public void ToggleBuffAura(bool b) {
             m_BuffAura.SetActive(b);
+            m_UIAuraIndicator.SetActive(b);
         }
 
         public void ToggleDeath(bool b, GameObject playerObject) {

@@ -40,5 +40,9 @@ namespace Abilities {
                 m_Ability.SetCurrentTarget(null);  
             }
         }
+
+        public void ResetCachedTarget() {
+            m_CachedTarget = null;
+        }
     }
 }

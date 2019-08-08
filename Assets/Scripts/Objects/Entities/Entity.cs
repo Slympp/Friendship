@@ -24,6 +24,7 @@ namespace Objects.Entities {
         protected Rigidbody2D _rigidbody2D;
 
         protected bool m_Rooted;
+        protected bool m_Shielded;
         
         private float OnHitFlashDuration = 0.3f;
         private List<SpriteRenderer> Sprites;
@@ -84,6 +85,10 @@ namespace Objects.Entities {
             
                 Debug.Log($"{Name} healed {value} [{CurrentHealth}/{MaxHealth}]");
             }
+        }
+
+        public virtual void Shield(bool b) {
+            m_Shielded = b;
         }
 
         private void FlashOnHit() {
