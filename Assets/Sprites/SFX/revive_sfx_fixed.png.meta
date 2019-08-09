@@ -1,0 +1,595 @@
+fileFormatVersion: 2
+guid: 84494e9b7c6ef334fb4ac641098691d3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2389930813884537891
+    second: revive_sfx_fixed_0
+  - first:
+      213: 1347959578872949792
+    second: revive_sfx_fixed_1
+  - first:
+      213: 1550863152200581311
+    second: revive_sfx_fixed_2
+  - first:
+      213: -4776997365388003305
+    second: revive_sfx_fixed_3
+  - first:
+      213: -7546440017599295477
+    second: revive_sfx_fixed_4
+  - first:
+      213: -1794174190505317971
+    second: revive_sfx_fixed_5
+  - first:
+      213: -4932396621437894156
+    second: revive_sfx_fixed_6
+  - first:
+      213: -5458604442354804087
+    second: revive_sfx_fixed_7
+  - first:
+      213: 4583269898579237739
+    second: revive_sfx_fixed_8
+  - first:
+      213: 5488792457599006729
+    second: revive_sfx_fixed_9
+  - first:
+      213: 8905203559031761848
+    second: revive_sfx_fixed_10
+  - first:
+      213: -4495407203124698630
+    second: revive_sfx_fixed_11
+  - first:
+      213: 9095115856563936106
+    second: revive_sfx_fixed_12
+  - first:
+      213: -6787022275625899047
+    second: revive_sfx_fixed_13
+  - first:
+      213: 3119999261077517453
+    second: revive_sfx_fixed_14
+  - first:
+      213: 1219002094615187751
+    second: revive_sfx_fixed_15
+  - first:
+      213: 8052152080702414221
+    second: revive_sfx_fixed_16
+  - first:
+      213: 7908713884483301580
+    second: revive_sfx_fixed_17
+  - first:
+      213: -958036874985541190
+    second: revive_sfx_fixed_18
+  - first:
+      213: -3755875350670187409
+    second: revive_sfx_fixed_19
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: revive_sfx_fixed_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1800
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 387d227937c7ce1489afe9300f5a617e
+      internalID: -2389930813884537891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_1
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 1800
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a28ef93c7095474b8a08a411b6224d1
+      internalID: 1347959578872949792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_2
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 1800
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 344781b241c2d654eb6b194fd4d30133
+      internalID: 1550863152200581311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_3
+      rect:
+        serializedVersion: 2
+        x: 2844
+        y: 1800
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d2d6da35148900438153dd10fa8be2a
+      internalID: -4776997365388003305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_4
+      rect:
+        serializedVersion: 2
+        x: 3792
+        y: 1800
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c791766589a2184eac4cfb737e0ad94
+      internalID: -7546440017599295477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1200
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 567257d894b346244b4aa2e721284927
+      internalID: -1794174190505317971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_6
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 1200
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 595b45d1681020d4387b46c8a0a58a44
+      internalID: -4932396621437894156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_7
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 1200
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63b21724d99d634890e222ee586d5f9
+      internalID: -5458604442354804087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_8
+      rect:
+        serializedVersion: 2
+        x: 2844
+        y: 1200
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1851d4b42a842b340985051c4d263d60
+      internalID: 4583269898579237739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_9
+      rect:
+        serializedVersion: 2
+        x: 3792
+        y: 1200
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f14607785e6ccb42a89cac20303e509
+      internalID: 5488792457599006729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b15ebb73b2d63104f86cab142f0ce6a0
+      internalID: 8905203559031761848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_11
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 600
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1421bef45c23a4c42aa00bb39f7613db
+      internalID: -4495407203124698630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_12
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 600
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c469afe050f61e84a846511880afdfd1
+      internalID: 9095115856563936106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_13
+      rect:
+        serializedVersion: 2
+        x: 2844
+        y: 600
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf1079b831ec9ed4cb99a5dba707ca54
+      internalID: -6787022275625899047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_14
+      rect:
+        serializedVersion: 2
+        x: 3792
+        y: 600
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a6f0ae210cfbf84891f8ec6a6052663
+      internalID: 3119999261077517453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f0294a34ec5209458a9413514cf867a
+      internalID: 1219002094615187751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_16
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 0
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51de8e68d00cf3b40b9b14554da18925
+      internalID: 8052152080702414221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_17
+      rect:
+        serializedVersion: 2
+        x: 1896
+        y: 0
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b05187ebcf9868548861582741d04f0e
+      internalID: 7908713884483301580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_18
+      rect:
+        serializedVersion: 2
+        x: 2844
+        y: 0
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fccf7a49a4ad4684c90c5cc3ca6f9060
+      internalID: -958036874985541190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: revive_sfx_fixed_19
+      rect:
+        serializedVersion: 2
+        x: 3792
+        y: 0
+        width: 948
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56216b1307df83441ab76cca1923d9b7
+      internalID: -3755875350670187409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

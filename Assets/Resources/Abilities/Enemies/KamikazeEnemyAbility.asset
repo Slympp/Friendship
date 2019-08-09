@@ -20,7 +20,7 @@ MonoBehaviour:
   TargetingLayerMask:
     serializedVersion: 2
     m_Bits: 768
-  RushSpeed: 25
+  RushSpeed: 4000
   MinDistanceToExplode: 1.5
   FX: {fileID: 719262256842219476, guid: b427da2297f8186489edbfe737828b4a, type: 3}
   FXLifetime: 0.5

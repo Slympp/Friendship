@@ -50,7 +50,7 @@ namespace Abilities {
                 CircleExplodeProjectile projectile = caster.GetComponent<CircleExplodeProjectile>();
                 projectile.enabled = true;
                 while (!caster.IsDead && caster.gameObject != null) {
-                    rb.AddForce(direction * RushSpeed);
+                    rb.AddForce(RushSpeed * Time.deltaTime * direction);
                     yield return new WaitForEndOfFrame();
                 }
             }

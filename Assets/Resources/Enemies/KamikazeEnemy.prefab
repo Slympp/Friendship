@@ -116,6 +116,7 @@ MonoBehaviour:
   MaxHealth: 5
   WeaponRig: {fileID: 9057552002530248252}
   ProjectileRig: {fileID: 0}
+  ReactionSystem: 0
   TargetingMask:
     serializedVersion: 2
     m_Bits: 768

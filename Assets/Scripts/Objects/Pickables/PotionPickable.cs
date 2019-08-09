@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Objects.Pickables {
     public class PotionPickable : MonoBehaviour {
-        private const int FriendshipValue = 50;
+        private const int FriendshipValue = 35;
         private const float PickUpDuration = 3f;
 
         private bool _pickedUp;
