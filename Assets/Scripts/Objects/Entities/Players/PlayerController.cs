@@ -223,12 +223,14 @@ namespace Objects.Entities.Players {
                 CurrentHealth = 1;
             else
                 CurrentHealth -= healthReduction;
+            GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
         }
 
         private void OnGetRevived() {
             _entityAudioController.OnRevive();
             CurrentHealth = MaxHealth / 2;
             m_PlayerFXController.ToggleDeath(false, gameObject);
+            GameManager.GameManager.Instance.m_UIManager.UpdateHealthBar(Name, CurrentHealth, MaxHealth);
         }
 
         private IEnumerator AuraOvertime(float duration) {

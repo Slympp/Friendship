@@ -22,6 +22,9 @@ namespace Abilities {
             if (m_Initialized && !m_Ability.OnCooldown) {
 
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, m_Rig.right, m_Ability.GetRange());
+                if (hit.collider != null && hit.collider.CompareTag("ComboProjectile"))
+                    return;
+                
                 if (hit.collider == null || !hit.collider.CompareTag("Player")) {
                     if (gameObject == m_CachedTarget) return;
 

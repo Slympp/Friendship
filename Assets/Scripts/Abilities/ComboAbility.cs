@@ -46,6 +46,8 @@ namespace Abilities  {
                 obj.SetActive(false);
                 m_Projectiles.Add(projectile);
             }
+            
+            yield return new WaitForSeconds(2.5f);
 
             foreach (BaseProjectile projectile in m_Projectiles) {
                 projectile.transform.position = GetRandomOriginPosition();
@@ -67,8 +69,8 @@ namespace Abilities  {
 
             Vector3 start, end;
             start = end = Player.transform.position;
-            start += new Vector3(-OriginRadius - OriginRadius / 2, OriginOffset);
-            end += new Vector3(OriginRadius - OriginRadius / 2, OriginOffset);
+            start += new Vector3(-OriginRadius * 2, OriginOffset);
+            end += new Vector3(0, OriginOffset);
             Gizmos.color = Color.green;
             Gizmos.DrawLine(start, end);
         }

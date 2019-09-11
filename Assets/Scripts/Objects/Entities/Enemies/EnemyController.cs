@@ -130,7 +130,7 @@ namespace Objects.Entities.Enemies {
                 Debug.Log($"Enemy {Name} is dead");
                 
                 if (m_Marked && origin != null) {
-                    int healValue = Mathf.FloorToInt(MaxHealth / 10 * 3);
+                    int healValue = Mathf.FloorToInt(MaxHealth * 0.2f);
                     origin.Heal(healValue);
                 }
 

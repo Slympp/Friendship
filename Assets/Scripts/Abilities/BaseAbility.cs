@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Objects.Entities;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ namespace Abilities {
         public AbilityType Type;
         public AudioClip OnCastSound;
 
+        public delegate void CooldownStart(float duration);
+        public event CooldownStart OnCooldownStart;
+        
         protected Transform weaponRig;
         protected Transform projectileRig;
         protected Entity caster;
@@ -27,6 +31,7 @@ namespace Abilities {
             instance.Type = Type;
             instance.TriggerDelay = TriggerDelay;
             instance.OnCastSound = OnCastSound;
+            instance.OnCooldownStart = OnCooldownStart;
             
             instance.weaponRig = weaponRig;
             instance.projectileRig = projectileRig;
@@ -42,6 +47,8 @@ namespace Abilities {
             float cooldown = Cooldown / modifier;
             
             OnCooldown = true;
+            OnCooldownStart?.Invoke(cooldown);
+
             while (elapsed < cooldown) {
                 elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();

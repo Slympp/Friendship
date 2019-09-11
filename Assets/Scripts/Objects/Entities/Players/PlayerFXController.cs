@@ -39,7 +39,7 @@ namespace Objects.Entities.Players {
         private Image m_ReviveProgressBarImage;
         private IEnumerator reviveCoroutine;
 
-        private readonly Vector2 OnReviveFXOffset = new Vector2(0, 2.5f);
+        private readonly Vector2 OnReviveFXOffset = new Vector2(0, 2.35f);
         private const string m_OnReviveFXPath = "FX/ReviveFX";
         private GameObject m_OnReviveFX;
         private readonly float m_OnReviveFXLifetime = 0.8f;
