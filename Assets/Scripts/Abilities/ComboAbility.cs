@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Objects.Entities.Players;
 using Objects.Projectiles;
+using GameManager;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,7 +22,8 @@ namespace Abilities  {
 
         private List<ComboProjectile> m_Projectiles;
         [SerializeField] private AudioSource m_Audio;
-        
+        [SerializeField] private CinemachineCameraShaker CameraShaker;
+
         public void Use() {
             StartCoroutine(nameof(Fire));
         }
@@ -29,6 +32,7 @@ namespace Abilities  {
             if (Player == null) yield return null;
 
             m_Audio.Play();
+            CameraShaker.ShakeCamera(1.2f);
             
             m_Projectiles = new List<ComboProjectile>();
             for (int i = 0; i < ProjectilesCount; i++) {
@@ -47,8 +51,6 @@ namespace Abilities  {
                 m_Projectiles.Add(projectile);
             }
             
-            yield return new WaitForSeconds(2.5f);
-
             foreach (BaseProjectile projectile in m_Projectiles) {
                 projectile.transform.position = GetRandomOriginPosition();
                 projectile.gameObject.SetActive(true);
