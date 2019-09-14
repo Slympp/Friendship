@@ -50,9 +50,9 @@ namespace GameManager {
         private static readonly int Fade = Animator.StringToHash("Fade");
 
         void Awake() {
+            RetryButton.onClick.AddListener(() => { SceneManager.LoadScene("Level1"); });
             MainMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("MainMenu"); });
-            QuitButton.onClick.AddListener(() => { SceneManager.LoadScene("Level1"); });
-//            QuitButton.onClick.AddListener(Application.Quit);
+            QuitButton.onClick.AddListener(Application.Quit);
             
             WinRankingButton.onClick.AddListener(() => { SwitchWinScreens(true); });
             WinMainMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("MainMenu"); });
