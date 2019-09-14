@@ -68,6 +68,9 @@ namespace Objects.Entities.Players {
         void Update() {
             base.Update();
             
+            if (GameManager.GameManager.Instance.IsPaused())
+                return;
+            
             if (IsDead) {
                 UpdateRespawn();
                 return;

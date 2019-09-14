@@ -26,6 +26,10 @@ namespace GameManager {
         [SerializeField] private Vector2 HealthBarRadiusBoudaries = new Vector2(0.1f, 0.71f);
         [SerializeField] private Vector2 FriendshipBarBoudaries = new Vector2(0.05f, 0.93f);
 
+        [Header("Intro Screen")]
+        [SerializeField] private GameObject IntroScreen;
+        [SerializeField] private Animator IntroAnimator;
+        
         [Header("GameOver Screen")] 
         [SerializeField] private GameObject GameOverScreen;
         [SerializeField] private Button MainMenuButton;
@@ -41,6 +45,8 @@ namespace GameManager {
 
         [Header("Ranking")] 
         [SerializeField] private List<ScoreboardEntryController> ScoreboardEntries;
+
+        private static readonly int Fade = Animator.StringToHash("Fade");
 
         void Awake() {
             MainMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("MainMenu"); });
@@ -86,6 +92,14 @@ namespace GameManager {
         public void UpdateScore(float score) {
             ScoreAnimator.Play(ScoreIncreaseAnimation);
             ScoreText.text = $"{Mathf.FloorToInt(score)}";
+        }
+
+        public void FadeIntroScreen() {
+            IntroAnimator.SetTrigger(Fade);
+        }
+
+        public void DisableIntroScreen() {
+            IntroScreen.SetActive(false);
         }
         
         public void UpdateHealthBar(string player, float newHealth, float maxHealth) {

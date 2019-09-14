@@ -52,6 +52,10 @@ namespace Objects.Entities {
         }
         
         protected void Update() {
+
+            if (GameManager.GameManager.Instance.IsPaused())
+                return;
+            
             if (!IsDead && !m_Rooted)
                 UpdateMovement();
         }

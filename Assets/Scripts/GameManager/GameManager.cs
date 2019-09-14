@@ -65,12 +65,14 @@ namespace GameManager {
         }
 
         void Start() {
-            StartCoroutine(nameof(StartTimer));
             if (SoloMode)
                 ToggleCharacter(m_Healer, false);
         }
 
         void Update() {
+            if (Pause)
+                return;
+            
             if (!m_GameEnded)
                 UpdateGameOver();
             
@@ -92,6 +94,20 @@ namespace GameManager {
                 OnGameEnd();
                 m_UIManager.EnableGameOver();
             }
+        }
+
+        public bool IsPaused() {
+            return Pause; 
+        }
+
+        public void ToggleIntro() {
+            m_UIManager.FadeIntroScreen();
+            
+            this.Invoke(() => {
+                m_UIManager.DisableIntroScreen();
+                Pause = false;
+                StartCoroutine(nameof(StartTimer));
+            }, 1f);
         }
 
         public void EnableWin() {
