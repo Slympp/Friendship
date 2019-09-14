@@ -133,14 +133,25 @@ namespace UI.MainMenu
 
         private void SwapInputScheme(int id, ref InputScheme type, int modifier, TMP_Text text) {
             
-            // TODO: REWORK TO AVOID DUPLICATE INPUTS
             var updatedValue = type + modifier;
             CheckBoundaries(ref updatedValue);
+            
             if (updatedValue != InputScheme.Controller && ((!SoloMode && id == 1 && updatedValue == P2InputType) || (id == 2 && updatedValue == P1InputType)))
                 updatedValue += modifier;
             CheckBoundaries(ref updatedValue);
 
+            if ((id == 1 && updatedValue == InputScheme.KeyboardA && P2InputType == InputScheme.KeyboardB)
+                || (id == 1 && updatedValue == InputScheme.KeyboardB && P2InputType == InputScheme.KeyboardA)
+                || (id == 2 && updatedValue == InputScheme.KeyboardA && P1InputType == InputScheme.KeyboardB)
+                || (id == 2 && updatedValue == InputScheme.KeyboardB && P1InputType == InputScheme.KeyboardA)) {
+                updatedValue += modifier;
+            }
+            CheckBoundaries(ref updatedValue);
+            
             type = updatedValue;
+            
+            if (!SoloMode && P1InputType == P2InputType && P1InputType != InputScheme.Controller)
+                SwapInputScheme(id, ref type, modifier, text);
           
             FormatInput(type, text);
         }
