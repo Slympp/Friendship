@@ -33,6 +33,7 @@ namespace GameManager {
         [Header("GameOver Screen")] 
         [SerializeField] private GameObject GameOverScreen;
         [SerializeField] private Button MainMenuButton;
+        [SerializeField] private Button RetryButton;
         [SerializeField] private Button QuitButton;
         
         [Header("Win Screen")] 
@@ -50,7 +51,8 @@ namespace GameManager {
 
         void Awake() {
             MainMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("MainMenu"); });
-            QuitButton.onClick.AddListener(Application.Quit);
+            QuitButton.onClick.AddListener(() => { SceneManager.LoadScene("Level1"); });
+//            QuitButton.onClick.AddListener(Application.Quit);
             
             WinRankingButton.onClick.AddListener(() => { SwitchWinScreens(true); });
             WinMainMenuButton.onClick.AddListener(() => { SceneManager.LoadScene("MainMenu"); });

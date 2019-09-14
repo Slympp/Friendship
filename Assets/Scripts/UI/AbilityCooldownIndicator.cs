@@ -8,21 +8,15 @@ using UnityEngine.UI;
 namespace UI {
     public class AbilityCooldownIndicator : MonoBehaviour {
 
-        [SerializeField] private BaseAbility Ability;
         private Image Indicator;
         private TMP_Text Timer;
 
         void Awake() {
             Indicator = GetComponentInChildren<Image>();
             Timer = GetComponentInChildren<TMP_Text>();
-            Ability.OnCooldownStart += Toggle;
         }
 
-        private void Toggle(float duration) {
-            StartCoroutine(ToggleCooldownIndicator(duration));
-        }
-
-        private IEnumerator ToggleCooldownIndicator(float duration) {
+        public IEnumerator ToggleCooldownIndicator(float duration) {
             
             duration += 1;
             

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Abilities;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,9 @@ namespace Objects.Entities.Players {
         private BaseAbility m_DefaultAbility;
         private BaseAbility m_OffensiveAbility;
         private BaseAbility m_SupportAbility;
+
+        [SerializeField] private AbilityCooldownIndicator OffensiveCooldownIndicator;
+        [SerializeField] private AbilityCooldownIndicator SupportCooldownIndicator;
 
         private Vector2 m_Movement;
         private Vector2 m_CachedMovement;
@@ -92,7 +96,10 @@ namespace Objects.Entities.Players {
                 }
                 
                 TriggerAbility(m_OffensiveAbility, GetAuraFireRateModifier());
-                
+
+                float cooldown = m_OffensiveAbility.Cooldown / GetAuraFireRateModifier();
+                StartCoroutine(OffensiveCooldownIndicator.ToggleCooldownIndicator(cooldown));
+
             } else if (PlayerInputController.SupportAbility(InputSource)) {
                 
                 if (m_SupportAbility.OnCooldown) {
@@ -101,6 +108,9 @@ namespace Objects.Entities.Players {
                 }
                 
                 TriggerAbility(m_SupportAbility, GetAuraFireRateModifier());
+                
+                float cooldown = m_SupportAbility.Cooldown / GetAuraFireRateModifier();
+                StartCoroutine(SupportCooldownIndicator.ToggleCooldownIndicator(cooldown));
             }
         }
 
